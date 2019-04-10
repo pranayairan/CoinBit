@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic8dp"
+    android:layout_marginEnd="@dimen/generic8dp"
+    android:paddingTop="@dimen/generic16dp">
+
+    <TextView
+        android:id="@+id/tvAboutCoinLabel"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic8dp"
+        android:text="@string/transactions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic12dp"
+        app:cardBackgroundColor="@color/backgroundColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAboutCoinLabel">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clFirstTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/generic16dp">
+
+                <TextView
+                    android:id="@+id/tvFirstTxnTypeAndQuantity"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/tvFirstTxnTimeAndExchange"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Buy (0.22)" />
+
+                <TextView
+                    android:id="@+id/tvFirstTxnTimeAndExchange"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/generic4dp"
+                    android:paddingEnd="@dimen/generic8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFirstTxnTypeAndQuantity"
+                    tools:text="Feb 24,2018 (CCAG)" />
+
+                <TextView
+                    android:id="@+id/tvFirstTxnCost"
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvFirstTxnTimeAndExchange"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="$100" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clSecondTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/generic16dp"
+                app:layout_constraintTop_toBottomOf="@+id/clFirstTransaction">
+
+                <TextView
+                    android:id="@+id/tvSecondTxnTypeAndQuantity"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/tvSecondTxnTimeAndExchange"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Sell (2)" />
+
+                <TextView
+                    android:id="@+id/tvSecondTxnTimeAndExchange"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/generic4dp"
+                    android:paddingEnd="@dimen/generic8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSecondTxnTypeAndQuantity"
+                    tools:text="Feb 24,2018 (CCAG)" />
+
+                <TextView
+                    android:id="@+id/tvSecondTxnCost"
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvSecondTxnTimeAndExchange"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="$300" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clThirdTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/generic16dp"
+                app:layout_constraintTop_toBottomOf="@+id/clSecondTransaction">
+
+                <TextView
+                    android:id="@+id/tvThirdTxnTypeAndQuantity"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/tvThirdTxnTimeAndExchange"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Buy (0.22)" />
+
+                <TextView
+                    android:id="@+id/tvThirdTxnTimeAndExchange"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/generic4dp"
+                    android:paddingEnd="@dimen/generic8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvThirdTxnTypeAndQuantity"
+                    tools:text="Feb 24,2018 (CCAG)" />
+
+                <TextView
+                    android:id="@+id/tvThirdTxnCost"
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvThirdTxnTimeAndExchange"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="$100" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/dividerView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/generic12dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clThirdTransaction" />
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/tvMore"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerView" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

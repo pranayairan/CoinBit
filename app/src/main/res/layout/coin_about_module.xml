@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic14dp"
+    android:layout_marginTop="@dimen/generic16dp"
+    android:layout_marginEnd="@dimen/generic14dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvAboutCoinLabel"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/generic14dp"
+        android:background="@drawable/background_rounded_all"
+        android:padding="@dimen/generic14dp">
+
+        <TextView
+            android:id="@+id/tvWebsiteLabel"
+            style="@style/CoinBitText.TitleAlternate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/website"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTwitterLabel"
+            style="@style/CoinBitText.TitleAlternate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/twitter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvWebsiteLabel" />
+
+        <TextView
+            android:id="@+id/tvRedditLabel"
+            style="@style/CoinBitText.TitleAlternate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/reddit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTwitterLabel" />
+
+        <TextView
+            android:id="@+id/tvGithubLabel"
+            style="@style/CoinBitText.TitleAlternate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/github"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRedditLabel" />
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <TextView
+            android:id="@+id/tvWebsiteValue"
+            style="@style/CoinBitText.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/generic4dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxLines="1"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/na"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWebsiteLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tvWebsiteLabel"
+            tools:text="website url" />
+
+        <TextView
+            android:id="@+id/tvTwitterValue"
+            style="@style/CoinBitText.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/generic4dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxLines="1"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/na"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTwitterLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tvTwitterLabel" />
+
+        <TextView
+            android:id="@+id/tvRedditValue"
+            style="@style/CoinBitText.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/generic4dp"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/na"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRedditLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tvRedditLabel"
+            tools:text="Reddit URL" />
+
+        <TextView
+            android:id="@+id/tvGithubValue"
+            style="@style/CoinBitText.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/generic4dp"
+            android:paddingTop="@dimen/generic16dp"
+            android:paddingBottom="@dimen/generic16dp"
+            android:text="@string/na"
+            app:layout_constraintBottom_toBottomOf="@+id/tvGithubLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tvGithubLabel"
+            tools:text="Github url" />
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/generic16dp"
+            android:background="@color/secondaryTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGithubLabel" />
+
+
+        <TextView
+            android:id="@+id/tvAboutCoin"
+            style="@style/CoinBitText.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/generic14dp"
+            android:ellipsize="end"
+            android:maxLines="7"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="Some random things" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

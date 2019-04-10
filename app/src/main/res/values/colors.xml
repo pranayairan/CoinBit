@@ -1,0 +1,32 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<resources>
+
+    <color name="colorPrimary">#28334a</color>
+    <color name="colorAccent">#148bee</color>
+    <color name="colorPrimaryDark">#212b40</color>
+
+    <color name="colorPrimaryDusk">#3c4862</color>
+    <color name="colorPrimaryAlternate">#253047</color>
+
+    <!-- 75 transparency  https://stackoverflow.com/questions/15852122/hex-transparency-in-colors-->
+    <color name="backgroundColor">#BF212b40</color>
+
+    <color name="tabTextColor">@color/primaryTextColor</color>
+
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#8c8c8c</color>
+    <color name="tertiaryTextColor">#7e8795</color>
+    <color name="quaternaryTextColo">#b9b9b9</color>
+
+    <color name="colorLoss">#f0655e</color>
+    <color name="colorGain">#50b12a</color>
+
+    <color name="bottomNavSelected">#f74a9e</color>
+    <color name="bottomNavUnSelected">#ffffff</color>
+
+    <color name="switchColor">#ffaf12</color>
+
+    <color name="cerise">#da0e86</color>
+    <color name="bubble_gum_pink">#ff5ba4</color>
+
+</resources>

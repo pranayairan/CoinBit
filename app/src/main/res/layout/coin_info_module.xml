@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic14dp"
+    android:layout_marginTop="@dimen/generic16dp"
+    android:layout_marginEnd="@dimen/generic14dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coin_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/generic14dp"
+        android:background="@drawable/background_rounded_all"
+        android:padding="@dimen/generic14dp">
+
+            <TextView
+                android:id="@+id/tvExchangeLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exchange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAlgorithmLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/generic16dp"
+                android:text="@string/algorithm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvExchangeLabel" />
+
+            <TextView
+                android:id="@+id/tvProofTypeLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/generic16dp"
+                android:text="@string/proof_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAlgorithmLabel" />
+
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/tvFirstTxnTimeAndExchange"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tvExchangeLabel"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/tvExchangeLabel"
+                tools:text="Coinbase" />
+
+            <TextView
+                android:id="@+id/tvAlgorithmName"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAlgorithmLabel"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/tvAlgorithmLabel"
+                tools:text="SHA25" />
+
+            <TextView
+                android:id="@+id/tvProofTypeName"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tvProofTypeLabel"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/tvProofTypeLabel"
+                tools:text="PoW" />
+
+        </android.support.constraint.ConstraintLayout>
+</LinearLayout>

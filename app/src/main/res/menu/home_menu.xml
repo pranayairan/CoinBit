@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- we want this menu item to show before (i.e., at the top of) the other menu items. Specify orderInCategory < 100 -->
+    <!-- (100 is the orderInCategory value associated with the menu items inflated by the main activity -->
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/menu_search"
+        android:orderInCategory="10"
+        android:title="@string/search"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,73 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMarket"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="@dimen/generic16dp">
+
+    <ImageView
+        android:contentDescription="@string/cdExchange"
+        android:id="@+id/ivExchange"
+        android:layout_width="@dimen/generic32dp"
+        android:layout_height="@dimen/generic32dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvExchange"
+        app:layout_constraintTop_toTopOf="@id/tvToPrice"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvFromCoin"
+        style="@style/CoinBitText.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic12dp"
+        app:layout_constraintStart_toEndOf="@id/ivExchange"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="BTC" />
+
+    <TextView
+        android:id="@+id/tvToPrice"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic8dp"
+        app:layout_constraintStart_toEndOf="@id/tvFromCoin"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="USDT" />
+
+    <TextView
+        android:id="@+id/tvExchange"
+        style="@style/CoinBitText.TitleAlternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic12dp"
+        android:layout_marginTop="@dimen/generic4dp"
+        app:layout_constraintStart_toEndOf="@id/ivExchange"
+        app:layout_constraintTop_toBottomOf="@id/tvFromCoin"
+        tools:text="Coinbase" />
+
+
+    <TextView
+        android:id="@+id/tvPrice"
+        style="@style/CoinBitText.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvToPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="$3,185" />
+
+    <TextView
+        android:id="@+id/tvVolume"
+        style="@style/CoinBitText.TitleAlternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPrice"
+        tools:text="$2.4 million" />
+
+</android.support.constraint.ConstraintLayout>

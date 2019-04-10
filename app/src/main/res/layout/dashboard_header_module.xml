@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvPortfolioLabel"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic8dp"
+        android:tag="0"
+        android:text="@string/your_total_balance"
+        android:textColor="@color/secondaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPortfolioValue"
+        style="@style/CoinBitText.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPortfolioLabel"
+        tools:text="$17,400.92" />
+
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/btnLast24Hr"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        android:text="@string/_24h_changes"
+        android:textAllCaps="false"
+        android:textColor="@color/secondaryTextColor"
+        app:layout_constraintEnd_toEndOf="@id/tvPortfolioChangedPercentage"
+        app:layout_constraintStart_toStartOf="@id/tvPortfolioChangedValue"
+        app:layout_constraintTop_toBottomOf="@id/tvPortfolioValue" />
+
+    <TextView
+        android:id="@+id/tvPortfolioChangedValue"
+        style="@style/CoinBitText.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/generic8dp"
+        android:paddingEnd="@dimen/generic8dp"
+        android:paddingBottom="@dimen/generic8dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPortfolioChangedPercentage"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLast24Hr"
+        tools:text="-$0.04" />
+
+    <TextView
+        android:id="@+id/tvPortfolioChangedPercentage"
+        style="@style/CoinBitText.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/generic8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPortfolioChangedValue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvPortfolioChangedValue"
+        app:layout_constraintTop_toTopOf="@+id/tvPortfolioChangedValue"
+        tools:text="(5%)" />
+
+
+</android.support.constraint.ConstraintLayout>

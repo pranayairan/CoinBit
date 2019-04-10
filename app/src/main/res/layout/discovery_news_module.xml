@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clNewsArticleContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic14dp"
+    android:layout_marginTop="@dimen/generic8dp"
+    android:layout_marginEnd="@dimen/generic14dp"
+    android:layout_marginBottom="@dimen/generic16dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:stateListAnimator="@animator/card_down_animation">
+
+    <ImageView
+        android:id="@+id/ivNewsCover"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/generic8dp"
+        android:layout_marginBottom="@dimen/generic8dp"
+        android:contentDescription="@string/cdNewsImage"
+        app:layout_constraintBottom_toBottomOf="@id/tvTimePeriod"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSource"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvSource"
+        style="@style/CoinBitText.TitleAlternate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingEnd="@dimen/generic8dp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toStartOf="@id/ivNewsCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Market Insider" />
+
+    <TextView
+        android:id="@+id/tvHeadlines"
+        style="@style/CoinBitText.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:paddingEnd="@dimen/generic8dp"
+        app:layout_constraintEnd_toStartOf="@id/ivNewsCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSource"
+        tools:text="Market Insider this is multiple line message to see show the news looks" />
+
+    <TextView
+        android:id="@+id/tvTimePeriod"
+        style="@style/CoinBitText.CaptionAlternate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:paddingEnd="@dimen/generic8dp"
+        app:layout_constraintEnd_toStartOf="@id/ivNewsCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHeadlines"
+        tools:text="Market Insider" />
+
+
+</android.support.constraint.ConstraintLayout>

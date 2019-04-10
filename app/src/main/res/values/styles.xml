@@ -1,0 +1,99 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- default color of ANY text (menu items, labels, etc. ) unless color attribute is overridden -->
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+
+        <!-- color of the default background -->
+        <item name="android:windowBackground">@color/backgroundColor</item>
+
+    </style>
+
+    <!--- coinbit text style -->
+
+    <style name="CoinBitText" parent="Base.TextAppearance.AppCompat.Caption">
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+
+    <style name="CoinBitText.CaptionSmall" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="CoinBitText.Caption" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CoinBitText.CaptionAlternate" parent="CoinBitText">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CoinBitText.Title" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CoinBitText.TitleAlternate" parent="CoinBitText">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CoinBitText.Body" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="CoinBitText.BodyAlternate" parent="CoinBitText">
+        <item name="android:textColor">@color/tertiaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="CoinBitText.BodyTertiary" parent="CoinBitText">
+        <item name="android:textColor">@color/tertiaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="CoinBitText.Body1" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CoinBitText.Body1Alternate" parent="CoinBitText">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CoinBitText.Body2" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="CoinBitText.Body3" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="CoinBitText.Big" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">34sp</item>
+    </style>
+
+    <style name="CoinBitText.Huge" parent="CoinBitText">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">42sp</item>
+    </style>
+
+    <style name="SearchSwitchTheme">
+        <item name="colorControlActivated">@color/switchColor</item>
+    </style>
+
+</resources>

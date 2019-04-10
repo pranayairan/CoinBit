@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clArticle"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingStart="@dimen/generic16dp"
+    android:paddingEnd="@dimen/generic16dp"
+    android:paddingBottom="@dimen/generic16dp"
+    android:paddingTop="@dimen/generic8dp"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/tvArticleTitle"
+        style="@style/CoinBitText.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="Shark Tank Investor, Robert Herjavec, Bullish on Cryptocurrency and Blockchain" />
+
+    <TextView
+        android:id="@+id/tvArticleTime"
+        style="@style/CoinBitText.TitleAlternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        tools:text="10:15 PM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvArticleTitle" />
+
+</android.support.constraint.ConstraintLayout>

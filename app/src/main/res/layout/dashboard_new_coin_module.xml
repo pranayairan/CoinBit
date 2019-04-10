@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addCoinCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic14dp"
+    android:layout_marginEnd="@dimen/generic14dp"
+    android:stateListAnimator="@animator/card_down_animation"
+    android:background="@drawable/ripple_background_rounded_bottom">
+
+    <View
+        android:id="@+id/dividerView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDusk"
+        app:layout_constraintTop_toBottomOf="@id/tvCoinPercentChange" />
+
+    <ImageView
+        android:id="@+id/ivAddNew"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="@dimen/generic16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/add_new"
+        android:tint="@color/secondaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCoinName"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic32dp"
+        android:text="@string/add_new_currency"
+        app:layout_constraintBottom_toBottomOf="@id/ivAddNew"
+        app:layout_constraintStart_toEndOf="@+id/ivAddNew"
+        app:layout_constraintTop_toTopOf="@id/ivAddNew" />
+
+
+</android.support.constraint.ConstraintLayout>

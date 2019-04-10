@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic14dp"
+    android:layout_marginEnd="@dimen/generic14dp">
+
+    <TextView
+        android:id="@+id/tvChartCoinPrice"
+        style="@style/CoinBitText.Huge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic20dp"
+        android:tag="0"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="$40.90" />
+
+    <TextView
+        android:id="@+id/tvPortfolioArrow"
+        style="@style/CoinBitText.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        android:paddingEnd="@dimen/generic4dp"
+        android:textColor="@color/colorGain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvChartCoinPrice"
+        tools:text="▲" />
+
+    <TextView
+        android:id="@+id/tvPortfolioChangedValue"
+        style="@style/CoinBitText.BodyTertiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        android:paddingEnd="@dimen/generic12dp"
+        app:layout_constraintStart_toEndOf="@+id/tvPortfolioArrow"
+        app:layout_constraintTop_toBottomOf="@+id/tvChartCoinPrice"
+        tools:text="-$0.04" />
+
+    <TextView
+        android:id="@+id/tvPortfolioChangedPercentage"
+        style="@style/CoinBitText.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        android:textColor="@color/colorGain"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvPortfolioChangedValue"
+        app:layout_constraintTop_toBottomOf="@+id/tvChartCoinPrice"
+        tools:text="+8.1%" />
+
+    <TextView
+        android:id="@+id/tvPortfolioChangedDate"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPortfolioArrow"
+        tools:text="today" />
+
+
+    <com.robinhood.spark.SparkView
+        android:id="@+id/historicalChartView"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="@dimen/generic16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPortfolioChangedDate"
+        app:spark_animateChanges="true"
+        app:spark_lineColor="@color/colorPrimary"
+        app:spark_scrubEnabled="true" />
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/pbChartLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="@id/historicalChartView"
+        app:layout_constraintEnd_toEndOf="@id/historicalChartView"
+        app:layout_constraintStart_toStartOf="@id/historicalChartView"
+        app:layout_constraintTop_toTopOf="@id/historicalChartView" />
+
+    <TextView
+        android:id="@+id/tvErrorGraph"
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/historicalChartView"
+        app:layout_constraintEnd_toEndOf="@id/historicalChartView"
+        app:layout_constraintStart_toStartOf="@id/historicalChartView"
+        app:layout_constraintTop_toTopOf="@id/historicalChartView"
+        tools:text="Some Error" />
+
+    <RadioGroup
+        android:id="@+id/rgPeriodSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/generic8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historicalChartView">
+
+        <RadioButton
+            android:id="@+id/rbPeriod12H"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_1h"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbPeriod1D"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_1day"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbPeriod1W"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_1week"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbPeriod1M"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_1month"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbPeriod3M"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_3month"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbPeriod1Y"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_1year"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbPeriodAll"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/range_radio_btn_selector_background"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="@dimen/generic8dp"
+            android:paddingEnd="@dimen/generic8dp"
+            android:text="@string/period_all"
+            android:textColor="@drawable/range_radio_btn_selector"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>

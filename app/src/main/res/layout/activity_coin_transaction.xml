@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.binarybricks.coinbit.features.transaction.CoinTransactionActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/generic4dp"
+        android:paddingBottom="@dimen/generic8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnAddTransaction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/svContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <RadioGroup
+                android:id="@+id/rgBuySell"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbBuy"
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/generic16dp"
+                    android:buttonTint="@color/colorAccent"
+                    android:checked="true"
+                    android:paddingStart="@dimen/generic4dp"
+                    android:paddingEnd="@dimen/generic4dp"
+                    android:text="@string/buy" />
+
+
+                <RadioButton
+                    android:id="@+id/rbSell"
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorPrimaryDusk"
+                    android:paddingStart="@dimen/generic4dp"
+                    android:paddingEnd="@dimen/generic4dp"
+                    android:text="@string/sell" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/dividerBuySell"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rgBuySell" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/containerExchange"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/generic16dp"
+                android:paddingEnd="@dimen/generic16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerBuySell">
+
+                <TextView
+                    android:id="@+id/tvExchangeLabel"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/generic4dp"
+                    android:text="@string/exchange"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/tvExchange"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvExchange"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exchange"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvExchangeLabel" />
+
+                <TextView
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/dividerExchange"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerExchange" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/containerPair"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/generic16dp"
+                android:paddingEnd="@dimen/generic16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerExchange">
+
+                <TextView
+                    android:id="@+id/tvPairLabel"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/generic4dp"
+                    android:text="@string/trading_pair"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/tvPair"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvPair"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trading_pair"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPairLabel" />
+
+                <TextView
+                    android:id="@+id/tvArrow"
+                    style="@style/CoinBitText.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <View
+                android:id="@+id/dividerPair"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerPair" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/containerDate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/generic16dp"
+                android:paddingEnd="@dimen/generic16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerPair">
+
+                <TextView
+                    android:id="@+id/tvDatetimeLabel"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/generic4dp"
+                    android:text="@string/date_time"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/tvDatetime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvDatetime"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDatetimeLabel" />
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/dividerDateTime"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerDate" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/containerBuyPrice"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="@dimen/generic16dp"
+                android:paddingEnd="@dimen/generic16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerDateTime">
+
+                <TextView
+                    android:id="@+id/tvBuyPriceLabel"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/etBuyPrice"
+                    android:paddingBottom="@dimen/generic4dp"
+                    android:text="@string/buy_price"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/etBuyPrice"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/etBuyPrice"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/buy_price"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
+                    android:textColorHint="@color/primaryTextColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBuyPriceLabel" />
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/dividerBuyPrice"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerBuyPrice" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/containerAmount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="@dimen/generic16dp"
+                android:paddingEnd="@dimen/generic16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerBuyPrice">
+
+                <TextView
+                    android:id="@+id/tvBuyAmountLabel"
+                    style="@style/CoinBitText.TitleAlternate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/etBuyPrice"
+                    android:paddingBottom="@dimen/generic4dp"
+                    android:text="@string/amount_bought"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/etAmount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/etAmount"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/amount_bought"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
+                    android:textColorHint="@color/primaryTextColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBuyAmountLabel" />
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/dividerAmount"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDusk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/containerAmount" />
+
+
+            <TextView
+                android:id="@+id/tvAdditionalOptionLabel"
+                style="@style/CoinBitText.Body1Alternate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/generic4dp"
+                android:layout_marginBottom="@dimen/generic4dp"
+                android:padding="@dimen/generic8dp"
+                android:text="@string/additional_options"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dividerAmount"
+                tools:visibility="visible" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/containerDeduct"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cell_height"
+                android:animateLayoutChanges="true"
+                android:background="@color/backgroundColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="@dimen/generic16dp"
+                android:paddingEnd="@dimen/generic16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAdditionalOptionLabel">
+
+
+                <TextView
+                    android:id="@+id/tvDeductionLabel"
+                    style="@style/CoinBitText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deduct_from_usd_holdings"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/swDeduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDeductionLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvDeductionLabel" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/tvTotalAmountInCurrencyLabel"
+                style="@style/CoinBitText.Body1Alternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/generic8dp"
+                android:padding="@dimen/generic8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/containerDeduct"
+                tools:text="Total Value $100" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+
+    <Button
+        android:id="@+id/btnAddTransaction"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/add_transaction"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="@id/btnAddTransaction"
+        app:layout_constraintEnd_toEndOf="@id/btnAddTransaction"
+        app:layout_constraintStart_toStartOf="@id/btnAddTransaction"
+        app:layout_constraintTop_toTopOf="@id/btnAddTransaction" />
+
+</android.support.constraint.ConstraintLayout>

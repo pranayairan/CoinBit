@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topCardContainer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/generic8dp"
+    android:layout_marginEnd="@dimen/generic8dp"
+    android:background="@drawable/top_card_background"
+    android:elevation="4dp"
+    android:padding="@dimen/generic16dp"
+    android:stateListAnimator="@animator/card_down_animation">
+
+    <TextView
+        android:id="@+id/tvPair"
+        style="@style/CoinBitText.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="BTC/USD" />
+
+    <TextView
+        android:id="@+id/tvPriceChange"
+        style="@style/CoinBitText.CaptionSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic24dp"
+        android:textColor="@color/colorGain"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvPair"
+        app:layout_constraintStart_toEndOf="@id/tvPair"
+        tools:text="-2.24 %" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        style="@style/CoinBitText.Body3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:textColor="@color/colorGain"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPair"
+        tools:text="8360.90" />
+
+    <TextView
+        android:id="@+id/tvMarketCap"
+        style="@style/CoinBitText.CaptionAlternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPrice"
+        tools:text="Mkt cap : 8360.90" />
+
+
+</android.support.constraint.ConstraintLayout>

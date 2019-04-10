@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "577274068401",
+    "firebase_url": "https://coinbit-4d26f.firebaseio.com",
+    "project_id": "coinbit-4d26f",
+    "storage_bucket": "coinbit-4d26f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577274068401:android:f806e4e77b98053f",
+        "android_client_info": {
+          "package_name": "com.binarybricks.coinbit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577274068401-7cm0ud0b8v96lsq35icvmoncsehvbupm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-mv2zb2UYQ1LbJWzKEd0WZrU1CCfSIEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577274068401-7cm0ud0b8v96lsq35icvmoncsehvbupm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

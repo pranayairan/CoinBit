@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/generic8dp"
+    android:layout_marginStart="@dimen/generic8dp"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/generic16dp">
+
+    <TextView
+        style="@style/CoinBitText.Body1Alternate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/generic8dp"
+        android:text="@string/position" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic12dp"
+        app:cardBackgroundColor="@color/backgroundColor">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/generic16dp"
+            android:paddingTop="@dimen/generic16dp">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/tvNoOfCoins"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                android:layout_marginTop="@dimen/generic8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20" />
+
+            <TextView
+                android:id="@+id/tvCoinLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                android:layout_marginTop="@dimen/generic4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNoOfCoins"
+                tools:text="Coins" />
+
+            <TextView
+                android:id="@+id/tvCoinValue"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                android:layout_marginTop="@dimen/generic8dp"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="$200.22" />
+
+            <TextView
+                android:id="@+id/tvVolumeLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                android:layout_marginTop="@dimen/generic4dp"
+                android:text="@string/market_value"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/tvCoinValue" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/generic24dp"
+                android:background="@color/primaryTextColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVolumeLabel" />
+
+            <TextView
+                android:id="@+id/tvAvgCostLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                android:layout_marginTop="@dimen/generic24dp"
+                android:text="@string/average_cost"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <TextView
+                android:id="@+id/tvAvgCostValue"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAvgCostLabel"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/tvAvgCostLabel"
+                tools:text="$53.43" />
+
+            <TextView
+                android:id="@+id/tvTotalReturnLabel"
+                style="@style/CoinBitText.TitleAlternate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                android:layout_marginTop="@dimen/generic20dp"
+                android:text="@string/total_return"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAvgCostLabel" />
+
+            <TextView
+                android:id="@+id/tvTotalReturnValue"
+                style="@style/CoinBitText.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTotalReturnLabel"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/tvTotalReturnLabel"
+                tools:text="$2223" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
