@@ -36,6 +36,3 @@ I am also using a ton of recycler view with [Adapter Delegate Pattern](http://ha
 
 <a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/3.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/3.jpg" height="480" width="240" ></a>
 <a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/4.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/4.jpg" height="480" width="240" ></a>
-
-# Video
-[![CoinBit](https://img.youtube.com/vi/sOChpJlnE3k/0.jpg)](https://www.youtube.com/watch?v=sOChpJlnE3k)
