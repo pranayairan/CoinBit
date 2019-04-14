@@ -30,9 +30,9 @@ I am also using a ton of recycler view with [Adapter Delegate Pattern](http://ha
 
 
 # Screenshots
-<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/0.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/0.jpg" height="480" width="240" ></a>
-  <a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/1.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/1.jpg" height="480" width="240" ></a>
-<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/2.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/2.jpg" height="480" width="240" ></a>
+<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/0.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/.jpg" height="480" width="240" ></a>
+  <a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/1.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/1.jpg" height="480" width="240" ></a>
+<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/2.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/2.jpg" height="480" width="240" ></a>
 
-<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/3.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/3.jpg" height="480" width="240" ></a>
-<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/4.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_2/4.jpg" height="480" width="240" ></a>
+<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/3.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/3.jpg" height="480" width="240" ></a>
+<a href="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/4.jpg"><img src="https://raw.githubusercontent.com/pranayairan/CoinBit/master/screenshots/variant_main/4.jpg" height="480" width="240" ></a>
