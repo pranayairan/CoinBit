@@ -9,7 +9,7 @@ CoinBit is a beautiful CryptoCurrency app, completely open sourced and 100% in k
 * Made with ❤️ and help from [open source community](https://github.com/pranayairan/CoinBit/blob/master/attribution.md)
 * Open for contribution, please send a pull request. 
 
-App available on Google Play: https://play.google.com/store/apps/details?id=coinbit
+App available on Google Play: https://play.google.com/store/apps/details?id=com.binarybricks.coinbit
 
 ## Work in progress
 
