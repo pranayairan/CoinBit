@@ -1,6 +1,6 @@
 package com.binarybricks.coinbit.features.coin
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.binarybricks.coinbit.adapterdelegates.*
 import com.binarybricks.coinbit.featurecomponents.ModuleItem

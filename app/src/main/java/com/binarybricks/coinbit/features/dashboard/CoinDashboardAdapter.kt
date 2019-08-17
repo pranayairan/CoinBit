@@ -1,6 +1,6 @@
 package com.binarybricks.coinbit.features.dashboard
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.TextView
 import com.binarybricks.coinbit.adapterdelegates.*

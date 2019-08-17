@@ -1,6 +1,6 @@
 package com.binarybricks.coinbit.features.coinsearch
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.binarybricks.coinbit.adapterdelegates.CarousalAdapterDelegate
 import com.binarybricks.coinbit.adapterdelegates.DiscoveryNewsAdapterDelegate

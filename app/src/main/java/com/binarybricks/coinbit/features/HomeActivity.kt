@@ -3,8 +3,8 @@ package com.binarybricks.coinbit.features
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+import androidx.appcompat.app.AppCompatActivity
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.features.coinsearch.CoinDiscoveryFragment
 import com.binarybricks.coinbit.features.dashboard.CoinDashboardFragment

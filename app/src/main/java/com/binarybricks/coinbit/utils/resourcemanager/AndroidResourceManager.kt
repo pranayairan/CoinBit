@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.utils.resourcemanager
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.DrawableRes
-import android.support.annotation.PluralsRes
-import android.support.annotation.StringRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.PluralsRes
+import androidx.annotation.StringRes
 
 /**
  * Created by Pranay Airan 1/16/18.

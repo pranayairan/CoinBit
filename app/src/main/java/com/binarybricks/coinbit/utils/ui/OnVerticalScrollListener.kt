@@ -5,7 +5,7 @@ package com.binarybricks.coinbit.utils.ui
  * All Rights Reserved.
  */
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 abstract class OnVerticalScrollListener : RecyclerView.OnScrollListener() {
 

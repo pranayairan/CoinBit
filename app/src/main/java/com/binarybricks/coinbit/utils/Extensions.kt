@@ -1,6 +1,6 @@
 package com.binarybricks.coinbit.utils
 
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 import android.widget.RadioButton
 import android.widget.RadioGroup
 

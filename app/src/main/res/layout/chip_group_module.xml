@@ -7,14 +7,14 @@
     android:layout_marginEnd="@dimen/generic14dp"
     android:orientation="vertical">
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupFirst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:chipSpacing="@dimen/generic12dp"
         app:singleLine="true" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupSecond"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         app:chipSpacing="@dimen/generic12dp"
         app:singleLine="true" />
 
-    <android.support.design.chip.ChipGroup
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupThird"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

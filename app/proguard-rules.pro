@@ -41,8 +41,11 @@
 
 ## --------------- Proguard configuration for Retrofit ----------------------
 # don't obfuscate data model objects because GSON needs to rebuild them using reflection
--keep class coinbit.network.models.** { *; }
--keepclassmembers enum coinbit.network.models.** { *; }
+-keep class com.binarybricks.coinbit.network.models.** { *; }
+-keepclassmembers enum com.binarybricks.coinbit.network.models.** { *; }
+
+-keep class com.binarybricks.coinbit.data.database.entities.** { *; }
+-keepclassmembers enum com.binarybricks.coinbit.data.database.entities.** { *; }
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.

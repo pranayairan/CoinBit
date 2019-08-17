@@ -2,9 +2,9 @@ package com.binarybricks.coinbit.utils.resourcemanager
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.annotation.PluralsRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
+import androidx.annotation.PluralsRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 
 /**
  * Created by Pranay Airan 1/16/18.

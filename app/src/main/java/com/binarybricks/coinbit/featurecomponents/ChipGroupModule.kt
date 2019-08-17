@@ -1,8 +1,8 @@
 package com.binarybricks.coinbit.featurecomponents
 
 import android.content.Context
-import android.support.design.chip.Chip
-import android.support.v4.content.ContextCompat
+import com.google.android.material.chip.Chip
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
