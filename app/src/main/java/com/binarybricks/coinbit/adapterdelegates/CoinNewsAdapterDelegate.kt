@@ -8,7 +8,7 @@ import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CoinNewsModule
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
 
 /**

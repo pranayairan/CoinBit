@@ -9,7 +9,7 @@ import com.binarybricks.coinbit.featurecomponents.historicalchartmodule.Historic
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
 
 /**

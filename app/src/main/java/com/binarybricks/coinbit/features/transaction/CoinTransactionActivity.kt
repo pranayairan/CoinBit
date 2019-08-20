@@ -4,29 +4,29 @@ import CoinTransactionContract
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.Coin
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
-import com.binarybricks.coinbit.network.models.ExchangePair
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.exchangesearch.ExchangeSearchActivity
 import com.binarybricks.coinbit.features.pairsearch.PairSearchActivity
+import com.binarybricks.coinbit.network.models.ExchangePair
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_BUY
 import com.binarybricks.coinbit.utils.dismissKeyboard
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.crashlytics.android.Crashlytics
+import com.google.android.material.snackbar.Snackbar
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_coin_transaction.*
@@ -148,7 +148,7 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
 
             datePickerDialog.isThemeDark = true
             datePickerDialog.accentColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-            datePickerDialog.show(fragmentManager, "DatePickerDialog")
+            datePickerDialog.show(supportFragmentManager, "DatePickerDialog")
         }
 
         etBuyPrice.addTextChangedListener(object : TextWatcher {
@@ -274,7 +274,7 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
 
         timePickerDialog.accentColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         timePickerDialog.isThemeDark = true
-        timePickerDialog.show(fragmentManager, "TimePickerDialog")
+        timePickerDialog.show(supportFragmentManager, "TimePickerDialog")
     }
 
     override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {

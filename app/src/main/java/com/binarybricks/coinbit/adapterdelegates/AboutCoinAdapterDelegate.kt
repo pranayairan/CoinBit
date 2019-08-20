@@ -1,12 +1,12 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.AboutCoinModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
-import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
 
 /**

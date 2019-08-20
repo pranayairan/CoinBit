@@ -86,7 +86,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:${versions.timber}"
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "com.robinhood.spark:spark:${versions.spark}"
-    implementation "com.hannesdorfmann:adapterdelegates3:${versions.adapterDelegates}"
+    implementation "com.hannesdorfmann:adapterdelegates4:${versions.adapterDelegates}"
     implementation "com.github.midorikocak:currency-picker-android:${versions.currencyPicker}"
     implementation "com.airbnb.android:lottie:${versions.lottie}"
     implementation("com.wdullaer:materialdatetimepicker:${versions.materialdate}") {

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.binarybricks.coinbit.featurecomponents.DiscoveryNewsModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import com.hannesdorfmann.adapterdelegates3.AdapterDelegate
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.extensions.LayoutContainer
 
 /**

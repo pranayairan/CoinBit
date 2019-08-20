@@ -7,7 +7,7 @@ import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager
+import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
 
 /**
 Created by Pranay Airan 1/18/18.
