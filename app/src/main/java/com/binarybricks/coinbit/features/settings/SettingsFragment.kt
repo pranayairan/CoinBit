@@ -133,7 +133,9 @@ class SettingsFragment : Fragment(), SettingsContract.View {
             settingsPresenter.refreshCoinList(currency)
         }
 
-        picker.show(fragmentManager, "CURRENCY_PICKER")
+        fragmentManager?.let {
+            picker.show(it, "CURRENCY_PICKER")
+        }
     }
 
     override fun onCoinListRefreshed() {

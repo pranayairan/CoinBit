@@ -10,14 +10,14 @@ import com.binarybricks.coinbit.features.coin.CoinFragment
  * Created by pranay airan on 2/11/18.
  */
 
-class CoinDetailsPagerAdapter(private val watchedCoinList: List<WatchedCoin>?, fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
-    override fun getItem(position: Int): Fragment? {
+class CoinDetailsPagerAdapter(private val watchedCoinList: List<WatchedCoin>?, fm: FragmentManager) : FragmentStatePagerAdapter(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    override fun getItem(position: Int): Fragment {
+        val coinDetailsFragment = CoinFragment()
         if (watchedCoinList != null) {
-            val coinDetailsFragment = CoinFragment()
             coinDetailsFragment.arguments = CoinFragment.getArgumentBundle(watchedCoinList[position])
             return coinDetailsFragment
         }
-        return null
+        return coinDetailsFragment
     }
 
     override fun getCount(): Int {

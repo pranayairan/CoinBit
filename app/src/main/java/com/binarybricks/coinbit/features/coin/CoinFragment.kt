@@ -2,29 +2,29 @@ package com.binarybricks.coinbit.features.coin
 
 import CoinContract
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.*
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.data.PreferenceManager
+import com.binarybricks.coinbit.data.database.entities.CoinTransaction
+import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.featurecomponents.*
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerModule
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CoinNewsModule
 import com.binarybricks.coinbit.featurecomponents.historicalchartmodule.HistoricalChartModule
-import com.binarybricks.coinbit.data.PreferenceManager
-import com.binarybricks.coinbit.data.database.entities.CoinTransaction
-import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.models.CoinPrice
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
+import com.binarybricks.coinbit.network.models.CoinPrice
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.defaultExchange
 import com.binarybricks.coinbit.utils.dpToPx
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.binarybricks.coinbit.utils.ui.OnVerticalScrollListener
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_pager_coin_details.*
 import kotlinx.android.synthetic.main.fragment_coin_details.*
@@ -62,6 +62,7 @@ class CoinFragment : Fragment(), CoinContract.View {
 
     companion object {
         private const val WATCHED_COIN = "WATCHED_COIN"
+
         @JvmStatic
         fun getArgumentBundle(watchedCoin: WatchedCoin): Bundle {
             val bundle = Bundle()
@@ -111,18 +112,18 @@ class CoinFragment : Fragment(), CoinContract.View {
         return inflate
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
-        inflater?.inflate(R.menu.coin_details_menu, menu)
+        inflater.inflate(R.menu.coin_details_menu, menu)
 
-        watchedMenuItem = menu?.findItem(R.id.action_watch)
+        watchedMenuItem = menu.findItem(R.id.action_watch)
 
         changeCoinMenu(isCoinWatched, isCoinedPurchased)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_watch -> {
                 isCoinWatched = !isCoinWatched
                 changeCoinMenu(isCoinWatched, isCoinedPurchased)

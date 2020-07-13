@@ -146,16 +146,16 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
         Snackbar.make(rvDashboard, errorMessage, Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.home_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
 
-        nextMenuItem = menu?.findItem(R.id.action_search)
+        nextMenuItem = menu.findItem(R.id.action_search)
 
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_search -> {
                 context?.let {
                     startActivity(CoinSearchActivity.buildLaunchIntent(it))

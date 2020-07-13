@@ -1,13 +1,12 @@
 package com.binarybricks.coinbit
 
 import android.app.Application
-import androidx.room.Room
 import android.content.Context
 import android.util.Log
+import androidx.room.Room
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.facebook.stetho.Stetho
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.squareup.leakcanary.LeakCanary
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -33,13 +32,6 @@ class CoinBitApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this)
 
         appContext = applicationContext
 
