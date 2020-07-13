@@ -18,7 +18,7 @@ import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
@@ -91,7 +91,7 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         setHasOptionsMenu(true)
 
-        Crashlytics.log("CoinDiscoveryFragment")
+        FirebaseCrashlytics.getInstance().log("CoinDiscoveryFragment")
 
         return inflate
     }

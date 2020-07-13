@@ -14,7 +14,7 @@ import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import com.binarybricks.coinbit.R
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_exchange_pair_search.*
 
 class ExchangeSearchActivity : AppCompatActivity() {
@@ -82,7 +82,7 @@ class ExchangeSearchActivity : AppCompatActivity() {
             }
         })
 
-        Crashlytics.log("ExchangeSearchActivity")
+        FirebaseCrashlytics.getInstance().log("ExchangeSearchActivity")
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

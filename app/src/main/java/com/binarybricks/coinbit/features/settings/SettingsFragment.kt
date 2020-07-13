@@ -2,20 +2,20 @@ package com.binarybricks.coinbit.features.settings
 
 import SettingsContract
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.binarybricks.coinbit.BuildConfig
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.*
-import com.crashlytics.android.Crashlytics
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.mynameismidori.currencypicker.CurrencyPicker
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
@@ -54,7 +54,7 @@ class SettingsFragment : Fragment(), SettingsContract.View {
 
         initializeUI(inflate)
 
-        Crashlytics.log("SettingsFragment")
+        FirebaseCrashlytics.getInstance().log("SettingsFragment")
 
         return inflate
     }

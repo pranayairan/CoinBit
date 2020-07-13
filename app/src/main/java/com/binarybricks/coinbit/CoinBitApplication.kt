@@ -5,8 +5,8 @@ import androidx.room.Room
 import android.content.Context
 import android.util.Log
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
-import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.squareup.leakcanary.LeakCanary
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
@@ -63,9 +63,9 @@ class CoinBitApplication : Application() {
                 return
             }
             if (priority == Log.ERROR) {
-                Crashlytics.log(Log.ERROR, tag, message)
+                FirebaseCrashlytics.getInstance().log("E/$tag:$message")
             } else if (priority == Log.WARN) {
-                Crashlytics.log(Log.WARN, tag, message)
+                FirebaseCrashlytics.getInstance().log("W/$tag:$message")
             }
         }
     }

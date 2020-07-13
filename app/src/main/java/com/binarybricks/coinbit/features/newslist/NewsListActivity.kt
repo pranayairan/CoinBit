@@ -17,7 +17,7 @@ import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.binarybricks.coinbit.utils.openCustomTab
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_news_list.*
 
 /**
@@ -75,7 +75,7 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
 
         cryptoNewsPresenter.getCryptoNews(coinSymbol)
 
-        Crashlytics.log("NewsListActivity")
+        FirebaseCrashlytics.getInstance().log("NewsListActivity")
     }
 
     override fun showOrHideLoadingIndicator(showLoading: Boolean) {

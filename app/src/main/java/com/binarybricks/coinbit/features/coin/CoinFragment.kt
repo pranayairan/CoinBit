@@ -25,7 +25,7 @@ import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.binarybricks.coinbit.utils.defaultExchange
 import com.binarybricks.coinbit.utils.dpToPx
 import com.binarybricks.coinbit.utils.ui.OnVerticalScrollListener
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_pager_coin_details.*
 import kotlinx.android.synthetic.main.fragment_coin_details.*
 import kotlinx.android.synthetic.main.fragment_coin_details.view.*
@@ -106,7 +106,7 @@ class CoinFragment : Fragment(), CoinContract.View {
             }
         }
 
-        Crashlytics.log("CoinFragment")
+        FirebaseCrashlytics.getInstance().log("CoinFragment")
 
         return inflate
     }

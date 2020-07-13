@@ -25,7 +25,7 @@ import com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity
 import com.binarybricks.coinbit.features.coinsearch.CoinSearchActivity
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.util.HashMap
@@ -93,7 +93,7 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
         // get prices for watched coin
         coinDashboardPresenter.loadWatchedCoinsAndTransactions()
 
-        Crashlytics.log("CoinDashboardFragment")
+        FirebaseCrashlytics.getInstance().log("CoinDashboardFragment")
 
         return inflate
     }

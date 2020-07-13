@@ -42,8 +42,8 @@ class IntroFragment : Fragment() {
 
         arguments?.let {
             animationRes = it.getInt(ANIMATION)
-            headerTitle = it.getString(TITLE)
-            headerSubtitle = it.getString(SUB_TITLE)
+            headerTitle = it.getString(TITLE)?:""
+            headerSubtitle = it.getString(SUB_TITLE)?:""
             showbutton = it.getBoolean(SHOW_BUTTON)
             page = it.getInt(PAGE)
         }

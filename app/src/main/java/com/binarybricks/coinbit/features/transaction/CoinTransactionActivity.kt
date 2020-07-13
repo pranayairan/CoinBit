@@ -25,7 +25,7 @@ import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_BUY
 import com.binarybricks.coinbit.utils.dismissKeyboard
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.android.material.snackbar.Snackbar
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
@@ -114,7 +114,7 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
 
         coinTransactionPresenter.getAllSupportedExchanges()
 
-        Crashlytics.log("CoinTransactionActivity")
+        FirebaseCrashlytics.getInstance().log("CoinTransactionActivity")
     }
 
     private fun initializeUI() {

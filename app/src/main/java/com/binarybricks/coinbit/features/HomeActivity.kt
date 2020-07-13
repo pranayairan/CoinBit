@@ -9,7 +9,7 @@ import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.features.coinsearch.CoinDiscoveryFragment
 import com.binarybricks.coinbit.features.dashboard.CoinDashboardFragment
 import com.binarybricks.coinbit.features.settings.SettingsFragment
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -62,7 +62,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        Crashlytics.log("HomeScreen")
+        FirebaseCrashlytics.getInstance().log("HomeScreen")
     }
 
     private fun switchToDashboard(savedInstanceState: Bundle?) {
