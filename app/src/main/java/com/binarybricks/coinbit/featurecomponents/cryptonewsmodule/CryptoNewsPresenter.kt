@@ -1,8 +1,9 @@
 package com.binarybricks.coinbit.featurecomponents.cryptonewsmodule
 
 import CryptoNewsContract
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.BasePresenter
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -19,9 +20,16 @@ class CryptoNewsPresenter(private val rxSchedulers: RxSchedulers, private val cr
 
         currentView?.showOrHideLoadingIndicator(true)
 
-        compositeDisposable.add(cryptoNewsRepository.getCryptoPanicNews(coinSymbol)
-                .observeOn(rxSchedulers.ui())
-                .doAfterTerminate { currentView?.showOrHideLoadingIndicator(false) }
-                .subscribe({ currentView?.onNewsLoaded(it) }, { Timber.e(it.localizedMessage) }))
+        launch {
+            try {
+                val cryptoPanicNews = cryptoNewsRepository.getCryptoPanicNews(coinSymbol)
+                currentView?.onNewsLoaded(cryptoPanicNews)
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            } finally {
+                currentView?.showOrHideLoadingIndicator(false)
+            }
+
+        }
     }
 }

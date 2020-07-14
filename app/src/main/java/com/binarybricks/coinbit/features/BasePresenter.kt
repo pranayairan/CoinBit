@@ -4,15 +4,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlin.coroutines.CoroutineContext
 
 /**
  * A base class for all our presenters. It provides the basics nuts & bolts of attaching/detaching a presenter to/from a
  * view, as well as the strings resolution class.
  */
 
-open class BasePresenter<V : BaseView> : LifecycleObserver {
+open class BasePresenter<V : BaseView>(private val uiContext: CoroutineContext = Dispatchers.Main.immediate) : LifecycleObserver, CoroutineScope {
 
     protected var currentView: V? = null
+    private val job = SupervisorJob()
 
     /**
      * Composite disposable for dispose all the disposable. The concrete implementation of this class should add all the
@@ -39,6 +44,7 @@ open class BasePresenter<V : BaseView> : LifecycleObserver {
     }
 
     fun detachView() {
+        job.cancel()
         compositeDisposable.dispose()
         currentView = null
     }
@@ -48,4 +54,7 @@ open class BasePresenter<V : BaseView> : LifecycleObserver {
     fun cleanYourSelf() {
         detachView()
     }
+
+    override val coroutineContext: CoroutineContext
+        get() = uiContext + job
 }

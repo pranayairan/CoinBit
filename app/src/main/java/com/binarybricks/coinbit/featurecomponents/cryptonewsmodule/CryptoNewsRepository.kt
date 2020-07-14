@@ -5,7 +5,6 @@ import com.binarybricks.coinbit.network.api.API
 import com.binarybricks.coinbit.network.api.cryptoCompareRetrofit
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import io.reactivex.Single
 
 /**
  * Created by Pragya Agrawal
@@ -17,18 +16,14 @@ class CryptoNewsRepository(private val rxSchedulers: RxSchedulers) {
     /**
      * Get the top news for specific coin from cryptopanic
      */
-    fun getCryptoPanicNews(coinSymbol: String): Single<CryptoPanicNews> {
+    suspend fun getCryptoPanicNews(coinSymbol: String): CryptoPanicNews {
 
         return if (CoinBitCache.newsMap.containsKey(coinSymbol)) {
-            Single.just(CoinBitCache.newsMap[coinSymbol])
+            CoinBitCache.newsMap[coinSymbol]!!
         } else {
-
             cryptoCompareRetrofit.create(API::class.java)
-                .getCryptoNewsForCurrency(coinSymbol, "important", true)
-                .subscribeOn(rxSchedulers.io())
-                .doOnSuccess {
-                    CoinBitCache.newsMap[coinSymbol] = it
-                }
+                    .getCryptoNewsForCurrency(coinSymbol, "important", true)
+
         }
     }
 }
