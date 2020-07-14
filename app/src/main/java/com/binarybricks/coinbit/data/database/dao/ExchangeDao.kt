@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.binarybricks.coinbit.data.database.entities.Exchange
-import io.reactivex.Single
 
 /**
  * Created by Pragya Agrawal
@@ -16,8 +15,8 @@ import io.reactivex.Single
 interface ExchangeDao {
 
     @Query("select * from exchange")
-    fun getAllExchanges(): Single<List<Exchange>>
+    suspend fun getAllExchanges(): List<Exchange>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertExchanges(list: List<Exchange>)
+    suspend fun insertExchanges(list: List<Exchange>)
 }

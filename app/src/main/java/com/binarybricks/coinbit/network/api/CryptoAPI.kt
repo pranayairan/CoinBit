@@ -32,3 +32,7 @@ val okHttpClient: OkHttpClient by lazy {
 
     builder.build()
 }
+
+val api: API by lazy {
+    cryptoCompareRetrofit.create(API::class.java)
+}

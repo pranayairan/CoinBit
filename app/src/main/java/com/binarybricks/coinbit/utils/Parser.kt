@@ -138,7 +138,7 @@ fun getExchangeListFromJson(jsonObject: JsonObject): HashMap<String, MutableList
     return coinExchangeSet
 }
 
-fun getExchangeInfo(jsonObject: JsonObject): List<Exchange> {
+fun getExchangeInfoFromJson(jsonObject: JsonObject): List<Exchange> {
 
     val exchangeList: MutableList<Exchange> = mutableListOf()
 

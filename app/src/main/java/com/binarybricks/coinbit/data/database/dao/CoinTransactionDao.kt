@@ -19,7 +19,7 @@ interface CoinTransactionDao {
     fun getAllCoinTransaction(): Flowable<List<CoinTransaction>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTransaction(coinTransaction: CoinTransaction)
+    suspend fun insertTransaction(coinTransaction: CoinTransaction)
 
     @Query("SELECT * FROM cointransaction WHERE coinSymbol = :coinSymbol ORDER BY transactionTime ASC")
     fun getTransactionsForCoin(coinSymbol: String): Flowable<List<CoinTransaction>>
