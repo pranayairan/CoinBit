@@ -12,7 +12,6 @@ Created by Pranay Airan
 
 class CoinDetailPagerPresenter(private val rxSchedulers: RxSchedulers, private val coinDetailsPagerRepository: CoinDetailsPagerRepository) :
         BasePresenter<CoinDetailsPagerContract.View>(), CoinDetailsPagerContract.Presenter {
-
     override fun loadWatchedCoins() {
         launch {
             try {

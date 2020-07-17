@@ -3,6 +3,7 @@ package com.binarybricks.coinbit.features.coin
 import CoinContract
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.CoinBitApplication
@@ -26,9 +27,7 @@ import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.binarybricks.coinbit.utils.ui.OnVerticalScrollListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.android.synthetic.main.activity_pager_coin_details.*
 import kotlinx.android.synthetic.main.fragment_coin_details.*
-import kotlinx.android.synthetic.main.fragment_coin_details.view.*
 import java.math.BigDecimal
 
 class CoinFragment : Fragment(), CoinContract.View {
@@ -78,21 +77,28 @@ class CoinFragment : Fragment(), CoinContract.View {
 
         setHasOptionsMenu(true)
 
+        FirebaseCrashlytics.getInstance().log("CoinFragment")
+
+        return inflate
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         watchedCoin?.let {
 
             coinPresenter.attachView(this)
 
             lifecycle.addObserver(coinPresenter)
 
-            inflate.rvCoinDetails.layoutManager = LinearLayoutManager(context)
+            rvCoinDetails.layoutManager = LinearLayoutManager(context)
 
             val toolBarDefaultElevation = dpToPx(context, 12) // default elevation of toolbar
 
-            inflate.rvCoinDetails.addOnScrollListener(object : OnVerticalScrollListener() {
+            rvCoinDetails.addOnScrollListener(object : OnVerticalScrollListener() {
                 override fun onScrolled(offset: Int) {
                     super.onScrolled(offset)
-                    (activity as? CoinDetailsPagerActivity)?.toolbar?.elevation = Math.min(toolBarDefaultElevation.toFloat(), offset.toFloat())
-                    (activity as? CoinDetailsActivity)?.toolbar?.elevation = Math.min(toolBarDefaultElevation.toFloat(), offset.toFloat())
+                    (activity as? CoinDetailsPagerActivity)?.supportActionBar?.elevation = Math.min(toolBarDefaultElevation.toFloat(), offset.toFloat())
+                    (activity as? CoinDetailsActivity)?.supportActionBar?.elevation = Math.min(toolBarDefaultElevation.toFloat(), offset.toFloat())
                 }
             })
 
@@ -106,10 +112,6 @@ class CoinFragment : Fragment(), CoinContract.View {
                 isCoinWatched = true
             }
         }
-
-        FirebaseCrashlytics.getInstance().log("CoinFragment")
-
-        return inflate
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -191,10 +193,11 @@ class CoinFragment : Fragment(), CoinContract.View {
         coinDetailList.add(CoinNewsModule.CoinNewsModuleData())
 
         coinDetailList.add(AboutCoinModule.AboutCoinModuleData(watchedCoin.coin))
+
         coinAdapter = CoinAdapter(watchedCoin.coin.symbol, toCurrency, watchedCoin.coin.coinName,
                 coinDetailList, CoinBitApplication.database, rxSchedulers, androidResourceManager)
 
-        view?.rvCoinDetails?.adapter = coinAdapter
+        rvCoinDetails?.adapter = coinAdapter
         coinAdapter?.notifyDataSetChanged()
 
         coinPresenter.loadRecentTransaction(watchedCoin.coin.symbol)
