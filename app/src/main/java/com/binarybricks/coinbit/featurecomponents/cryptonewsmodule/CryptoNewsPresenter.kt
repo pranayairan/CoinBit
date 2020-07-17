@@ -29,7 +29,6 @@ class CryptoNewsPresenter(private val rxSchedulers: RxSchedulers, private val cr
             } finally {
                 currentView?.showOrHideLoadingIndicator(false)
             }
-
         }
     }
 }

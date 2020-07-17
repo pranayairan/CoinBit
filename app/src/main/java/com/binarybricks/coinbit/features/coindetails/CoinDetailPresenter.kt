@@ -1,9 +1,10 @@
 package com.binarybricks.coinbit.features.coindetails
 
 import CoinDetailsContract
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -20,19 +21,20 @@ class CoinDetailPresenter(
 
         currentView?.showOrHideLoadingIndicator(true)
 
-        coinRepo.getSingleCoin(symbol)
-                ?.observeOn(rxSchedulers.ui())
-                ?.subscribe({
-                    Timber.d("watched coin loaded")
-                    currentView?.showOrHideLoadingIndicator(false)
-                    if (it != null) {
-                        currentView?.onWatchedCoinLoaded(it.first())
-                    } else {
-                        currentView?.onWatchedCoinLoaded(null)
-                    }
-                }, {
-                    Timber.e(it)
-                    currentView?.onNetworkError(it.localizedMessage)
-                })?.let { compositeDisposable.add(it) }
+        launch {
+            try {
+                val singleCoin = coinRepo.getSingleCoin(symbol)
+                Timber.d("watched coin loaded")
+                currentView?.showOrHideLoadingIndicator(false)
+                if (singleCoin != null) {
+                    currentView?.onWatchedCoinLoaded(singleCoin.first())
+                } else {
+                    currentView?.onWatchedCoinLoaded(null)
+                }
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+                currentView?.onNetworkError(ex.localizedMessage)
+            }
+        }
     }
 }

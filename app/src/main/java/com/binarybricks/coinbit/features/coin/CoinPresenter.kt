@@ -2,9 +2,10 @@ package com.binarybricks.coinbit.features.coin
 
 import CoinContract
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -20,11 +21,13 @@ class CoinPresenter(
      * Get the current price of a coinSymbol say btc or eth
      */
     override fun loadCurrentCoinPrice(watchedCoin: WatchedCoin, toCurrency: String) {
-        compositeDisposable.add(coinRepo.getCoinPriceFull(watchedCoin.coin.symbol, toCurrency)
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    currentView?.onCoinPriceLoaded(it, watchedCoin)
-                }, { Timber.e(it.localizedMessage) }))
+        launch {
+            try {
+                currentView?.onCoinPriceLoaded(coinRepo.getCoinPriceFull(watchedCoin.coin.symbol, toCurrency), watchedCoin)
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 
     override fun loadRecentTransaction(symbol: String) {
@@ -40,14 +43,16 @@ class CoinPresenter(
     }
 
     override fun updateCoinWatchedStatus(watched: Boolean, coinID: String, coinSymbol: String) {
-        compositeDisposable.add(coinRepo.updateCoinWatchedStatus(watched, coinID)
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    Timber.d("Coin status updated")
-                    currentView?.onCoinWatchedStatusUpdated(watched, coinSymbol)
-                }, {
-                    Timber.e(it)
-                    currentView?.onNetworkError(it.localizedMessage)
-                }))
+
+        launch {
+            try {
+                coinRepo.updateCoinWatchedStatus(watched, coinID)
+                Timber.d("Coin status updated")
+                currentView?.onCoinWatchedStatusUpdated(watched, coinSymbol)
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+                currentView?.onNetworkError(ex.localizedMessage ?: "Error")
+            }
+        }
     }
 }

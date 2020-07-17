@@ -4,11 +4,12 @@ import CoinDashboardContract
 import com.binarybricks.coinbit.data.CoinBitCache
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.models.CoinPrice
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.models.CoinPrice
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import io.reactivex.functions.BiFunction
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -16,9 +17,9 @@ Created by Pranay Airan
  */
 
 class CoinDashboardPresenter(
-    private val rxSchedulers: RxSchedulers,
-    private val dashboardRepository: DashboardRepository,
-    private val coinRepo: CryptoCompareRepository
+        private val rxSchedulers: RxSchedulers,
+        private val dashboardRepository: DashboardRepository,
+        private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinDashboardContract.View>(),
         CoinDashboardContract.Presenter {
 
@@ -42,42 +43,45 @@ class CoinDashboardPresenter(
     }
 
     override fun loadCoinsPrices(fromCurrencySymbol: String, toCurrencySymbol: String) {
-        compositeDisposable.add(dashboardRepository.getCoinPriceFull(fromCurrencySymbol, toCurrencySymbol)
-                .map { coinPriceList ->
-                    val coinPriceMap: HashMap<String, CoinPrice> = hashMapOf()
-                    coinPriceList.forEach { coinPrice ->
-                        coinPrice.fromSymbol?.let { fromCurrencySymbol -> coinPriceMap.put(fromCurrencySymbol.toUpperCase(), coinPrice) }
-                    }
-                    if (coinPriceMap.isNotEmpty()) {
-                        CoinBitCache.coinPriceMap.putAll(coinPriceMap)
-                    }
-                    coinPriceMap
+        launch {
+            try {
+                val coinPriceList = dashboardRepository.getCoinPriceFull(fromCurrencySymbol, toCurrencySymbol)
+                val coinPriceMap: HashMap<String, CoinPrice> = hashMapOf()
+                coinPriceList.forEach { coinPrice ->
+                    coinPrice.fromSymbol?.let { fromCurrencySymbol -> coinPriceMap[fromCurrencySymbol.toUpperCase()] = coinPrice }
                 }
-                .observeOn(rxSchedulers.ui())
-                .subscribe({ currentView?.onCoinPricesLoaded(it) }, { Timber.e(it.localizedMessage) }))
+                if (coinPriceMap.isNotEmpty()) {
+                    CoinBitCache.coinPriceMap.putAll(coinPriceMap)
+                }
+
+                currentView?.onCoinPricesLoaded(coinPriceMap)
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 
     override fun getTopCoinsByTotalVolume24hours(toCurrencySymbol: String) {
-        compositeDisposable.add(coinRepo.getTopCoinsByTotalVolume24hours(toCurrencySymbol)
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    currentView?.onTopCoinsByTotalVolumeLoaded(it)
-                    Timber.d("All Exchange Loaded")
-                }, {
-                    Timber.e(it.localizedMessage)
-                })
-        )
+        launch {
+            try {
+                val topCoinsByTotalVolume24hours = coinRepo.getTopCoinsByTotalVolume24hours(toCurrencySymbol)
+                currentView?.onTopCoinsByTotalVolumeLoaded(topCoinsByTotalVolume24hours)
+                Timber.d("All Exchange Loaded")
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 
     override fun getLatestNewsFromCryptoCompare() {
-        compositeDisposable.add(coinRepo.getTopNewsFromCryptoCompare()
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    currentView?.onCoinNewsLoaded(it)
-                    Timber.d("All news Loaded")
-                }, {
-                    Timber.e(it.localizedMessage)
-                })
-        )
+        launch {
+            try {
+                val topNewsFromCryptoCompare = coinRepo.getTopNewsFromCryptoCompare()
+                currentView?.onCoinNewsLoaded(topNewsFromCryptoCompare)
+                Timber.d("All news Loaded")
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 }

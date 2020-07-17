@@ -1,11 +1,9 @@
 package com.binarybricks.coinbit.featurecomponents.historicalchartmodule
 
 import com.binarybricks.coinbit.network.*
-import com.binarybricks.coinbit.network.api.API
-import com.binarybricks.coinbit.network.api.cryptoCompareRetrofit
+import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import io.reactivex.Single
 import timber.log.Timber
 
 /**
@@ -20,7 +18,7 @@ class ChartRepository(private val rxSchedulers: RxSchedulers) {
      * want data from. [fromCurrencySymbol] specifies what currencies data you want for example bitcoin.[toCurrencySymbol]
      * is which currency you want data in for like USD
      */
-    fun getCryptoHistoricalData(period: String, fromCurrencySymbol: String?, toCurrencySymbol: String?): Single<Pair<List<CryptoCompareHistoricalResponse.Data>, CryptoCompareHistoricalResponse.Data?>> {
+    suspend fun getCryptoHistoricalData(period: String, fromCurrencySymbol: String?, toCurrencySymbol: String?): Pair<List<CryptoCompareHistoricalResponse.Data>, CryptoCompareHistoricalResponse.Data?> {
 
         val histoPeriod: String
         var limit = 30
@@ -62,13 +60,10 @@ class ChartRepository(private val rxSchedulers: RxSchedulers) {
             }
         }
 
-        return cryptoCompareRetrofit.create(API::class.java)
-                .getCryptoHistoricalData(histoPeriod, fromCurrencySymbol, toCurrencySymbol, limit, aggregate)
-                .subscribeOn(rxSchedulers.io())
-                .map { responseData ->
-                    Timber.d("Size of response " + responseData.data.size)
-                    val maxClosingValueFromHistoricalData = responseData.data.maxBy { it.close.toFloat() }
-                    Pair(responseData.data, maxClosingValueFromHistoricalData)
-                }
+
+        val historicalData = api.getCryptoHistoricalData(histoPeriod, fromCurrencySymbol, toCurrencySymbol, limit, aggregate)
+        Timber.d("Size of response %s", historicalData.data.size)
+        val maxClosingValueFromHistoricalData = historicalData.data.maxBy { it.close.toFloat() }
+        return Pair(historicalData.data, maxClosingValueFromHistoricalData)
     }
 }

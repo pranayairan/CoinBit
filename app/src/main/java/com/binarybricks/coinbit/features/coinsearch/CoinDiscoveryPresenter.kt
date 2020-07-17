@@ -1,9 +1,10 @@
 package com.binarybricks.coinbit.features.coinsearch
 
 import CoinDiscoveryContract
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -17,38 +18,36 @@ class CoinDiscoveryPresenter(
         CoinDiscoveryContract.Presenter {
 
     override fun getTopCoinListByMarketCap(toCurrencySymbol: String) {
-        compositeDisposable.add(coinRepo.getTopCoinsByTotalVolume(toCurrencySymbol)
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    currentView?.onTopCoinsByTotalVolumeLoaded(it)
-                    Timber.d("All Exchange Loaded")
-                }, {
-                    Timber.e(it.localizedMessage)
-                })
-        )
+        launch {
+            try {
+                currentView?.onTopCoinsByTotalVolumeLoaded(coinRepo.getTopCoinsByTotalVolume(toCurrencySymbol))
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 
     override fun getTopCoinListByPairVolume() {
-        compositeDisposable.add(coinRepo.getTopPairsByTotalVolume("BTC")
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    currentView?.onTopCoinListByPairVolumeLoaded(it)
-                    Timber.d("Top coins by pair Loaded")
-                }, {
-                    Timber.e(it.localizedMessage)
-                })
-        )
+
+        launch {
+            try {
+                currentView?.onTopCoinListByPairVolumeLoaded(coinRepo.getTopPairsByTotalVolume("BTC"))
+                Timber.d("Top coins by pair Loaded")
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 
     override fun getCryptoCurrencyNews() {
-        compositeDisposable.add(coinRepo.getTopNewsFromCryptoCompare()
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    currentView?.onCoinNewsLoaded(it)
-                    Timber.d("All news Loaded")
-                }, {
-                    Timber.e(it.localizedMessage)
-                })
-        )
+        launch {
+            try {
+                val topNewsFromCryptoCompare = coinRepo.getTopNewsFromCryptoCompare()
+                currentView?.onCoinNewsLoaded(topNewsFromCryptoCompare)
+                Timber.d("All news Loaded")
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 }

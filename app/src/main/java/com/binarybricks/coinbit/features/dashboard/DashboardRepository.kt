@@ -3,14 +3,11 @@ package com.binarybricks.coinbit.features.dashboard
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.api.API
-import com.binarybricks.coinbit.network.api.cryptoCompareRetrofit
+import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.getCoinPricesFromJson
 import io.reactivex.Flowable
-import io.reactivex.Single
-import timber.log.Timber
 
 /**
 Created by Pranay Airan
@@ -18,8 +15,8 @@ Created by Pranay Airan
  */
 
 class DashboardRepository(
-    private val rxSchedulers: RxSchedulers,
-    private val coinBitDatabase: CoinBitDatabase?
+        private val rxSchedulers: RxSchedulers,
+        private val coinBitDatabase: CoinBitDatabase?
 ) {
 
     /**
@@ -50,14 +47,7 @@ class DashboardRepository(
      * want data from. [fromCurrencySymbol] specifies what currencies data you want for example bitcoin.
      * [toCurrencySymbol] is which currency you want data in for like USD
      */
-    fun getCoinPriceFull(fromCurrencySymbol: String, toCurrencySymbol: String): Single<ArrayList<CoinPrice>> {
-
-        return cryptoCompareRetrofit.create(API::class.java)
-                .getPricesFull(fromCurrencySymbol, toCurrencySymbol)
-                .subscribeOn(rxSchedulers.io())
-                .map {
-                    Timber.d("Coin prices fetched, parsing response")
-                    getCoinPricesFromJson(it)
-                }
+    suspend fun getCoinPriceFull(fromCurrencySymbol: String, toCurrencySymbol: String): ArrayList<CoinPrice> {
+        return getCoinPricesFromJson(api.getPricesFull(fromCurrencySymbol, toCurrencySymbol))
     }
 }

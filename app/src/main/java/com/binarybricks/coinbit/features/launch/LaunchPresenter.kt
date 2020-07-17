@@ -2,14 +2,15 @@ package com.binarybricks.coinbit.features.launch
 
 import LaunchContract
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
+import com.binarybricks.coinbit.features.BasePresenter
+import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.features.getTop5CoinsToWatch
 import com.binarybricks.coinbit.network.models.CCCoin
 import com.binarybricks.coinbit.network.models.CoinInfo
 import com.binarybricks.coinbit.network.models.getCoinFromCCCoin
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import com.binarybricks.coinbit.features.BasePresenter
-import com.binarybricks.coinbit.features.CryptoCompareRepository
-import com.binarybricks.coinbit.features.getTop5CoinsToWatch
 import com.binarybricks.coinbit.utils.defaultExchange
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -25,55 +26,55 @@ class LaunchPresenter(
     private var coinInfoMap: Map<String, CoinInfo>? = null
 
     override fun loadAllCoins() {
-        compositeDisposable.add(coinRepo.getAllCoinsFromAPI(coinList, coinInfoMap)
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    coinList = it.first
-                    coinInfoMap = it.second
-                    currentView?.onCoinsLoaded()
-                }, { Timber.e(it) }))
+        launch {
+            try {
+                val allCoinsFromAPI = coinRepo.getAllCoinsFromAPI(coinList, coinInfoMap)
+                coinList = allCoinsFromAPI.first
+                coinInfoMap = allCoinsFromAPI.second
+                currentView?.onCoinsLoaded()
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
 
         loadExchangeFromAPI()
     }
 
     private fun loadExchangeFromAPI() {
-        compositeDisposable.add(coinRepo.getExchangeInfo()
-                .map {
-                    compositeDisposable.add(coinRepo.insertExchangeIntoList(it).subscribe())
-                }
-                .subscribe { _, t2 ->
-                    if (t2 != null) {
-                        Timber.e(t2)
-                    }
-                })
+        launch {
+            try {
+                coinRepo.insertExchangeIntoList(coinRepo.getExchangeInfo())
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 
     override fun getAllSupportedCoins(defaultCurrency: String) {
-        compositeDisposable.add(coinRepo.getAllCoinsFromAPI(coinList, coinInfoMap)
-                .flatMap {
-                    val coinList: MutableList<WatchedCoin> = mutableListOf()
-                    val ccCoinList = it.first
-                    ccCoinList.forEach { ccCoin ->
-                        val coinInfo = it.second[ccCoin.symbol.toLowerCase()]
-                        coinList.add(getCoinFromCCCoin(ccCoin, defaultExchange, defaultCurrency, coinInfo))
-                    }
-                    coinRepo.insertCoinsInWatchList(coinList)
-                }.map {
-                    // add top 5 coins in watch list
-                    val top5CoinsToWatch = getTop5CoinsToWatch()
+        launch {
+            try {
+                val allCoinsFromAPI = coinRepo.getAllCoinsFromAPI(coinList, coinInfoMap)
+                val coinList: MutableList<WatchedCoin> = mutableListOf()
+                val ccCoinList = allCoinsFromAPI.first
 
-                    top5CoinsToWatch.forEach { coinId ->
-                        compositeDisposable.add(coinRepo.updateCoinWatchedStatus(true, coinId)
-                                .subscribe())
-                    }
+                ccCoinList.forEach { ccCoin ->
+                    val coinInfo = allCoinsFromAPI.second[ccCoin.symbol.toLowerCase()]
+                    coinList.add(getCoinFromCCCoin(ccCoin, defaultExchange, defaultCurrency, coinInfo))
                 }
-                .observeOn(rxSchedulers.ui())
-                .subscribe({
-                    Timber.d("Loaded all the coins and inserted in DB")
-                    currentView?.onAllSupportedCoinsLoaded()
-                }, {
-                    Timber.e(it.localizedMessage)
+
+                coinRepo.insertCoinsInWatchList(coinList)
+
+                val top5CoinsToWatch = getTop5CoinsToWatch()
+                top5CoinsToWatch.forEach { coinId ->
+                    coinRepo.updateCoinWatchedStatus(true, coinId)
                 }
-                ))
+
+                Timber.d("Loaded all the coins and inserted in DB")
+                currentView?.onAllSupportedCoinsLoaded()
+
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
+            }
+        }
     }
 }
