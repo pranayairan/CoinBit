@@ -4,22 +4,24 @@ import CoinTickerContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.binarybricks.coinbit.R
-import com.binarybricks.coinbit.featurecomponents.Module
-import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
+import com.binarybricks.coinbit.featurecomponents.Module
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
+import com.binarybricks.coinbit.features.ticker.CoinTickerActivity
 import com.binarybricks.coinbit.network.BASE_CRYPTOCOMPARE_IMAGE_URL
 import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import com.binarybricks.coinbit.features.ticker.CoinTickerActivity
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.getUrlWithoutParameters
 import com.binarybricks.coinbit.utils.openCustomTab
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.CropCircleTransformation
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.coin_ticker_module.view.*
+import kotlinx.android.synthetic.main.coin_ticker_module.view.pbLoading
+import kotlinx.android.synthetic.main.dashboard_coin_module.view.*
 import java.util.*
 
 /**
@@ -47,7 +49,7 @@ class CoinTickerModule(
     }
 
     private val cropCircleTransformation by lazy {
-        CropCircleTransformation()
+        CircleCropTransformation()
     }
 
     override fun init(layoutInflater: LayoutInflater, parent: ViewGroup?): View {
@@ -83,9 +85,12 @@ class CoinTickerModule(
             inflatedView.tvFirstExchange.text = tickerData[0].marketName
             inflatedView.tvFirstVolume.text = formatter.formatAmount(tickerData[0].convertedVolumeUSD, currency, true)
             inflatedView.ivFirstExchange.visibility = View.VISIBLE
-            Picasso.get().load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[0].imageUrl).error(R.mipmap.ic_launcher_round)
-                    .transform(cropCircleTransformation)
-                    .into(inflatedView.ivFirstExchange)
+
+            inflatedView.ivFirstExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[0].imageUrl) {
+                crossfade(true)
+                error(R.mipmap.ic_launcher_round)
+                transformations(cropCircleTransformation)
+            }
 
             inflatedView.clFirstMarket.setOnClickListener {
                 if (tickerData[0].exchangeUrl.isNotBlank()) {
@@ -105,9 +110,12 @@ class CoinTickerModule(
                     }
                 }
                 inflatedView.ivSecondExchange.visibility = View.VISIBLE
-                Picasso.get().load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[1].imageUrl).error(R.mipmap.ic_launcher_round)
-                        .transform(cropCircleTransformation)
-                        .into(inflatedView.ivSecondExchange)
+
+                inflatedView.ivSecondExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[1].imageUrl) {
+                    crossfade(true)
+                    error(R.mipmap.ic_launcher_round)
+                    transformations(cropCircleTransformation)
+                }
             }
 
             if (tickerData.size > 2) {
@@ -122,9 +130,12 @@ class CoinTickerModule(
                     }
                 }
                 inflatedView.ivThirdExchange.visibility = View.VISIBLE
-                Picasso.get().load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[2].imageUrl).error(R.mipmap.ic_launcher_round)
-                        .transform(cropCircleTransformation)
-                        .into(inflatedView.ivThirdExchange)
+
+                inflatedView.ivThirdExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[2].imageUrl) {
+                    crossfade(true)
+                    error(R.mipmap.ic_launcher_round)
+                    transformations(cropCircleTransformation)
+                }
             }
 
             inflatedView.tvMore.setOnClickListener {

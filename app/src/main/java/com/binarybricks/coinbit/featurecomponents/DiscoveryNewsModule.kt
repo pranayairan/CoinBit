@@ -3,13 +3,14 @@ package com.binarybricks.coinbit.featurecomponents
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.network.models.CryptoCompareNews
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.openCustomTab
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
+import kotlinx.android.synthetic.main.dashboard_coin_module.view.*
 import kotlinx.android.synthetic.main.discovery_news_module.view.*
 import timber.log.Timber
 
@@ -33,9 +34,11 @@ class DiscoveryNewsModule(private val androidResourceManager: AndroidResourceMan
             inflatedView.tvTimePeriod.text = Formaters(androidResourceManager).formatTransactionDate(discoveryNewsModuleData.coinNews.published_on)
         }
 
-        Picasso.get().load(discoveryNewsModuleData.coinNews.imageurl)
-                .transform(RoundedCornersTransformation(15, 0))
-                .into(inflatedView.ivNewsCover)
+        inflatedView.ivCoin.load(discoveryNewsModuleData.coinNews.imageurl) {
+            crossfade(true)
+            error(R.mipmap.ic_launcher_round)
+            transformations(RoundedCornersTransformation(15f))
+        }
 
         inflatedView.clNewsArticleContainer.setOnClickListener {
             if (discoveryNewsModuleData.coinNews.url != null) {

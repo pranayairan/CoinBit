@@ -30,6 +30,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+        }
     }
 
     lintOptions {
@@ -119,8 +122,7 @@ dependencies {
     implementation "com.romandanylyk:pageindicatorview:${versions.pageindicator}@aar"
 
     // image loading
-    implementation "com.squareup.picasso:picasso:${versions.picaso}"
-    implementation "jp.wasabeef:picasso-transformations:${versions.picasoTransformation}"
+    implementation("io.coil-kt:coil:1.1.0")
 
     implementation "com.facebook.stetho:stetho:${versions.stetho}"
     implementation "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"

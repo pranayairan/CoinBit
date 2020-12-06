@@ -1,20 +1,20 @@
 package com.binarybricks.coinbit.features.ticker
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.network.BASE_CRYPTOCOMPARE_IMAGE_URL
 import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.getUrlWithoutParameters
 import com.binarybricks.coinbit.utils.openCustomTab
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.CropCircleTransformation
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.ticker_item.view.*
 import java.util.*
 
@@ -25,9 +25,9 @@ Created by Pranay Airan 1/18/18.
  */
 
 class CoinTickerAdapter(
-    private val tickerData: List<CryptoTicker>,
-    val currency: Currency,
-    private val androidResourceManager: AndroidResourceManager
+        private val tickerData: List<CryptoTicker>,
+        val currency: Currency,
+        private val androidResourceManager: AndroidResourceManager
 ) : RecyclerView.Adapter<CoinTickerAdapter.NewsViewHolder>() {
 
     private val formatter: Formaters by lazy {
@@ -35,7 +35,7 @@ class CoinTickerAdapter(
     }
 
     private val cropCircleTransformation by lazy {
-        CropCircleTransformation()
+        CircleCropTransformation()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -50,9 +50,13 @@ class CoinTickerAdapter(
         viewHolder.tvPrice?.text = formatter.formatAmount(tickerData[position].last, currency, true)
         viewHolder.tvExchange?.text = tickerData[position].marketName
         viewHolder.tvVolume?.text = formatter.formatAmount(tickerData[position].convertedVolumeUSD, currency, true)
-        Picasso.get().load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[position].imageUrl).error(R.mipmap.ic_launcher_round)
-                .transform(cropCircleTransformation)
-                .into(viewHolder.ivExchange)
+
+        viewHolder.ivExchange?.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[position].imageUrl) {
+            crossfade(true)
+            error(R.mipmap.ic_launcher_round)
+            transformations(cropCircleTransformation)
+        }
+
         viewHolder.clMarket?.setOnClickListener {
             if (tickerData[position].exchangeUrl.isNotBlank()) {
                 viewHolder.clMarket?.context?.let { context ->

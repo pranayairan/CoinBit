@@ -1,19 +1,22 @@
 package com.binarybricks.coinbit.featurecomponents
 
 import android.animation.ValueAnimator
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.network.BASE_CRYPTOCOMPARE_IMAGE_URL
 import com.binarybricks.coinbit.network.models.CoinPrice
-import com.binarybricks.coinbit.utils.*
+import com.binarybricks.coinbit.utils.CoinBitExtendedCurrency
+import com.binarybricks.coinbit.utils.Formaters
+import com.binarybricks.coinbit.utils.chartAnimationDuration
+import com.binarybricks.coinbit.utils.getTotalCost
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.dashboard_coin_module.view.*
 import timber.log.Timber
 import java.math.BigDecimal
@@ -37,7 +40,7 @@ class DashboardCoinModule(
     }
 
     private val cropCircleTransformation by lazy {
-        RoundedCornersTransformation(15, 0)
+        RoundedCornersTransformation(15F)
     }
 
     interface OnCoinItemClickListener {
@@ -54,10 +57,11 @@ class DashboardCoinModule(
         val coinPrice = dashboardCoinModuleData.coinPrice
 
         val imageUrl = BASE_CRYPTOCOMPARE_IMAGE_URL + "${coin.imageUrl}?width=50"
-
-        Picasso.get().load(imageUrl).error(R.mipmap.ic_launcher_round)
-                .transform(cropCircleTransformation)
-                .into(inflatedView.ivCoin)
+        inflatedView.ivCoin.load(imageUrl) {
+            crossfade(true)
+            error(R.mipmap.ic_launcher_round)
+            transformations(cropCircleTransformation)
+        }
 
         inflatedView.tvCoinName.text = coin.coinName
 
