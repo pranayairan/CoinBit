@@ -2,6 +2,7 @@ package com.binarybricks.coinbit.network.api
 
 import com.binarybricks.coinbit.BuildConfig
 import com.binarybricks.coinbit.network.BASE_CRYPTOCOMPARE_URL
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,6 +29,7 @@ val okHttpClient: OkHttpClient by lazy {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addInterceptor(loggingInterceptor)
+        builder.addInterceptor(StethoInterceptor())
     }
 
     builder.build()

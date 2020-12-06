@@ -8,6 +8,7 @@ import com.binarybricks.coinbit.network.models.*
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import timber.log.Timber
 import java.math.BigDecimal
 
 /**
@@ -146,19 +147,25 @@ fun getExchangeInfoFromJson(jsonObject: JsonObject): List<Exchange> {
         val rawExchangeObject = jsonObject.getAsJsonObject(DATA)
         val exchanges = rawExchangeObject.keySet() // this will give us list of all the exchange in DATA like BTCChina
         exchanges.forEach { exchangeName ->
-            val exchange = rawExchangeObject.getAsJsonObject(exchangeName)
-            exchangeList.add(Exchange(id = exchange.getAsJsonPrimitive("Id").asString,
-                    name = exchange.getAsJsonPrimitive("Name").asString,
-                    url = exchange.getAsJsonPrimitive("Url").asString,
-                    logoUrl = exchange.getAsJsonPrimitive("LogoUrl").asString,
-                    itemType = exchange.getAsJsonPrimitive("ItemType").asString,
-                    internalName = exchange.getAsJsonPrimitive("InternalName").asString,
-                    affiliateUrl = exchange.getAsJsonPrimitive("AffiliateUrl").asString,
-                    country = exchange.getAsJsonPrimitive("Country").asString,
-                    orderBook = exchange.getAsJsonPrimitive("OrderBook").asBoolean,
-                    trades = exchange.getAsJsonPrimitive("Trades").asBoolean,
-                    recommended = exchange.getAsJsonPrimitive("Recommended").asBoolean,
-                    sponsored = exchange.getAsJsonPrimitive("Sponsored").asBoolean))
+            try {
+                val exchange = rawExchangeObject.getAsJsonObject(exchangeName)
+                val affiliateUrl = exchange.getAsJsonPrimitive("AffiliateUrl")
+
+                exchangeList.add(Exchange(id = exchange.getAsJsonPrimitive("Id").asString,
+                        name = exchange.getAsJsonPrimitive("Name").asString,
+                        url = exchange.getAsJsonPrimitive("Url").asString,
+                        logoUrl = exchange.getAsJsonPrimitive("LogoUrl").asString,
+                        itemType = "",
+                        internalName = exchange.getAsJsonPrimitive("InternalName").asString,
+                        affiliateUrl = if (affiliateUrl != null) affiliateUrl.asString else "",
+                        country = exchange.getAsJsonPrimitive("Country").asString,
+                        orderBook = exchange.getAsJsonPrimitive("OrderBook").asBoolean,
+                        trades = exchange.getAsJsonPrimitive("Trades").asBoolean,
+                        recommended = exchange.getAsJsonPrimitive("Recommended").asBoolean,
+                        sponsored = exchange.getAsJsonPrimitive("Sponsored").asBoolean))
+            } catch (ex: Exception) {
+                Timber.e(ex)
+            }
         }
     }
 

@@ -124,7 +124,6 @@ dependencies {
 
     implementation "com.facebook.stetho:stetho:${versions.stetho}"
     implementation "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
-    implementation "com.facebook.stetho:stetho-js-rhino:${versions.stetho}"
 
     implementation "com.github.ittianyu:BottomNavigationViewEx:${versions.bottomNav}"
 

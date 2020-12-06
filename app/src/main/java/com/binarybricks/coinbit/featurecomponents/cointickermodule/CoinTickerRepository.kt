@@ -26,7 +26,8 @@ class CoinTickerRepository(
         return if (CoinBitCache.ticker.containsKey(coinName)) {
             CoinBitCache.ticker[coinName]
         } else {
-            val coinTickerFromJson = getCoinTickerFromJson(api.getCoinTicker(coinName), loadExchangeList())
+            val exchangeList = loadExchangeList()
+            val coinTickerFromJson = getCoinTickerFromJson(api.getCoinTicker(coinName), exchangeList)
             if (coinTickerFromJson.isNotEmpty()) {
                 CoinBitCache.ticker[coinName] = coinTickerFromJson
                 coinTickerFromJson
