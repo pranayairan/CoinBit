@@ -4,20 +4,20 @@ import CoinTickerContract
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.appcompat.widget.Toolbar
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerPresenter
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerRepository
-import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.binarybricks.coinbit.utils.openCustomTab
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_coin_ticker_list.*
 import java.util.*
@@ -63,7 +63,7 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val coinName = intent.getStringExtra(COIN_NAME).trim()
+        val coinName = intent.getStringExtra(COIN_NAME)?.trim()
 
         supportActionBar?.title = getString(R.string.tickerActivityTitle, coinName)
 
@@ -73,7 +73,9 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
 
         lifecycle.addObserver(coinTickerPresenter)
 
-        coinTickerPresenter.getCryptoTickers(coinName.toLowerCase())
+        if (coinName != null) {
+            coinTickerPresenter.getCryptoTickers(coinName.toLowerCase())
+        }
 
         FirebaseCrashlytics.getInstance().log("CoinTickerActivity")
     }

@@ -127,9 +127,9 @@ class CoinSearchActivity : AppCompatActivity(), CoinSearchContract.View {
         Snackbar.make(rvSearchList, statusText, Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 return true

@@ -35,7 +35,7 @@ class ExchangeSearchActivity : AppCompatActivity() {
         }
 
         fun getResultFromIntent(data: Intent): String {
-            return data.getStringExtra(SEARCH_RESULT)
+            return data.getStringExtra(SEARCH_RESULT)?:""
         }
     }
 
@@ -85,9 +85,9 @@ class ExchangeSearchActivity : AppCompatActivity() {
         FirebaseCrashlytics.getInstance().log("ExchangeSearchActivity")
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             // Respond to the action bar's Up/Home button
             android.R.id.home -> {
                 // tell the calling activity/fragment that we're done deleting this transaction

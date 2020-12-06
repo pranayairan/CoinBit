@@ -338,9 +338,9 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
                 toCurrencies, exchangeName, (transactionDate.timeInMillis / 1000).toInt().toString())
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             // Respond to the action bar's Up/Home button
             android.R.id.home -> {
                 // tell the calling activity/fragment that we're done deleting this transaction

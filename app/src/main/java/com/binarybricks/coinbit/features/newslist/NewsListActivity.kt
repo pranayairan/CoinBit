@@ -62,8 +62,8 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val coinFullName = intent.getStringExtra(COIN_FULL_NAME).trim()
-        val coinSymbol = intent.getStringExtra(COIN_SYMBOL).trim()
+        val coinFullName = intent.getStringExtra(COIN_FULL_NAME)?.trim()
+        val coinSymbol = intent.getStringExtra(COIN_SYMBOL)?.trim()
 
         supportActionBar?.title = getString(R.string.newsActivityTitle, coinFullName)
 
@@ -73,7 +73,9 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
 
         lifecycle.addObserver(cryptoNewsPresenter)
 
-        cryptoNewsPresenter.getCryptoNews(coinSymbol)
+        if(coinSymbol!=null) {
+            cryptoNewsPresenter.getCryptoNews(coinSymbol)
+        }
 
         FirebaseCrashlytics.getInstance().log("NewsListActivity")
     }

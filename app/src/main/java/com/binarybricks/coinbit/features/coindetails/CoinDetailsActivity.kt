@@ -4,16 +4,16 @@ import CoinDetailsContract
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.View
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coin.CoinFragment
+import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_coin_details.*
 
@@ -70,7 +70,9 @@ class CoinDetailsActivity : AppCompatActivity(), CoinDetailsContract.View {
         if (watchedCoin != null) {
             onWatchedCoinLoaded(watchedCoin)
         } else {
-            coinDetailPresenter.getWatchedCoinFromSymbol(intent.getStringExtra(COIN_SYMBOL))
+            intent.getStringExtra(COIN_SYMBOL)?.let {
+                coinDetailPresenter.getWatchedCoinFromSymbol(it)
+            }
         }
 
         FirebaseCrashlytics.getInstance().log("CoinDetailsActivity")
