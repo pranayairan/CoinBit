@@ -9,7 +9,7 @@
     <color name="colorPrimaryAlternate">#253047</color>
 
     <!-- 75 transparency  https://stackoverflow.com/questions/15852122/hex-transparency-in-colors-->
-    <color name="backgroundColor">#E6212b40</color>
+    <color name="backgroundColor">#212b40</color>
 
     <color name="tabTextColor">@color/primaryTextColor</color>
 

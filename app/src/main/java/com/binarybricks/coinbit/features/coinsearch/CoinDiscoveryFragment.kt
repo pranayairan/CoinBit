@@ -173,4 +173,9 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onDestroyView() {
+        (activity as AppCompatActivity).setSupportActionBar(null)
+        super.onDestroyView()
+    }
 }

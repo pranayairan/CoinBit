@@ -245,4 +245,9 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
 
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun onDestroyView() {
+        (activity as AppCompatActivity).setSupportActionBar(null)
+        super.onDestroyView()
+    }
 }

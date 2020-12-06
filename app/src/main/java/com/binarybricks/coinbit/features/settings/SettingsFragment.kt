@@ -151,4 +151,9 @@ class SettingsFragment : Fragment(), SettingsContract.View {
     override fun onNetworkError(errorMessage: String) {
         Snackbar.make(llSettings, errorMessage, Snackbar.LENGTH_LONG).show()
     }
+
+    override fun onDestroyView() {
+        (activity as AppCompatActivity).setSupportActionBar(null)
+        super.onDestroyView()
+    }
 }
