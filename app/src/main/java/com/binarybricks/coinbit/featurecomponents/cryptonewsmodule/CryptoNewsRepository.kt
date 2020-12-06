@@ -22,8 +22,7 @@ class CryptoNewsRepository(private val rxSchedulers: RxSchedulers) {
             CoinBitCache.newsMap[coinSymbol]!!
         } else {
             cryptoCompareRetrofit.create(API::class.java)
-                    .getCryptoNewsForCurrency(coinSymbol, "important", true)
-
+                .getCryptoNewsForCurrency(coinSymbol, "important", true)
         }
     }
 }

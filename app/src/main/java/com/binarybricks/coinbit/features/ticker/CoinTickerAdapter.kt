@@ -25,9 +25,9 @@ Created by Pranay Airan 1/18/18.
  */
 
 class CoinTickerAdapter(
-        private val tickerData: List<CryptoTicker>,
-        val currency: Currency,
-        private val androidResourceManager: AndroidResourceManager
+    private val tickerData: List<CryptoTicker>,
+    val currency: Currency,
+    private val androidResourceManager: AndroidResourceManager
 ) : RecyclerView.Adapter<CoinTickerAdapter.NewsViewHolder>() {
 
     private val formatter: Formaters by lazy {

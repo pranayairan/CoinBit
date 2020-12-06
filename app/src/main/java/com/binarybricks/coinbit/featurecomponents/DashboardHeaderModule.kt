@@ -1,19 +1,19 @@
 package com.binarybricks.coinbit.featurecomponents
 
 import android.animation.ValueAnimator
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.chartAnimationDuration
 import com.binarybricks.coinbit.utils.getTotalCost
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.dashboard_header_module.view.*
 import timber.log.Timber
 import java.math.BigDecimal

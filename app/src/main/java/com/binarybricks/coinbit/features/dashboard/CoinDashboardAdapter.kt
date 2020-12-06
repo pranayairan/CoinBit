@@ -1,8 +1,8 @@
 package com.binarybricks.coinbit.features.dashboard
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.adapterdelegates.*
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -15,10 +15,10 @@ Created by Pranay Airan 1/18/18.
  */
 
 class CoinDashboardAdapter(
-        toCurrency: String,
-        androidResourceManager: AndroidResourceManager,
-        var coinDashboardList: MutableList<ModuleItem>,
-        toolbarTitle: TextView
+    toCurrency: String,
+    androidResourceManager: AndroidResourceManager,
+    var coinDashboardList: MutableList<ModuleItem>,
+    toolbarTitle: TextView
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

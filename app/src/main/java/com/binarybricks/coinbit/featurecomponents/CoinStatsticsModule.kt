@@ -32,25 +32,48 @@ class CoinStatsticsModule(private val androidResourceManager: AndroidResourceMan
         val currency = Currency.getInstance(PreferenceManager.getDefaultCurrency(inflatedView.context))
         val coinPrice = coinStatisticsModuleData.coinPrice
 
-        inflatedView.tvOpenAmount.text = formatter.formatAmount(coinPrice.openDay
-                ?: "0", currency, true)
-        inflatedView.tvTodaysHighAmount.text = formatter.formatAmount(coinPrice.highDay
-                ?: "0", currency, true)
-        inflatedView.tvTodayLowAmount.text = formatter.formatAmount(coinPrice.lowDay
-                ?: "0", currency, true)
-        inflatedView.tvChangeTodayAmount.text = formatter.formatAmount(coinPrice.changeDay
-                ?: "0", currency, true)
+        inflatedView.tvOpenAmount.text = formatter.formatAmount(
+            coinPrice.openDay
+                ?: "0",
+            currency, true
+        )
+        inflatedView.tvTodaysHighAmount.text = formatter.formatAmount(
+            coinPrice.highDay
+                ?: "0",
+            currency, true
+        )
+        inflatedView.tvTodayLowAmount.text = formatter.formatAmount(
+            coinPrice.lowDay
+                ?: "0",
+            currency, true
+        )
+        inflatedView.tvChangeTodayAmount.text = formatter.formatAmount(
+            coinPrice.changeDay
+                ?: "0",
+            currency, true
+        )
 
-        inflatedView.tvVolumeQuantity.text = formatter.formatAmount(coinPrice.volumneDay
-                ?: "0", currency, true)
-        inflatedView.tvAvgVolumeAmount.text = formatter.formatAmount(coinPrice.totalVolume24Hour
-                ?: "0", currency, true)
+        inflatedView.tvVolumeQuantity.text = formatter.formatAmount(
+            coinPrice.volumneDay
+                ?: "0",
+            currency, true
+        )
+        inflatedView.tvAvgVolumeAmount.text = formatter.formatAmount(
+            coinPrice.totalVolume24Hour
+                ?: "0",
+            currency, true
+        )
 
-        inflatedView.tvAvgMarketCapAmount.text = formatter.formatAmount(coinPrice.marketCap
-                ?: "0", currency, false)
+        inflatedView.tvAvgMarketCapAmount.text = formatter.formatAmount(
+            coinPrice.marketCap
+                ?: "0",
+            currency, false
+        )
 
-        inflatedView.tvSupplyNumber.text = androidResourceManager.getString(R.string.twoTextWithSpace,
-                formatter.formatNumber(coinPrice.supply ?: 0) ?: "", coinPrice.fromSymbol ?: "")
+        inflatedView.tvSupplyNumber.text = androidResourceManager.getString(
+            R.string.twoTextWithSpace,
+            formatter.formatNumber(coinPrice.supply ?: 0) ?: "", coinPrice.fromSymbol ?: ""
+        )
     }
 
     override fun cleanUp() {

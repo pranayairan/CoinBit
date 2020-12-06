@@ -24,7 +24,7 @@ buildscript {
             'picasoTransformation': '2.4.0',
             'stetho'              : '1.5.1',
             'junit'               : '4.13.1',
-            'kotlinter'           : '2.1.1',
+            'kotlinter'           : '3.2.0',
             'bottomNav'           : '2.0.4',
             'firebaseCore'        : '18.0.0',
             'firebasePerf'        : '19.0.10',

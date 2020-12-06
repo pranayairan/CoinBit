@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import android.util.TypedValue
 import android.view.inputmethod.InputMethodManager
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import java.math.BigDecimal
@@ -82,8 +82,10 @@ fun getTotalCost(coinTransactionList: List<CoinTransaction>, coinSymbol: String)
 
 fun getUrlWithoutParameters(url: String): String {
     val uri = URI(url)
-    return URI(uri.scheme, uri.authority, uri.path, null, // Ignore the query part of the input url
-            uri.fragment).toString()
+    return URI(
+        uri.scheme, uri.authority, uri.path, null, // Ignore the query part of the input url
+        uri.fragment
+    ).toString()
 }
 
 fun sendEmail(context: Context, email: String, subject: String, body: String) {
@@ -101,8 +103,11 @@ fun sendEmail(context: Context, email: String, subject: String, body: String) {
 fun shareCoinBit(context: Context) {
     val sendIntent = Intent().apply {
         action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_TEXT, "Track 100's of crypto currencies on 150+ exchanges completely free, secure and offline. " +
-                "\n Download CoinBit at: https://play.google.com/store/apps/details?id=com.binarybricks.coinbit")
+        putExtra(
+            Intent.EXTRA_TEXT,
+            "Track 100's of crypto currencies on 150+ exchanges completely free, secure and offline. " +
+                "\n Download CoinBit at: https://play.google.com/store/apps/details?id=com.binarybricks.coinbit"
+        )
         type = "text/plain"
     }
 
@@ -114,7 +119,8 @@ fun shareCoinBit(context: Context) {
 fun rateCoinBit(context: Context) {
     val intent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(
-                "https://play.google.com/store/apps/details?id=com.binarybricks.coinbit")
+            "https://play.google.com/store/apps/details?id=com.binarybricks.coinbit"
+        )
         setPackage("com.android.vending")
     }
     context.startActivity(intent)

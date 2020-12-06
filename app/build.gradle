@@ -141,4 +141,8 @@ dependencies {
 
 kotlinter {
     ignoreFailures = true
+    indentSize = 4
+    reporters = ['checkstyle', 'plain']
+    experimentalRules = false
+    disabledRules = ["no-wildcard-imports"]
 }

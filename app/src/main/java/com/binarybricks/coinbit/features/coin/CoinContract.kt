@@ -1,7 +1,7 @@
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.features.BaseView
+import com.binarybricks.coinbit.network.models.CoinPrice
 
 /**
 Created by Pranay Airan

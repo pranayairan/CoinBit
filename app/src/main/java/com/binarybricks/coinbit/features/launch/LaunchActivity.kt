@@ -2,12 +2,11 @@ package com.binarybricks.coinbit.features.launch
 
 import LaunchContract
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
@@ -16,6 +15,7 @@ import com.binarybricks.coinbit.features.HomeActivity
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.CoinBitExtendedCurrency
 import com.binarybricks.coinbit.utils.ui.IntroPageTransformer
+import com.google.android.material.snackbar.Snackbar
 import com.mynameismidori.currencypicker.CurrencyPicker
 import kotlinx.android.synthetic.main.activity_launch.*
 import timber.log.Timber
@@ -124,22 +124,28 @@ class LaunchActivity : AppCompatActivity(), LaunchContract.View {
         override fun getItem(position: Int): Fragment {
             when (position) {
                 0 -> {
-                    val newInstance = IntroFragment.newInstance(R.raw.smiley_stack, getString(R.string.intro_coin_title),
-                            getString(R.string.intro_coin_message), position, false) // 5000 curencies
+                    val newInstance = IntroFragment.newInstance(
+                        R.raw.smiley_stack, getString(R.string.intro_coin_title),
+                        getString(R.string.intro_coin_message), position, false
+                    ) // 5000 curencies
                     currentFragment = newInstance
                     return newInstance
                 }
 
                 1 -> {
-                    val newInstance = IntroFragment.newInstance(R.raw.graph, getString(R.string.intro_track_title),
-                            getString(R.string.intro_track_message), position, false) // Track transactions
+                    val newInstance = IntroFragment.newInstance(
+                        R.raw.graph, getString(R.string.intro_track_title),
+                        getString(R.string.intro_track_message), position, false
+                    ) // Track transactions
                     currentFragment = newInstance
                     return newInstance
                 }
 
                 else -> {
-                    val newInstance = IntroFragment.newInstance(R.raw.lock, getString(R.string.intro_secure_title),
-                            getString(R.string.intro_secure_message), position, true) // Secure
+                    val newInstance = IntroFragment.newInstance(
+                        R.raw.lock, getString(R.string.intro_secure_title),
+                        getString(R.string.intro_secure_message), position, true
+                    ) // Secure
                     currentFragment = newInstance
                     return newInstance
                 }

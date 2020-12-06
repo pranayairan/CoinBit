@@ -5,16 +5,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.viewpager.widget.ViewPager
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_pager_coin_details.*
 import kotlinx.android.synthetic.main.fragment_coin_details.*
@@ -72,8 +72,10 @@ class CoinDetailsPagerActivity : AppCompatActivity(), CoinDetailsPagerContract.V
 
     override fun onWatchedCoinsLoaded(watchedCoinList: List<WatchedCoin>?) {
 
-        supportActionBar?.title = getString(R.string.transactionTypeWithQuantity,
-                watchedCoin?.coin?.coinName, watchedCoin?.coin?.symbol)
+        supportActionBar?.title = getString(
+            R.string.transactionTypeWithQuantity,
+            watchedCoin?.coin?.coinName, watchedCoin?.coin?.symbol
+        )
 
         val allCoinsPagerAdapter = CoinDetailsPagerAdapter(watchedCoinList, supportFragmentManager)
         vpCoins.adapter = allCoinsPagerAdapter

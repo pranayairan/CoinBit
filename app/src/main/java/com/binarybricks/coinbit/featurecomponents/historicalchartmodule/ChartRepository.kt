@@ -60,7 +60,6 @@ class ChartRepository(private val rxSchedulers: RxSchedulers) {
             }
         }
 
-
         val historicalData = api.getCryptoHistoricalData(histoPeriod, fromCurrencySymbol, toCurrencySymbol, limit, aggregate)
         Timber.d("Size of response %s", historicalData.data.size)
         val maxClosingValueFromHistoricalData = historicalData.data.maxBy { it.close.toFloat() }

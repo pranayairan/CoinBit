@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.DashboardNewsModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -33,8 +33,8 @@ class DashboardNewsAdapterDelegate : AdapterDelegate<List<ModuleItem>>() {
         dashboardNewsHolder.showNewsOnDashboard((items[position] as DashboardNewsModule.DashboardNewsModuleData))
     }
 
-    class DashboardNewsHolder(override val containerView: View, private val dashboardNewsModule: DashboardNewsModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class DashboardNewsHolder(override val containerView: View, private val dashboardNewsModule: DashboardNewsModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showNewsOnDashboard(dashboardNewsModuleData: DashboardNewsModule.DashboardNewsModuleData) {
             dashboardNewsModule.showNewsOnDashboard(itemView, dashboardNewsModuleData)
         }

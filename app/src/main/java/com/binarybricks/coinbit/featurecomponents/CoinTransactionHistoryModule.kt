@@ -7,8 +7,8 @@ import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_SELL
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.coin_transaction_module.view.*
 import timber.log.Timber
 import java.util.*
@@ -40,13 +40,17 @@ class CoinTransactionHistoryModule(private val androidResourceManager: AndroidRe
                 transactionType = androidResourceManager.getString(R.string.sell)
             }
 
-            inflatedView.tvFirstTxnTypeAndQuantity.text = androidResourceManager.getString(R.string.transactionTypeWithQuantity,
-                    transactionType, coinTransaction.quantity.toPlainString())
+            inflatedView.tvFirstTxnTypeAndQuantity.text = androidResourceManager.getString(
+                R.string.transactionTypeWithQuantity,
+                transactionType, coinTransaction.quantity.toPlainString()
+            )
 
             inflatedView.tvFirstTxnCost.text = formatter.formatAmount(coinTransaction.cost, currency, false)
 
-            inflatedView.tvFirstTxnTimeAndExchange.text = androidResourceManager.getString(R.string.transactionTimeWithExchange,
-                    formatter.formatTransactionDate(coinTransaction.transactionTime), coinTransaction.exchange)
+            inflatedView.tvFirstTxnTimeAndExchange.text = androidResourceManager.getString(
+                R.string.transactionTimeWithExchange,
+                formatter.formatTransactionDate(coinTransaction.transactionTime), coinTransaction.exchange
+            )
         } else {
             inflatedView.clFirstTransaction.visibility = View.GONE
         }
@@ -58,12 +62,16 @@ class CoinTransactionHistoryModule(private val androidResourceManager: AndroidRe
                 transactionType = androidResourceManager.getString(R.string.sell)
             }
 
-            inflatedView.tvFirstTxnTypeAndQuantity.text = androidResourceManager.getString(R.string.transactionTypeWithQuantity,
-                    transactionType, coinTransaction.quantity.toPlainString())
+            inflatedView.tvFirstTxnTypeAndQuantity.text = androidResourceManager.getString(
+                R.string.transactionTypeWithQuantity,
+                transactionType, coinTransaction.quantity.toPlainString()
+            )
 
             inflatedView.tvFirstTxnCost.text = formatter.formatAmount(coinTransaction.cost, currency, false)
-            inflatedView.tvFirstTxnTimeAndExchange.text = androidResourceManager.getString(R.string.transactionTimeWithExchange,
-                    formatter.formatTransactionDate(coinTransaction.transactionTime), coinTransaction.exchange)
+            inflatedView.tvFirstTxnTimeAndExchange.text = androidResourceManager.getString(
+                R.string.transactionTimeWithExchange,
+                formatter.formatTransactionDate(coinTransaction.transactionTime), coinTransaction.exchange
+            )
         } else {
             inflatedView.clSecondTransaction.visibility = View.GONE
         }
@@ -75,11 +83,15 @@ class CoinTransactionHistoryModule(private val androidResourceManager: AndroidRe
                 transactionType = androidResourceManager.getString(R.string.sell)
             }
 
-            inflatedView.tvFirstTxnTypeAndQuantity.text = androidResourceManager.getString(R.string.transactionTypeWithQuantity,
-                    transactionType, coinTransaction.quantity.toPlainString())
+            inflatedView.tvFirstTxnTypeAndQuantity.text = androidResourceManager.getString(
+                R.string.transactionTypeWithQuantity,
+                transactionType, coinTransaction.quantity.toPlainString()
+            )
             inflatedView.tvFirstTxnCost.text = formatter.formatAmount(coinTransaction.cost, currency, false)
-            inflatedView.tvFirstTxnTimeAndExchange.text = androidResourceManager.getString(R.string.transactionTimeWithExchange,
-                    formatter.formatTransactionDate(coinTransaction.transactionTime), coinTransaction.exchange)
+            inflatedView.tvFirstTxnTimeAndExchange.text = androidResourceManager.getString(
+                R.string.transactionTimeWithExchange,
+                formatter.formatTransactionDate(coinTransaction.transactionTime), coinTransaction.exchange
+            )
         } else {
             inflatedView.clThirdTransaction.visibility = View.GONE
         }

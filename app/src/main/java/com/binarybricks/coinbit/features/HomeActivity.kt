@@ -3,8 +3,8 @@ package com.binarybricks.coinbit.features
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.features.coinsearch.CoinDiscoveryFragment
 import com.binarybricks.coinbit.features.dashboard.CoinDashboardFragment
@@ -68,36 +68,36 @@ class HomeActivity : AppCompatActivity() {
     private fun switchToDashboard(savedInstanceState: Bundle?) {
 
         val coinDashboardFragment = supportFragmentManager.findFragmentByTag(CoinDashboardFragment.TAG)
-                ?: CoinDashboardFragment()
+            ?: CoinDashboardFragment()
 
         // if we switch to home clear everything
         supportFragmentManager.popBackStack(FRAGMENT_OTHER, POP_BACK_STACK_INCLUSIVE)
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.containerLayout, coinDashboardFragment, CoinDashboardFragment.TAG)
-                .addToBackStack(FRAGMENT_HOME)
-                .commit()
+            .replace(R.id.containerLayout, coinDashboardFragment, CoinDashboardFragment.TAG)
+            .addToBackStack(FRAGMENT_HOME)
+            .commit()
     }
 
     private fun switchToSearch(savedInstanceState: Bundle?) {
 
         val coinDiscoveryFragment = supportFragmentManager.findFragmentByTag(CoinDiscoveryFragment.TAG)
-                ?: CoinDiscoveryFragment()
+            ?: CoinDiscoveryFragment()
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.containerLayout, coinDiscoveryFragment, CoinDiscoveryFragment.TAG)
-                .addToBackStack(FRAGMENT_OTHER)
-                .commit()
+            .replace(R.id.containerLayout, coinDiscoveryFragment, CoinDiscoveryFragment.TAG)
+            .addToBackStack(FRAGMENT_OTHER)
+            .commit()
     }
 
     private fun switchToSettings(savedInstanceState: Bundle?) {
 
         val settingsFragment = supportFragmentManager.findFragmentByTag(SettingsFragment.TAG)
-                ?: SettingsFragment()
+            ?: SettingsFragment()
 
         supportFragmentManager.beginTransaction()
-                .replace(R.id.containerLayout, settingsFragment, SettingsFragment.TAG)
-                .addToBackStack(FRAGMENT_OTHER)
-                .commit()
+            .replace(R.id.containerLayout, settingsFragment, SettingsFragment.TAG)
+            .addToBackStack(FRAGMENT_OTHER)
+            .commit()
     }
 }

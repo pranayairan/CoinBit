@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.featurecomponents
 
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.utils.CoinBitExtendedCurrency
@@ -19,8 +19,8 @@ import java.util.*
  * Simple class wrapping UI for top card
  */
 class TopCardModule(
-        private val toCurrency: String,
-        private val androidResourceManager: AndroidResourceManager
+    private val toCurrency: String,
+    private val androidResourceManager: AndroidResourceManager
 ) : Module() {
 
     private val currency by lazy {
@@ -35,15 +35,23 @@ class TopCardModule(
 
         inflatedView.tvPair.text = topCardsModuleData.pair
         inflatedView.tvPrice.text = topCardsModuleData.price
-        inflatedView.tvPriceChange.text = androidResourceManager.getString(R.string.coinDayChanges,
-                topCardsModuleData.priceChangePercentage.toDouble())
+        inflatedView.tvPriceChange.text = androidResourceManager.getString(
+            R.string.coinDayChanges,
+            topCardsModuleData.priceChangePercentage.toDouble()
+        )
 
-        inflatedView.tvMarketCap.text = androidResourceManager.getString(R.string.marketCap,
-                CoinBitExtendedCurrency.getAmountTextForDisplay(BigDecimal(topCardsModuleData.marketCap), currency))
+        inflatedView.tvMarketCap.text = androidResourceManager.getString(
+            R.string.marketCap,
+            CoinBitExtendedCurrency.getAmountTextForDisplay(BigDecimal(topCardsModuleData.marketCap), currency)
+        )
 
         inflatedView.topCardContainer.setOnClickListener {
-            inflatedView.context.startActivity(CoinDetailsActivity.buildLaunchIntent(inflatedView.context,
-                    topCardsModuleData.coinSymbol))
+            inflatedView.context.startActivity(
+                CoinDetailsActivity.buildLaunchIntent(
+                    inflatedView.context,
+                    topCardsModuleData.coinSymbol
+                )
+            )
         }
 
         try {
@@ -61,10 +69,10 @@ class TopCardModule(
     }
 
     data class TopCardsModuleData(
-            val pair: String,
-            val price: String,
-            val priceChangePercentage: String,
-            val marketCap: String,
-            val coinSymbol: String
+        val pair: String,
+        val price: String,
+        val priceChangePercentage: String,
+        val marketCap: String,
+        val coinSymbol: String
     ) : ModuleItem
 }

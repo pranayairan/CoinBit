@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.DashboardCoinListHeaderModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -33,8 +33,8 @@ class DashboardCoinListHeaderAdapterDelegate : AdapterDelegate<List<ModuleItem>>
         dashboardCoinHeaderViewHolder.showHeaderText((items[position] as DashboardCoinListHeaderModule.DashboardCoinListHeaderModuleData))
     }
 
-    class DashboardCoinListHeaderViewHolder(override val containerView: View, private val dashboardCoinListHeaderModule: DashboardCoinListHeaderModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class DashboardCoinListHeaderViewHolder(override val containerView: View, private val dashboardCoinListHeaderModule: DashboardCoinListHeaderModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showHeaderText(dashboardCoinListHeaderModuleData: DashboardCoinListHeaderModule.DashboardCoinListHeaderModuleData) {
             dashboardCoinListHeaderModule.showHeaderText(itemView, dashboardCoinListHeaderModuleData)
         }

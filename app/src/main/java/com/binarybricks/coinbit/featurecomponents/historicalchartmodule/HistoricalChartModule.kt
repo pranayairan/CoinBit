@@ -15,9 +15,9 @@ import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.RxPubSub
 import com.binarybricks.coinbit.utils.chartAnimationDuration
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.historical_chart_module.view.*
 import java.util.*
 
@@ -26,10 +26,10 @@ Created by Pranay Airan 1/10/18.
  * A compound layout to see historical charts.
  */
 class HistoricalChartModule(
-        private val rxSchedulers: RxSchedulers,
-        private val androidResourceManager: AndroidResourceManager,
-        private val fromCurrency: String,
-        private val toCurrency: String
+    private val rxSchedulers: RxSchedulers,
+    private val androidResourceManager: AndroidResourceManager,
+    private val fromCurrency: String,
+    private val toCurrency: String
 ) : Module(), HistoricalChartContract.View {
 
     private lateinit var inflatedView: View
@@ -101,7 +101,7 @@ class HistoricalChartModule(
 
     private fun setupChart(dataListPair: Pair<List<CryptoCompareHistoricalResponse.Data>, CryptoCompareHistoricalResponse.Data?>) {
         inflatedView.historicalChartView.adapter =
-                HistoricalChartAdapter(dataListPair.first, dataListPair.second?.open)
+            HistoricalChartAdapter(dataListPair.first, dataListPair.second?.open)
 
         // inflatedView.historicalChartView.fillType=SparkView.FillType.DOWN
 
@@ -118,9 +118,9 @@ class HistoricalChartModule(
             val percentageChange: Float = (gain / lastClosingPrice) * 100
 
             inflatedView.tvPortfolioChangedValue.text =
-                    androidResourceManager.getString(R.string.gain, formatter.formatAmount(gain.toString(), currency))
+                androidResourceManager.getString(R.string.gain, formatter.formatAmount(gain.toString(), currency))
             inflatedView.tvPortfolioChangedPercentage.text =
-                    androidResourceManager.getString(R.string.gainPercentage, percentageChange)
+                androidResourceManager.getString(R.string.gainPercentage, percentageChange)
             inflatedView.tvPortfolioChangedValue.visibility = View.VISIBLE
 
             if (gain > 0) {
@@ -184,7 +184,7 @@ class HistoricalChartModule(
             chartCoinPriceAnimation.addUpdateListener { updatedAnimation ->
                 val animatedValue = updatedAnimation.animatedValue as Float
                 inflatedView.tvChartCoinPrice.text =
-                        formatter.formatAmount(animatedValue.toString(), currency)
+                    formatter.formatAmount(animatedValue.toString(), currency)
                 inflatedView.tvChartCoinPrice.tag = animatedValue
             }
             chartCoinPriceAnimation.start()
@@ -204,7 +204,7 @@ class HistoricalChartModule(
                 else -> HOUR
             }
             inflatedView.findViewById<RadioButton>(id)
-                    .setTextColor(androidResourceManager.getColor(R.color.primaryTextColor))
+                .setTextColor(androidResourceManager.getColor(R.color.primaryTextColor))
             selectedPeriod = period
 
             historicalChatPresenter.loadHistoricalData(period, fromCurrency, toCurrency)

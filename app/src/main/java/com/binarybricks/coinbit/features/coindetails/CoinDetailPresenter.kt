@@ -12,10 +12,10 @@ Created by Pranay Airan
  */
 
 class CoinDetailPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinDetailsContract.View>(),
-        CoinDetailsContract.Presenter {
+    CoinDetailsContract.Presenter {
 
     override fun getWatchedCoinFromSymbol(symbol: String) {
 

@@ -89,8 +89,10 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
     }
 
     override fun onPriceTickersLoaded(tickerData: List<CryptoTicker>) {
-        val coinTickerAdapter = CoinTickerAdapter(tickerData,
-                Currency.getInstance(PreferenceManager.getDefaultCurrency(this)), androidResourceManager)
+        val coinTickerAdapter = CoinTickerAdapter(
+            tickerData,
+            Currency.getInstance(PreferenceManager.getDefaultCurrency(this)), androidResourceManager
+        )
 
         rvCoinTickerList.adapter = coinTickerAdapter
 

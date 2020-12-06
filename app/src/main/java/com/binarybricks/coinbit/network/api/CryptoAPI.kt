@@ -16,11 +16,11 @@ api provider for crypto compare and others.
 
 val cryptoCompareRetrofit: Retrofit by lazy {
     Retrofit.Builder()
-            .baseUrl(BASE_CRYPTOCOMPARE_URL)
-            .client(okHttpClient)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        .baseUrl(BASE_CRYPTOCOMPARE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 }
 
 val okHttpClient: OkHttpClient by lazy {

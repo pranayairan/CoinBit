@@ -1,10 +1,10 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.DashboardHeaderModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -39,8 +39,8 @@ class DashboardHeaderAdapterDelegate(
         dashboardHeaderViewHolder.loadPortfolio(items[position] as DashboardHeaderModule.DashboardHeaderModuleData)
     }
 
-    class DashboardHeaderViewHolder(override val containerView: View, private val dashboardHeaderModule: DashboardHeaderModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class DashboardHeaderViewHolder(override val containerView: View, private val dashboardHeaderModule: DashboardHeaderModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun loadPortfolio(dashboardHeaderModuleData: DashboardHeaderModule.DashboardHeaderModuleData) {
             dashboardHeaderModule.loadPortfolioData(itemView, dashboardHeaderModuleData)
         }

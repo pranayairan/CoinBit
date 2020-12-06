@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.featurecomponents.historicalchartmodule.HistoricalChartModule
 import com.binarybricks.coinbit.network.models.CoinPrice
@@ -17,10 +17,10 @@ import kotlinx.android.extensions.LayoutContainer
  */
 
 class HistoricalChartAdapterDelegate(
-        private val fromCurrency: String,
-        private val toCurrency: String,
-        private val rxSchedulers: RxSchedulers,
-        private val androidResourceManager: AndroidResourceManager
+    private val fromCurrency: String,
+    private val toCurrency: String,
+    private val rxSchedulers: RxSchedulers,
+    private val androidResourceManager: AndroidResourceManager
 ) : AdapterDelegate<List<ModuleItem>>() {
 
     private val historicalChartModule by lazy {
@@ -49,8 +49,8 @@ class HistoricalChartAdapterDelegate(
         historicalChartModule.cleanUp()
     }
 
-    class HistoricalChartViewHolder(override val containerView: View, private val historicalChartModule: HistoricalChartModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class HistoricalChartViewHolder(override val containerView: View, private val historicalChartModule: HistoricalChartModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun loadHistoricalChartData() {
             historicalChartModule.loadData(itemView)
         }

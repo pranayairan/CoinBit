@@ -49,10 +49,12 @@ data class CoinInfo(val desc: String, val web: String?, val twt: String?, val re
 
 fun getCoinFromCCCoin(ccCoin: CCCoin, defaultExchange: String, defaultCurrency: String, coinInfo: CoinInfo?): WatchedCoin {
 
-    val coin = Coin(ccCoin.id, ccCoin.url, ccCoin.imageUrl, ccCoin.name, ccCoin.symbol, ccCoin.coinName,
-            ccCoin.fullName, ccCoin.algorithm, ccCoin.proofType, ccCoin.fullyPremined,
-            ccCoin.totalCoinSupply, ccCoin.preMinedValue, ccCoin.totalCoinsFreeFloat, ccCoin.sortOrder.toInt(),
-            ccCoin.sponsored, ccCoin.isTrading, coinInfo?.desc, coinInfo?.twt, coinInfo?.web, coinInfo?.reddit, coinInfo?.forum, coinInfo?.github)
+    val coin = Coin(
+        ccCoin.id, ccCoin.url, ccCoin.imageUrl, ccCoin.name, ccCoin.symbol, ccCoin.coinName,
+        ccCoin.fullName, ccCoin.algorithm, ccCoin.proofType, ccCoin.fullyPremined,
+        ccCoin.totalCoinSupply, ccCoin.preMinedValue, ccCoin.totalCoinsFreeFloat, ccCoin.sortOrder.toInt(),
+        ccCoin.sponsored, ccCoin.isTrading, coinInfo?.desc, coinInfo?.twt, coinInfo?.web, coinInfo?.reddit, coinInfo?.forum, coinInfo?.github
+    )
 
     return WatchedCoin(coin, defaultExchange, defaultCurrency)
 }

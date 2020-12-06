@@ -1,5 +1,5 @@
-import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.features.BaseView
+import com.binarybricks.coinbit.network.models.CryptoPanicNews
 
 /**
  * Created by Pragya Agrawal

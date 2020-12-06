@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.AddCoinModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -33,8 +33,8 @@ class AddCoinAdapterDelegate : AdapterDelegate<List<ModuleItem>>() {
         addCoinViewHolder.addCoinListener((items[position] as AddCoinModule.AddCoinModuleData))
     }
 
-    class AddCoinViewHolder(override val containerView: View, private val addCoinModule: AddCoinModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class AddCoinViewHolder(override val containerView: View, private val addCoinModule: AddCoinModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun addCoinListener(addCoinModuleData: AddCoinModule.AddCoinModuleData) {
             addCoinModule.addCoinListner(itemView, addCoinModuleData)
         }

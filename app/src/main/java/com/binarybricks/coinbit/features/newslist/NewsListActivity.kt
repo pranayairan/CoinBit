@@ -4,19 +4,19 @@ import CryptoNewsContract
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.appcompat.widget.Toolbar
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsPresenter
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsRepository
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
-import com.binarybricks.coinbit.utils.openCustomTab
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_news_list.*
 
@@ -73,7 +73,7 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
 
         lifecycle.addObserver(cryptoNewsPresenter)
 
-        if(coinSymbol!=null) {
+        if (coinSymbol != null) {
             cryptoNewsPresenter.getCryptoNews(coinSymbol)
         }
 

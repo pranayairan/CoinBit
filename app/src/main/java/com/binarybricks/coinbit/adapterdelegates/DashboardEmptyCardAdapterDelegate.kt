@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.DashboardEmptyCoinModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -32,8 +32,8 @@ class DashboardEmptyCardAdapterDelegate : AdapterDelegate<List<ModuleItem>>() {
         dashboardEmptyCardViewHolder.showTextInEmptySpace((items[position] as DashboardEmptyCoinModule.DashboardEmptyCoinModuleData))
     }
 
-    class DashboardEmptyCardViewHolder(override val containerView: View, private val dashboardEmptyCoinModule: DashboardEmptyCoinModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class DashboardEmptyCardViewHolder(override val containerView: View, private val dashboardEmptyCoinModule: DashboardEmptyCoinModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showTextInEmptySpace(dashboardEmptyCoinModuleData: DashboardEmptyCoinModule.DashboardEmptyCoinModuleData) {
             dashboardEmptyCoinModule.addEmptyCoinModule(itemView, dashboardEmptyCoinModuleData)
         }

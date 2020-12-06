@@ -1,7 +1,7 @@
 package com.binarybricks.coinbit.features.coinsearch
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.adapterdelegates.CarousalAdapterDelegate
 import com.binarybricks.coinbit.adapterdelegates.DiscoveryNewsAdapterDelegate
 import com.binarybricks.coinbit.adapterdelegates.LabelCoinAdapterDelegate
@@ -16,9 +16,9 @@ Created by Pranay Airan 1/18/18.
  */
 
 class CoinDiscoveryAdapter(
-        toCurrency: String,
-        androidResourceManager: AndroidResourceManager,
-        var coinDiscoverList: MutableList<ModuleItem>
+    toCurrency: String,
+    androidResourceManager: AndroidResourceManager,
+    var coinDiscoverList: MutableList<ModuleItem>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

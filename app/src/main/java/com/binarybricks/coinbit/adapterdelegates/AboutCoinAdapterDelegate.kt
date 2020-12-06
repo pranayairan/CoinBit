@@ -33,8 +33,8 @@ class AboutCoinAdapterDelegate : AdapterDelegate<List<ModuleItem>>() {
         aboutCoinViewHolder.showAboutCoinText((items[position] as AboutCoinModule.AboutCoinModuleData))
     }
 
-    class AboutCoinViewHolder(override val containerView: View, private val aboutCoinModule: AboutCoinModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class AboutCoinViewHolder(override val containerView: View, private val aboutCoinModule: AboutCoinModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showAboutCoinText(aboutCoinModuleData: AboutCoinModule.AboutCoinModuleData) {
             aboutCoinModule.showAboutCoinText(itemView, aboutCoinModuleData)
         }

@@ -22,8 +22,9 @@ import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.network.BASE_CRYPTOCOMPARE_IMAGE_URL
 import java.math.BigDecimal
 
-class CoinSearchAdapter(var searchList: List<WatchedCoin>) : ListAdapter<WatchedCoin, CoinSearchAdapter.ResultViewHolder>(WatchedCoinDiffCallback()),
-        Filterable {
+class CoinSearchAdapter(var searchList: List<WatchedCoin>) :
+    ListAdapter<WatchedCoin, CoinSearchAdapter.ResultViewHolder>(WatchedCoinDiffCallback()),
+    Filterable {
 
     init {
         submitList(searchList)
@@ -71,12 +72,12 @@ class CoinSearchAdapter(var searchList: List<WatchedCoin>) : ListAdapter<Watched
                 val filteredList = mutableListOf<WatchedCoin>()
 
                 (0 until count)
-                        .filter {
-                            // Filter on the name
-                            list[it].coin.coinName.contains(filterString, true) ||
-                                    list[it].coin.symbol.contains(filterString, true)
-                        }
-                        .mapTo(filteredList) { list[it] }
+                    .filter {
+                        // Filter on the name
+                        list[it].coin.coinName.contains(filterString, true) ||
+                            list[it].coin.symbol.contains(filterString, true)
+                    }
+                    .mapTo(filteredList) { list[it] }
 
                 results.values = filteredList
                 results.count = filteredList.size

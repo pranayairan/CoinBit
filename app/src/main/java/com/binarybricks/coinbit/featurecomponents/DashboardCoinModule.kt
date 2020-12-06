@@ -27,8 +27,8 @@ import java.util.*
  */
 
 class DashboardCoinModule(
-        private val toCurrency: String,
-        private val androidResourceManager: AndroidResourceManager
+    private val toCurrency: String,
+    private val androidResourceManager: AndroidResourceManager
 ) : Module() {
 
     private val currency by lazy {
@@ -69,8 +69,10 @@ class DashboardCoinModule(
             inflatedView.pbLoading.hide()
 
             if (coinPrice.changePercentageDay != null) {
-                inflatedView.tvCoinPercentChange.text = androidResourceManager.getString(R.string.coinDayChanges,
-                        coinPrice.changePercentageDay.toDouble())
+                inflatedView.tvCoinPercentChange.text = androidResourceManager.getString(
+                    R.string.coinDayChanges,
+                    coinPrice.changePercentageDay.toDouble()
+                )
 
                 if (coinPrice.changePercentageDay.toDouble() < 0) {
                     inflatedView.tvCoinPercentChange.setTextColor(ContextCompat.getColor(inflatedView.context, R.color.colorLoss))
@@ -138,6 +140,10 @@ class DashboardCoinModule(
         }
     }
 
-    data class DashboardCoinModuleData(val watchedCoin: WatchedCoin, var coinPrice: CoinPrice?,
-                                       val coinTransactionList: List<CoinTransaction>, val onCoinItemClickListener: OnCoinItemClickListener) : ModuleItem
+    data class DashboardCoinModuleData(
+        val watchedCoin: WatchedCoin,
+        var coinPrice: CoinPrice?,
+        val coinTransactionList: List<CoinTransaction>,
+        val onCoinItemClickListener: OnCoinItemClickListener
+    ) : ModuleItem
 }

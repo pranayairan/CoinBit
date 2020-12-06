@@ -10,8 +10,8 @@ import timber.log.Timber
  * Created by Pragya Agrawal
  */
 
-class CryptoNewsPresenter(private val rxSchedulers: RxSchedulers, private val cryptoNewsRepository: CryptoNewsRepository)
-    : BasePresenter<CryptoNewsContract.View>(), CryptoNewsContract.Presenter {
+class CryptoNewsPresenter(private val rxSchedulers: RxSchedulers, private val cryptoNewsRepository: CryptoNewsRepository) :
+    BasePresenter<CryptoNewsContract.View>(), CryptoNewsContract.Presenter {
 
     /**
      * Load the crypto news from the crypto panic api

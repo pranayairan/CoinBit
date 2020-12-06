@@ -1,12 +1,12 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerModule
-import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -17,10 +17,10 @@ import kotlinx.android.extensions.LayoutContainer
  */
 
 class CoinTickerAdapterDelegate(
-        private val coinName: String,
-        private val rxSchedulers: RxSchedulers,
-        private val coinBitDatabase: CoinBitDatabase?,
-        private val androidResourceManager: AndroidResourceManager
+    private val coinName: String,
+    private val rxSchedulers: RxSchedulers,
+    private val coinBitDatabase: CoinBitDatabase?,
+    private val androidResourceManager: AndroidResourceManager
 ) : AdapterDelegate<List<ModuleItem>>() {
 
     private val coinTickerModule by lazy {
@@ -42,8 +42,8 @@ class CoinTickerAdapterDelegate(
         coinTickerViewHolder.loadTickerData()
     }
 
-    class CoinTickerViewHolder(override val containerView: View, private val coinTickerModule: CoinTickerModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class CoinTickerViewHolder(override val containerView: View, private val coinTickerModule: CoinTickerModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun loadTickerData() {
             coinTickerModule.loadTickerData(containerView)
         }

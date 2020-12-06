@@ -13,8 +13,8 @@ Created by Pranay Airan
  */
 
 class CoinPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinContract.View>(), CoinContract.Presenter {
 
     /**
@@ -32,14 +32,17 @@ class CoinPresenter(
 
     override fun loadRecentTransaction(symbol: String) {
         coinRepo.getRecentTransaction(symbol)
-                ?.observeOn(rxSchedulers.ui())
-                ?.subscribe({ coinTransactionsList ->
+            ?.observeOn(rxSchedulers.ui())
+            ?.subscribe(
+                { coinTransactionsList ->
                     coinTransactionsList?.let {
                         currentView?.onRecentTransactionLoaded(it)
                     }
-                }, {
+                },
+                {
                     Timber.e(it.localizedMessage)
-                })?.let { compositeDisposable.add(it) }
+                }
+            )?.let { compositeDisposable.add(it) }
     }
 
     override fun updateCoinWatchedStatus(watched: Boolean, coinID: String, coinSymbol: String) {

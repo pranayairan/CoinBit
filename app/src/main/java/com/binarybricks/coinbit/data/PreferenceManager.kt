@@ -45,19 +45,19 @@ object PreferenceManager {
         return try {
             when (defaultValue::class) {
                 String::class -> PreferenceManager.getDefaultSharedPreferences(context.applicationContext).getString(
-                        key, defaultValue as String
+                    key, defaultValue as String
                 ) as T
                 Float::class -> PreferenceManager.getDefaultSharedPreferences(context.applicationContext).getFloat(
-                        key, defaultValue as Float
+                    key, defaultValue as Float
                 ) as T
                 Long::class -> PreferenceManager.getDefaultSharedPreferences(context.applicationContext).getLong(
-                        key, defaultValue as Long
+                    key, defaultValue as Long
                 ) as T
                 Int::class -> PreferenceManager.getDefaultSharedPreferences(context.applicationContext).getInt(
-                        key, defaultValue as Int
+                    key, defaultValue as Int
                 ) as T
                 Boolean::class -> PreferenceManager.getDefaultSharedPreferences(context.applicationContext).getBoolean(
-                        key, defaultValue as Boolean
+                    key, defaultValue as Boolean
                 ) as T
                 else -> throw UnsupportedOperationException("This Preference Type is not supported")
             }
@@ -101,7 +101,7 @@ object PreferenceManager {
         operation: (SharedPreferences.Editor) -> Unit
     ) {
         val editor = PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
+            .edit()
         operation(editor)
         editor.apply()
     }

@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.utils.ui
 
-import androidx.viewpager.widget.ViewPager
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.viewpager.widget.ViewPager
 import com.airbnb.lottie.LottieAnimationView
 import com.binarybricks.coinbit.R
 

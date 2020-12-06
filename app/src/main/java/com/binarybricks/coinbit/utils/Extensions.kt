@@ -1,8 +1,8 @@
 package com.binarybricks.coinbit.utils
 
-import androidx.annotation.ColorInt
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.annotation.ColorInt
 
 /**
  Created by Pranay Airan 1/14/18.

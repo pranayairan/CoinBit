@@ -12,10 +12,10 @@ Created by Pranay Airan
  */
 
 class CoinDiscoveryPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinDiscoveryContract.View>(),
-        CoinDiscoveryContract.Presenter {
+    CoinDiscoveryContract.Presenter {
 
     override fun getTopCoinListByMarketCap(toCurrencySymbol: String) {
         launch {

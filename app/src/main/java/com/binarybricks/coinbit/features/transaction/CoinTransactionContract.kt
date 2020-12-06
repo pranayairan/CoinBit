@@ -1,6 +1,6 @@
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
-import com.binarybricks.coinbit.network.models.ExchangePair
 import com.binarybricks.coinbit.features.BaseView
+import com.binarybricks.coinbit.network.models.ExchangePair
 import java.math.BigDecimal
 import java.util.HashMap
 

@@ -13,9 +13,9 @@ import timber.log.Timber
  */
 
 class CoinTickerPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinTickerRepository: CoinTickerRepository,
-        private val androidResourceManager: AndroidResourceManager
+    private val rxSchedulers: RxSchedulers,
+    private val coinTickerRepository: CoinTickerRepository,
+    private val androidResourceManager: AndroidResourceManager
 ) : BasePresenter<CoinTickerContract.View>(), CoinTickerContract.Presenter {
 
     /**
@@ -30,7 +30,6 @@ class CoinTickerPresenter(
         }
 
         currentView?.showOrHideLoadingIndicator(true)
-
 
         launch {
             try {

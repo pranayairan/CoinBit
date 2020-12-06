@@ -15,8 +15,8 @@ Created by Pranay Airan
  */
 
 class SettingsPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<SettingsContract.View>(), SettingsContract.Presenter {
 
     override fun refreshCoinList(defaultCurrency: String) {

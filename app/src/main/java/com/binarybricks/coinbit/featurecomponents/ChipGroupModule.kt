@@ -1,14 +1,14 @@
 package com.binarybricks.coinbit.featurecomponents
 
 import android.content.Context
-import com.google.android.material.chip.Chip
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.binarybricks.coinbit.R
-import com.binarybricks.coinbit.network.models.CoinPair
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
+import com.binarybricks.coinbit.network.models.CoinPair
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.chip_group_module.view.*
 import timber.log.Timber
 
@@ -51,8 +51,12 @@ class ChipGroupModule : Module() {
 
         chip.setOnClickListener {
             if (coinPair.symbol != null) {
-                context.startActivity(CoinDetailsActivity.buildLaunchIntent(context,
-                        coinPair.symbol))
+                context.startActivity(
+                    CoinDetailsActivity.buildLaunchIntent(
+                        context,
+                        coinPair.symbol
+                    )
+                )
             }
         }
         return chip

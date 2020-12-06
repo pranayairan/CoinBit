@@ -4,13 +4,13 @@ package com.binarybricks.coinbit.features.pairsearch
 Created by Pranay Airan 1/26/18.
  */
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.R
 
 class PairSearchAdapter(val searchList: ArrayList<String>, val coinSymbol: String) : RecyclerView.Adapter<PairSearchAdapter.ResultViewHolder>(), Filterable {
@@ -47,11 +47,11 @@ class PairSearchAdapter(val searchList: ArrayList<String>, val coinSymbol: Strin
                 val filteredList = ArrayList<String>(count)
 
                 (0 until count)
-                        .filter {
-                            // Filter on the name
-                            list[it].contains(filterString, true)
-                        }
-                        .mapTo(filteredList) { list[it] }
+                    .filter {
+                        // Filter on the name
+                        list[it].contains(filterString, true)
+                    }
+                    .mapTo(filteredList) { list[it] }
 
                 results.values = filteredList
                 results.count = filteredList.size

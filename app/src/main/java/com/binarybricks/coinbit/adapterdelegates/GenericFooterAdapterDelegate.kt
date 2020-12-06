@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.GenericFooterModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -33,8 +33,8 @@ class GenericFooterAdapterDelegate : AdapterDelegate<List<ModuleItem>>() {
         genericFooterViewHolder.showFooterText((items[position] as GenericFooterModule.FooterModuleData))
     }
 
-    class GenericFooterViewHolder(override val containerView: View, private val genericFooterModule: GenericFooterModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class GenericFooterViewHolder(override val containerView: View, private val genericFooterModule: GenericFooterModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showFooterText(footerModuleData: GenericFooterModule.FooterModuleData) {
             genericFooterModule.showFooterText(itemView, footerModuleData)
         }

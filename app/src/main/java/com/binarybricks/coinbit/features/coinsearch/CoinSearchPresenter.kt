@@ -12,24 +12,27 @@ Created by Pranay Airan
  */
 
 class CoinSearchPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinSearchContract.View>(),
-        CoinSearchContract.Presenter {
+    CoinSearchContract.Presenter {
 
     override fun loadAllCoins() {
         currentView?.showOrHideLoadingIndicator(true)
 
         coinRepo.getAllCoins()
-                ?.observeOn(rxSchedulers.ui())
-                ?.subscribe({
+            ?.observeOn(rxSchedulers.ui())
+            ?.subscribe(
+                {
                     Timber.d("All Coins Loaded")
                     currentView?.showOrHideLoadingIndicator(false)
                     currentView?.onCoinsLoaded(it)
-                }, {
+                },
+                {
                     Timber.e(it)
                     currentView?.onNetworkError(it.localizedMessage)
-                })?.let { compositeDisposable.add(it) }
+                }
+            )?.let { compositeDisposable.add(it) }
     }
 
     override fun updateCoinWatchedStatus(watched: Boolean, coinID: String, coinSymbol: String) {

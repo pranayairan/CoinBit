@@ -25,8 +25,8 @@ import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_BUY
 import com.binarybricks.coinbit.utils.dismissKeyboard
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import kotlinx.android.synthetic.main.activity_coin_transaction.*
@@ -127,8 +127,10 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
             val exchangeList = exchangeCoinMap?.get(coin?.symbol?.toUpperCase())
             if (exchangeList != null) {
 
-                startActivityForResult(ExchangeSearchActivity.buildLaunchIntent(this, getExchangeNameList(exchangeList), getString(R.string.change_exchange)),
-                        EXCHANGE_REQUEST)
+                startActivityForResult(
+                    ExchangeSearchActivity.buildLaunchIntent(this, getExchangeNameList(exchangeList), getString(R.string.change_exchange)),
+                    EXCHANGE_REQUEST
+                )
             }
         }
 
@@ -137,14 +139,18 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
 
             val exchangeList = exchangeCoinMap?.get(symbol?.toUpperCase())
             if (exchangeList != null && symbol != null && exchangeName.isNotEmpty()) {
-                startActivityForResult(PairSearchActivity.buildLaunchIntent(this, getTopPair(exchangeList), symbol),
-                        PAIR_REQUEST)
+                startActivityForResult(
+                    PairSearchActivity.buildLaunchIntent(this, getTopPair(exchangeList), symbol),
+                    PAIR_REQUEST
+                )
             }
         }
 
         containerDate.setOnClickListener {
-            val datePickerDialog = DatePickerDialog.newInstance(this, transactionDate.get(Calendar.YEAR), transactionDate.get(Calendar.MONTH),
-                    transactionDate.get(Calendar.DAY_OF_MONTH))
+            val datePickerDialog = DatePickerDialog.newInstance(
+                this, transactionDate.get(Calendar.YEAR), transactionDate.get(Calendar.MONTH),
+                transactionDate.get(Calendar.DAY_OF_MONTH)
+            )
 
             datePickerDialog.isThemeDark = true
             datePickerDialog.accentColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
@@ -235,9 +241,12 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
 
         coin?.let {
             if (pairName.isNotEmpty() && buyPrice > BigDecimal.ZERO && buyPriceInHomeCurrency > BigDecimal.ZERO &&
-                    etAmount.text.isNotEmpty() && cost > BigDecimal.ZERO) {
-                return CoinTransaction(transactionType, it.symbol, pairName, buyPrice, buyPriceInHomeCurrency, BigDecimal(etAmount.text.toString()),
-                        transactionDate.timeInMillis.toString(), cost.toPlainString(), exchangeName, BigDecimal.ZERO)
+                etAmount.text.isNotEmpty() && cost > BigDecimal.ZERO
+            ) {
+                return CoinTransaction(
+                    transactionType, it.symbol, pairName, buyPrice, buyPriceInHomeCurrency, BigDecimal(etAmount.text.toString()),
+                    transactionDate.timeInMillis.toString(), cost.toPlainString(), exchangeName, BigDecimal.ZERO
+                )
             }
         }
         return null
@@ -269,8 +278,10 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
         transactionDate.set(Calendar.MONTH, monthOfYear)
         transactionDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-        val timePickerDialog = TimePickerDialog.newInstance(this, transactionDate.get(Calendar.HOUR_OF_DAY), transactionDate.get(Calendar.MINUTE),
-                transactionDate.get(Calendar.SECOND), false)
+        val timePickerDialog = TimePickerDialog.newInstance(
+            this, transactionDate.get(Calendar.HOUR_OF_DAY), transactionDate.get(Calendar.MINUTE),
+            transactionDate.get(Calendar.SECOND), false
+        )
 
         timePickerDialog.accentColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         timePickerDialog.isThemeDark = true
@@ -309,8 +320,10 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
                     tvPairLabel.visibility = View.VISIBLE
 
                     if (coin != null) {
-                        tvPair.text = getString(R.string.coinPair,
-                                coin?.symbol, pairName.toUpperCase())
+                        tvPair.text = getString(
+                            R.string.coinPair,
+                            coin?.symbol, pairName.toUpperCase()
+                        )
 
                         getCoinPrice()
                     }
@@ -334,8 +347,10 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
             toCurrencies = "$toCurrencies,$defaultCurrency"
         }
 
-        coinTransactionPresenter.getPriceForPair(coin?.symbol ?: "",
-                toCurrencies, exchangeName, (transactionDate.timeInMillis / 1000).toInt().toString())
+        coinTransactionPresenter.getPriceForPair(
+            coin?.symbol ?: "",
+            toCurrencies, exchangeName, (transactionDate.timeInMillis / 1000).toInt().toString()
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

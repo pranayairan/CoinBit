@@ -10,8 +10,8 @@ import timber.log.Timber
 Created by Pranay Airan
  */
 
-class HistoricalChartPresenter(private val rxSchedulers: RxSchedulers, private val chartRepo: ChartRepository)
-    : BasePresenter<HistoricalChartContract.View>(), HistoricalChartContract.Presenter {
+class HistoricalChartPresenter(private val rxSchedulers: RxSchedulers, private val chartRepo: ChartRepository) :
+    BasePresenter<HistoricalChartContract.View>(), HistoricalChartContract.Presenter {
 
     /**
      * Load historical data for the coin to show the chart.

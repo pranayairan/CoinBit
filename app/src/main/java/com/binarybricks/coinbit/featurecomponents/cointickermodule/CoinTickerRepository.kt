@@ -14,8 +14,8 @@ import com.binarybricks.coinbit.utils.getCoinTickerFromJson
  */
 
 class CoinTickerRepository(
-        private val rxSchedulers: RxSchedulers,
-        private val coinBitDatabase: CoinBitDatabase?
+    private val rxSchedulers: RxSchedulers,
+    private val coinBitDatabase: CoinBitDatabase?
 ) {
 
     /**

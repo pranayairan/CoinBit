@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.CoinPositionCard
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -33,8 +33,8 @@ class CoinPositionAdapterDelegate(private val androidResourceManager: AndroidRes
         aboutCoinViewHolder.showAboutCoinText((items[position] as CoinPositionCard.CoinPositionCardModuleData))
     }
 
-    class CoinPositionCardViewHolder(override val containerView: View, private val coinPositionCard: CoinPositionCard)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class CoinPositionCardViewHolder(override val containerView: View, private val coinPositionCard: CoinPositionCard) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showAboutCoinText(coinPositionCardModuleData: CoinPositionCard.CoinPositionCardModuleData) {
             coinPositionCard.showNoOfCoinsView(coinPositionCardModuleData)
         }

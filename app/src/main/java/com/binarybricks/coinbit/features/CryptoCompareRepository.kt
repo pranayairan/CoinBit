@@ -25,8 +25,8 @@ Repository that interact with crypto api to get any info on coins.
  */
 
 class CryptoCompareRepository(
-        private val rxSchedulers: RxSchedulers,
-        private val coinBitDatabase: CoinBitDatabase?
+    private val rxSchedulers: RxSchedulers,
+    private val coinBitDatabase: CoinBitDatabase?
 ) {
 
     /**
@@ -211,7 +211,7 @@ class CryptoCompareRepository(
      */
     fun getRecentTransaction(symbol: String): Flowable<List<CoinTransaction>>? {
         return coinBitDatabase?.coinTransactionDao()?.getTransactionsForCoin(symbol.toUpperCase())
-                ?.subscribeOn(rxSchedulers.io())
+            ?.subscribeOn(rxSchedulers.io())
     }
 
     suspend fun insertCoinsInWatchList(watchedCoinList: List<WatchedCoin>): Unit? {
@@ -231,7 +231,6 @@ class CryptoCompareRepository(
 
         coinBitDatabase?.watchedCoinDao()?.addPurchaseQuantityForCoin(quantity, transaction.coinSymbol)
         return coinBitDatabase?.coinTransactionDao()?.insertTransaction(transaction)
-
     }
 
     /**

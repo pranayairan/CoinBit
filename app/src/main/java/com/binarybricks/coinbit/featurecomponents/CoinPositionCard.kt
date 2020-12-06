@@ -8,8 +8,8 @@ import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_BUY
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.coin_position_card_module.view.*
 import timber.log.Timber
 import java.math.BigDecimal
@@ -60,8 +60,10 @@ class CoinPositionCard(private val androidResourceManager: AndroidResourceManage
 
         if (totalReturnAmount != null && totalReturnPercentage != null) {
 
-            inflatedView.tvTotalReturnValue.text = androidResourceManager.getString(R.string.amountWithChangePercentage,
-                    formatter.formatAmount(totalReturnAmount.toPlainString(), currency), totalReturnPercentage)
+            inflatedView.tvTotalReturnValue.text = androidResourceManager.getString(
+                R.string.amountWithChangePercentage,
+                formatter.formatAmount(totalReturnAmount.toPlainString(), currency), totalReturnPercentage
+            )
 
             if (totalReturnPercentage < BigDecimal.ZERO) {
                 inflatedView.tvTotalReturnValue.setTextColor(androidResourceManager.getColor(R.color.colorLoss))

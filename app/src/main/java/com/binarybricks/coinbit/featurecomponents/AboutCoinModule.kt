@@ -40,8 +40,11 @@ class AboutCoinModule : Module() {
             if (twt.isNotEmpty()) {
                 inflatedView.tvTwitterValue.text = inflatedView.context.getString(R.string.twitterValue, twt)
                 inflatedView.tvTwitterValue.setOnClickListener {
-                    openCustomTab(inflatedView.context.getString(R.string.twitterUrl, twt)
-                            ?: "", inflatedView.context)
+                    openCustomTab(
+                        inflatedView.context.getString(R.string.twitterUrl, twt)
+                            ?: "",
+                        inflatedView.context
+                    )
                 }
             } else {
                 inflatedView.tvTwitterValue.text = inflatedView.context.getString(R.string.na)

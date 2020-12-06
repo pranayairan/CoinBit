@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.CoinInfoModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -32,8 +32,8 @@ class CoinInfoAdapterDelegate : AdapterDelegate<List<ModuleItem>>() {
         coinInfoViewHolder.showCoinInfo((items[position] as CoinInfoModule.CoinInfoModuleData))
     }
 
-    class CoinInfoViewHolder(override val containerView: View, private val coinInfoModule: CoinInfoModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class CoinInfoViewHolder(override val containerView: View, private val coinInfoModule: CoinInfoModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showCoinInfo(coinInfoModuleData: CoinInfoModule.CoinInfoModuleData) {
             coinInfoModule.showCoinInfo(itemView, coinInfoModuleData)
         }

@@ -1,6 +1,6 @@
+import com.binarybricks.coinbit.features.BaseView
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
-import com.binarybricks.coinbit.features.BaseView
 
 /**
 Created by Pranay Airan

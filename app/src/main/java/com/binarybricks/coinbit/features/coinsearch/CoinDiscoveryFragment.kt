@@ -2,22 +2,22 @@ package com.binarybricks.coinbit.features.coinsearch
 
 import CoinDiscoveryContract
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
-import com.binarybricks.coinbit.featurecomponents.*
 import com.binarybricks.coinbit.data.PreferenceManager
+import com.binarybricks.coinbit.featurecomponents.*
+import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.network.models.CoinPair
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareNews
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
@@ -100,8 +100,10 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         inflatedView.rvDashboard.layoutManager = LinearLayoutManager(context)
 
-        coinDiscoveryAdapter = CoinDiscoveryAdapter(PreferenceManager.getDefaultCurrency(context), androidResourceManager,
-                coinDiscoveryList)
+        coinDiscoveryAdapter = CoinDiscoveryAdapter(
+            PreferenceManager.getDefaultCurrency(context), androidResourceManager,
+            coinDiscoveryList
+        )
 
         inflatedView.rvDashboard.adapter = coinDiscoveryAdapter
     }
@@ -110,9 +112,15 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         val topCardList = mutableListOf<TopCardModule.TopCardsModuleData>()
         topCoins.forEach {
-            topCardList.add(TopCardModule.TopCardsModuleData("${it.fromSymbol}/${it.toSymbol}", it.price
-                    ?: "0", it.changePercentage24Hour ?: "0", it.marketCap ?: "0",
-                    it.fromSymbol ?: ""))
+            topCardList.add(
+                TopCardModule.TopCardsModuleData(
+                    "${it.fromSymbol}/${it.toSymbol}",
+                    it.price
+                        ?: "0",
+                    it.changePercentage24Hour ?: "0", it.marketCap ?: "0",
+                    it.fromSymbol ?: ""
+                )
+            )
         }
 
         coinDiscoveryAdapter?.let {

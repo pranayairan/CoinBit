@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CoinNewsModule
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
@@ -16,10 +16,10 @@ import kotlinx.android.extensions.LayoutContainer
  */
 
 class CoinNewsAdapterDelegate(
-        private val coinSymbol: String,
-        private val coinName: String,
-        private val rxSchedulers: RxSchedulers,
-        private val androidResourceManager: AndroidResourceManager
+    private val coinSymbol: String,
+    private val coinName: String,
+    private val rxSchedulers: RxSchedulers,
+    private val androidResourceManager: AndroidResourceManager
 ) : AdapterDelegate<List<ModuleItem>>() {
 
     private val coinNewsModule by lazy {
@@ -45,8 +45,8 @@ class CoinNewsAdapterDelegate(
         coinNewsModule.cleanUp()
     }
 
-    class CoinNewsViewHolder(override val containerView: View, private val coinNewsModule: CoinNewsModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class CoinNewsViewHolder(override val containerView: View, private val coinNewsModule: CoinNewsModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun loadCoinNewsData() {
             coinNewsModule.loadNewsData(itemView)
         }

@@ -1,11 +1,11 @@
 package com.binarybricks.coinbit.features.launch
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.binarybricks.coinbit.R
 import kotlinx.android.synthetic.main.intro_fragment_layout.*
@@ -42,8 +42,8 @@ class IntroFragment : Fragment() {
 
         arguments?.let {
             animationRes = it.getInt(ANIMATION)
-            headerTitle = it.getString(TITLE)?:""
-            headerSubtitle = it.getString(SUB_TITLE)?:""
+            headerTitle = it.getString(TITLE) ?: ""
+            headerSubtitle = it.getString(SUB_TITLE) ?: ""
             showbutton = it.getBoolean(SHOW_BUTTON)
             page = it.getInt(PAGE)
         }

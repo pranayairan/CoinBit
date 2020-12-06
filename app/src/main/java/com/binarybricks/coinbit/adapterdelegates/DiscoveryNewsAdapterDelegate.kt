@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.DiscoveryNewsModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -34,8 +34,8 @@ class DiscoveryNewsAdapterDelegate(private val androidResourceManager: AndroidRe
         discoveryNewsHolder.showNewsOnDiscoverFeed((items[position] as DiscoveryNewsModule.DiscoveryNewsModuleData))
     }
 
-    class DiscoveryNewsHolder(override val containerView: View, private val discoveryNewsModule: DiscoveryNewsModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class DiscoveryNewsHolder(override val containerView: View, private val discoveryNewsModule: DiscoveryNewsModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showNewsOnDiscoverFeed(discoveryNewsModuleData: DiscoveryNewsModule.DiscoveryNewsModuleData) {
             discoveryNewsModule.showNewsOnDiscoverFeed(containerView, discoveryNewsModuleData)
         }

@@ -1,9 +1,9 @@
 package com.binarybricks.coinbit.adapterdelegates
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.featurecomponents.CoinTransactionHistoryModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -34,8 +34,8 @@ class CoinTransactionAdapterDelegate(private val androidResourceManager: Android
         coinTransactionViewHolder.showRecentTransactions((items[position] as CoinTransactionHistoryModule.CoinTransactionHistoryModuleData))
     }
 
-    class CoinTransactionViewHolder(override val containerView: View, private val coinTransactionHistoryModule: CoinTransactionHistoryModule)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class CoinTransactionViewHolder(override val containerView: View, private val coinTransactionHistoryModule: CoinTransactionHistoryModule) :
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun showRecentTransactions(coinTransactionHistoryModuleData: CoinTransactionHistoryModule.CoinTransactionHistoryModuleData) {
             coinTransactionHistoryModule.showRecentTransactions(itemView, coinTransactionHistoryModuleData)
         }

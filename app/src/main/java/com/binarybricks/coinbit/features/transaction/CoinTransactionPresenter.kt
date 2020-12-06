@@ -13,8 +13,8 @@ Created by Pranay Airan
  */
 
 class CoinTransactionPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinTransactionContract.View>(), CoinTransactionContract.Presenter {
 
     override fun getAllSupportedExchanges() {

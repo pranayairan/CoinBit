@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.featurecomponents.Module
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
+import com.binarybricks.coinbit.features.newslist.NewsListActivity
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
-import com.binarybricks.coinbit.features.newslist.NewsListActivity
 import com.binarybricks.coinbit.utils.Formaters
-import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.openCustomTab
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.android.synthetic.main.coin_news_module.view.*
 
 /**

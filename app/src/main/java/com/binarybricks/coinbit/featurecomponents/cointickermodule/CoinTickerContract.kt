@@ -1,5 +1,5 @@
-import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.features.BaseView
+import com.binarybricks.coinbit.network.models.CryptoTicker
 
 /**
  * Created by Pranay Airan

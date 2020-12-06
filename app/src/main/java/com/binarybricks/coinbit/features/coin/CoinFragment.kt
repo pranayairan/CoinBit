@@ -3,7 +3,6 @@ package com.binarybricks.coinbit.features.coin
 import CoinContract
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.CoinBitApplication
@@ -184,8 +183,13 @@ class CoinFragment : Fragment(), CoinContract.View {
         if (coinPrice != null) {
             coinDetailList.add(CoinStatsticsModule.CoinStatisticsModuleData(coinPrice))
 
-            coinDetailList.add(CoinInfoModule.CoinInfoModuleData(coinPrice.market
-                    ?: defaultExchange, watchedCoin.coin.algorithm, watchedCoin.coin.proofType))
+            coinDetailList.add(
+                CoinInfoModule.CoinInfoModuleData(
+                    coinPrice.market
+                        ?: defaultExchange,
+                    watchedCoin.coin.algorithm, watchedCoin.coin.proofType
+                )
+            )
         }
 
         coinDetailList.add(CoinTickerModule.CoinTickerModuleData())
@@ -194,8 +198,10 @@ class CoinFragment : Fragment(), CoinContract.View {
 
         coinDetailList.add(AboutCoinModule.AboutCoinModuleData(watchedCoin.coin))
 
-        coinAdapter = CoinAdapter(watchedCoin.coin.symbol, toCurrency, watchedCoin.coin.coinName,
-                coinDetailList, CoinBitApplication.database, rxSchedulers, androidResourceManager)
+        coinAdapter = CoinAdapter(
+            watchedCoin.coin.symbol, toCurrency, watchedCoin.coin.coinName,
+            coinDetailList, CoinBitApplication.database, rxSchedulers, androidResourceManager
+        )
 
         rvCoinDetails?.adapter = coinAdapter
         coinAdapter?.notifyDataSetChanged()

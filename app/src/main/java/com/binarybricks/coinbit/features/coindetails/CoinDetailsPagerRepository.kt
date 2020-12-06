@@ -10,8 +10,8 @@ Created by Pranay Airan
  */
 
 class CoinDetailsPagerRepository(
-        private val rxSchedulers: RxSchedulers,
-        private val coinBitDatabase: CoinBitDatabase?
+    private val rxSchedulers: RxSchedulers,
+    private val coinBitDatabase: CoinBitDatabase?
 ) {
 
     /**

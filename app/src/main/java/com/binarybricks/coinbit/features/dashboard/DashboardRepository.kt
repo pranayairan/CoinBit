@@ -15,8 +15,8 @@ Created by Pranay Airan
  */
 
 class DashboardRepository(
-        private val rxSchedulers: RxSchedulers,
-        private val coinBitDatabase: CoinBitDatabase?
+    private val rxSchedulers: RxSchedulers,
+    private val coinBitDatabase: CoinBitDatabase?
 ) {
 
     /**
@@ -25,7 +25,7 @@ class DashboardRepository(
     fun loadWatchedCoins(): Flowable<List<WatchedCoin>>? {
         coinBitDatabase?.let {
             return it.watchedCoinDao().getAllWatchedCoins()
-                    .subscribeOn(rxSchedulers.io())
+                .subscribeOn(rxSchedulers.io())
         }
         return null
     }
@@ -37,7 +37,7 @@ class DashboardRepository(
 
         coinBitDatabase?.let {
             return it.coinTransactionDao().getAllCoinTransaction()
-                    .subscribeOn(rxSchedulers.io())
+                .subscribeOn(rxSchedulers.io())
         }
         return null
     }

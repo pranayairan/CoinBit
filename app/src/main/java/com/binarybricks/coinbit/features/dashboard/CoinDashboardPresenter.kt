@@ -17,11 +17,11 @@ Created by Pranay Airan
  */
 
 class CoinDashboardPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val dashboardRepository: DashboardRepository,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val dashboardRepository: DashboardRepository,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<CoinDashboardContract.View>(),
-        CoinDashboardContract.Presenter {
+    CoinDashboardContract.Presenter {
 
     override fun loadWatchedCoinsAndTransactions() {
         val watchedCoins = dashboardRepository.loadWatchedCoins()
@@ -29,15 +29,22 @@ class CoinDashboardPresenter(
 
         if (watchedCoins != null && transactions != null) {
 
-            compositeDisposable.add(watchedCoins.zipWith(transactions, BiFunction<List<WatchedCoin>, List<CoinTransaction>,
-                    Pair<List<WatchedCoin>, List<CoinTransaction>>> { watchedCoinList, transactionList ->
-                Pair(watchedCoinList, transactionList)
-            }).observeOn(rxSchedulers.ui())
-                    .subscribe({
-                        currentView?.onWatchedCoinsAndTransactionsLoaded(it.first, it.second)
-                    }, {
-                        Timber.e(it.localizedMessage)
-                    })
+            compositeDisposable.add(
+                watchedCoins.zipWith(
+                    transactions,
+                    BiFunction<List<WatchedCoin>, List<CoinTransaction>,
+                        Pair<List<WatchedCoin>, List<CoinTransaction>>> { watchedCoinList, transactionList ->
+                        Pair(watchedCoinList, transactionList)
+                    }
+                ).observeOn(rxSchedulers.ui())
+                    .subscribe(
+                        {
+                            currentView?.onWatchedCoinsAndTransactionsLoaded(it.first, it.second)
+                        },
+                        {
+                            Timber.e(it.localizedMessage)
+                        }
+                    )
             )
         }
     }

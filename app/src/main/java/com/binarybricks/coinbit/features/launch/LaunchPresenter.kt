@@ -18,8 +18,8 @@ Created by Pranay Airan
  */
 
 class LaunchPresenter(
-        private val rxSchedulers: RxSchedulers,
-        private val coinRepo: CryptoCompareRepository
+    private val rxSchedulers: RxSchedulers,
+    private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<LaunchContract.View>(), LaunchContract.Presenter {
 
     private var coinList: ArrayList<CCCoin>? = null
@@ -71,7 +71,6 @@ class LaunchPresenter(
 
                 Timber.d("Loaded all the coins and inserted in DB")
                 currentView?.onAllSupportedCoinsLoaded()
-
             } catch (ex: Exception) {
                 Timber.e(ex.localizedMessage)
             }

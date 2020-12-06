@@ -1,10 +1,10 @@
 package com.binarybricks.coinbit.features.coin
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.binarybricks.coinbit.adapterdelegates.*
-import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegatesManager
@@ -16,13 +16,13 @@ Created by Pranay Airan 1/18/18.
  */
 
 class CoinAdapter(
-        fromCurrency: String,
-        toCurrency: String,
-        coinName: String,
-        var coinDetailList: List<ModuleItem>,
-        coinBitDatabase: CoinBitDatabase?,
-        rxSchedulers: RxSchedulers,
-        androidResourceManager: AndroidResourceManager
+    fromCurrency: String,
+    toCurrency: String,
+    coinName: String,
+    var coinDetailList: List<ModuleItem>,
+    coinBitDatabase: CoinBitDatabase?,
+    rxSchedulers: RxSchedulers,
+    androidResourceManager: AndroidResourceManager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {

@@ -29,10 +29,10 @@ import java.util.*
  * A compound layout to see coin ticker
  */
 class CoinTickerModule(
-        private val coinBitDatabase: CoinBitDatabase?,
-        private val rxSchedulers: RxSchedulers,
-        private val androidResourceManager: AndroidResourceManager,
-        private val coinName: String
+    private val coinBitDatabase: CoinBitDatabase?,
+    private val rxSchedulers: RxSchedulers,
+    private val androidResourceManager: AndroidResourceManager,
+    private val coinName: String
 ) : Module(), CoinTickerContract.View {
 
     private lateinit var inflatedView: View
