@@ -34,9 +34,8 @@ class DiscoveryNewsModule(private val androidResourceManager: AndroidResourceMan
             inflatedView.tvTimePeriod.text = Formaters(androidResourceManager).formatTransactionDate(discoveryNewsModuleData.coinNews.published_on)
         }
 
-        inflatedView.ivCoin.load(discoveryNewsModuleData.coinNews.imageurl) {
+        inflatedView.ivNewsCover.load(discoveryNewsModuleData.coinNews.imageurl) {
             crossfade(true)
-            error(R.mipmap.ic_launcher_round)
             transformations(RoundedCornersTransformation(15f))
         }
 
