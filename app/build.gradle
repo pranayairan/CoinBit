@@ -135,6 +135,10 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics:${versions.firebaseAnalytics}"
     implementation "com.google.firebase:firebase-perf:${versions.firebasePerf}"
 
+    // epoxy
+    implementation 'com.airbnb.android:epoxy:4.1.0'
+    kapt 'com.airbnb.android:epoxy-processor:4.1.0'
+
     // test
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
 }

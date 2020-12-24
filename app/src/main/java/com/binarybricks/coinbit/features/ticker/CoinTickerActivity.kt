@@ -7,14 +7,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
+import com.binarybricks.coinbit.epoxymodels.coinTickerView
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerPresenter
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerRepository
 import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import com.binarybricks.coinbit.utils.Formaters
+import com.binarybricks.coinbit.utils.getUrlWithoutParameters
 import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.google.android.material.snackbar.Snackbar
@@ -51,8 +53,16 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
         AndroidResourceManagerImpl(this)
     }
 
+    private val formatter: Formaters by lazy {
+        Formaters(androidResourceManager)
+    }
+
     private val coinTickerPresenter: CoinTickerPresenter by lazy {
         CoinTickerPresenter(rxSchedulers, coinTickerRepository, androidResourceManager)
+    }
+
+    private val currency: Currency by lazy {
+        Currency.getInstance(PreferenceManager.getDefaultCurrency(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,8 +76,6 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
         val coinName = intent.getStringExtra(COIN_NAME)?.trim()
 
         supportActionBar?.title = getString(R.string.tickerActivityTitle, coinName)
-
-        rvCoinTickerList.layoutManager = LinearLayoutManager(this)
 
         coinTickerPresenter.attachView(this)
 
@@ -89,12 +97,21 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
     }
 
     override fun onPriceTickersLoaded(tickerData: List<CryptoTicker>) {
-        val coinTickerAdapter = CoinTickerAdapter(
-            tickerData,
-            Currency.getInstance(PreferenceManager.getDefaultCurrency(this)), androidResourceManager
-        )
-
-        rvCoinTickerList.adapter = coinTickerAdapter
+        rvCoinTickerList.withModels {
+            tickerData.forEachIndexed { index, cryptoTicker ->
+                coinTickerView {
+                    id(index)
+                    ticker(cryptoTicker)
+                    tickerPrice(formatter.formatAmount(cryptoTicker.convertedVolumeUSD, currency, true))
+                    tickerVolume(formatter.formatAmount(cryptoTicker.last, currency, true))
+                    itemClickListener { _ ->
+                        if (cryptoTicker.exchangeUrl.isNotBlank()) {
+                            openCustomTab(getUrlWithoutParameters(cryptoTicker.exchangeUrl), this@CoinTickerActivity)
+                        }
+                    }
+                }
+            }
+        }
 
         tvFooter.setOnClickListener {
             openCustomTab(getString(R.string.coin_gecko_url), this)

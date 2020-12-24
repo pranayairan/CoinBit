@@ -229,7 +229,7 @@ fun getCoinTickerFromJson(jsonObject: JsonObject, exchanges: List<Exchange>?): L
                         convertedVolumeUSD = ticker.getAsJsonObject("converted_volume").getAsJsonPrimitive("usd").asString,
                         convertedVolumeBTC = ticker.getAsJsonObject("converted_volume").getAsJsonPrimitive("btc").asString,
                         imageUrl = imageUrl,
-                        exchangeUrl = exchangeUrl
+                        exchangeUrl = if (ticker.get("trade_url").toString() != "null") ticker.getAsJsonPrimitive("trade_url").asString else ""
                     )
                 )
             } else {

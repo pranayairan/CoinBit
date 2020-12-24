@@ -1,4 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clMarket"
@@ -7,13 +7,14 @@
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:padding="@dimen/generic16dp">
+    android:padding="@dimen/generic16dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
-        android:contentDescription="@string/cdExchange"
         android:id="@+id/ivExchange"
         android:layout_width="@dimen/generic32dp"
         android:layout_height="@dimen/generic32dp"
+        android:contentDescription="@string/cdExchange"
         app:layout_constraintBottom_toBottomOf="@id/tvExchange"
         app:layout_constraintTop_toTopOf="@id/tvToPrice"
         tools:src="@mipmap/ic_launcher" />
@@ -70,4 +71,4 @@
         app:layout_constraintTop_toBottomOf="@id/tvPrice"
         tools:text="$2.4 million" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

@@ -75,6 +75,7 @@ class HomeActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerLayout, coinDashboardFragment, CoinDashboardFragment.TAG)
+            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             .addToBackStack(FRAGMENT_HOME)
             .commit()
     }
@@ -86,6 +87,7 @@ class HomeActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerLayout, coinDiscoveryFragment, CoinDiscoveryFragment.TAG)
+            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             .addToBackStack(FRAGMENT_OTHER)
             .commit()
     }
@@ -97,6 +99,7 @@ class HomeActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.containerLayout, settingsFragment, SettingsFragment.TAG)
+            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             .addToBackStack(FRAGMENT_OTHER)
             .commit()
     }
