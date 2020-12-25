@@ -12,14 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.epoxymodels.exchangePairItemView
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_exchange_pair_search.*
 
 class PairSearchActivity : AppCompatActivity() {
-
-    private var pairSearchAdapter: PairSearchAdapter? = null
 
     companion object {
         private const val SEARCH_LIST = "search_list"
@@ -53,18 +51,21 @@ class PairSearchActivity : AppCompatActivity() {
 
         supportActionBar?.title = getString(R.string.change_trading_pair)
 
-        rvSearchList.layoutManager = LinearLayoutManager(this)
         val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         ContextCompat.getDrawable(this, R.drawable.divider_thin_horizontal)?.let { dividerItemDecoration.setDrawable(it) }
 
         rvSearchList.addItemDecoration(dividerItemDecoration)
-        pairSearchAdapter = PairSearchAdapter(searchList, intent.getStringExtra(COIN_SYMBOL) ?: "")
 
-        rvSearchList.adapter = pairSearchAdapter
+        setPairList(searchList)
 
         etSearchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(filterText: Editable?) {
-                pairSearchAdapter?.filter?.filter(filterText.toString())
+                val filterString = filterText.toString()
+                setPairList(
+                    searchList.filter {
+                        it.contains(filterString, true)
+                    }
+                )
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -74,15 +75,23 @@ class PairSearchActivity : AppCompatActivity() {
             }
         })
 
-        pairSearchAdapter?.setOnSearchItemClickListener(object : PairSearchAdapter.OnSearchItemClickListener {
-            override fun onSearchItemClick(view: View, position: Int, text: String) {
-                intent.putExtra(SEARCH_RESULT, text)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
-            }
-        })
-
         FirebaseCrashlytics.getInstance().log("PairSearchActivity")
+    }
+
+    private fun setPairList(searchList: List<String>) {
+        rvSearchList.withModels {
+            searchList.forEachIndexed { index, s ->
+                exchangePairItemView {
+                    id(s + index)
+                    exchangeName(s)
+                    itemClickListener { _ ->
+                        intent.putExtra(SEARCH_RESULT, s)
+                        setResult(Activity.RESULT_OK, intent)
+                        finish()
+                    }
+                }
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
