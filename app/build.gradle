@@ -136,15 +136,14 @@ dependencies {
     implementation "com.google.firebase:firebase-perf:${versions.firebasePerf}"
 
     // epoxy
-    implementation 'com.airbnb.android:epoxy:4.1.0'
-    kapt 'com.airbnb.android:epoxy-processor:4.1.0'
+    implementation 'com.airbnb.android:epoxy:4.2.0'
+    kapt 'com.airbnb.android:epoxy-processor:4.2.0'
 
     // test
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
 }
 
 kotlinter {
-    ignoreFailures = true
     indentSize = 4
     reporters = ['checkstyle', 'plain']
     experimentalRules = false

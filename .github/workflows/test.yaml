@@ -1,0 +1,41 @@
+name: Testing Workflow
+
+# TODO add option to upload to firebase, add option to upload artifact, push to google play when merging to master
+# Step 1: Choose the branch or branches you want to run this workflow
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  testing:
+    name: Lint Check and Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      # Run ktLint to ensure formatting.
+      - name: Running ktLint
+        run: ./gradlew lintKotlin
+
+      # Check the code with Android linter
+      - name: Run Android Linter
+        run: ./gradlew lintDebug
+
+      # Running unit test
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+      # Assemble debug apk to send to firebase test lab
+      - name: Assemble Debug APK
+        run: ./gradlew assembleDebug
