@@ -7,18 +7,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.epoxymodels.newsItemView
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsPresenter
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsRepository
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
+import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.android.synthetic.main.activity_coin_ticker_list.*
 import kotlinx.android.synthetic.main.activity_news_list.*
+import kotlinx.android.synthetic.main.activity_news_list.pbLoading
+import kotlinx.android.synthetic.main.activity_news_list.tvFooter
 
 /**
  * Created by Pragya Agrawal
@@ -54,6 +58,10 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
         AndroidResourceManagerImpl(this)
     }
 
+    private val formatter: Formaters by lazy {
+        Formaters(androidResourceManager)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_list)
@@ -66,8 +74,6 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
         val coinSymbol = intent.getStringExtra(COIN_SYMBOL)?.trim()
 
         supportActionBar?.title = getString(R.string.newsActivityTitle, coinFullName)
-
-        rvNewsList.layoutManager = LinearLayoutManager(this)
 
         cryptoNewsPresenter.attachView(this)
 
@@ -89,9 +95,18 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
     }
 
     override fun onNewsLoaded(cryptoPanicNews: CryptoPanicNews) {
-        val newsListAdapter = NewsListAdapter(cryptoPanicNews, androidResourceManager)
-        rvNewsList.adapter = newsListAdapter
-
+        rvNewsList.withModels {
+            cryptoPanicNews.results?.forEachIndexed { index, result ->
+                newsItemView {
+                    id(index)
+                    title(result.title)
+                    newsDate(formatter.parseAndFormatIsoDate(result.created_at, true))
+                    itemClickListener { _ ->
+                        openCustomTab(result.url, this@NewsListActivity)
+                    }
+                }
+            }
+        }
         tvFooter.setOnClickListener {
             openCustomTab(getString(R.string.crypto_panic_url), this)
         }
