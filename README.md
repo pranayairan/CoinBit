@@ -1,3 +1,5 @@
+![Testing Workflow](https://github.com/pranayairan/CoinBit/workflows/Testing%20Workflow/badge.svg)
+
 # CoinBit
 CoinBit is a beautiful CryptoCurrency app, completely open sourced and 100% in kotlin. It supports following features
 
