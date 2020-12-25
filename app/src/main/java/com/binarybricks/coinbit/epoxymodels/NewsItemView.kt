@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import coil.transform.CircleCropTransformation
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelView
 import com.airbnb.epoxy.TextProp
@@ -21,10 +20,6 @@ class NewsItemView @JvmOverloads constructor(
     private val title: TextView
     private val date: TextView
     private val clArticle: View
-
-    private val cropCircleTransformation by lazy {
-        CircleCropTransformation()
-    }
 
     init {
         View.inflate(context, R.layout.news_item, this)
