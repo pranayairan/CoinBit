@@ -54,15 +54,15 @@ class CoinAdapter(
 
     init {
         delegates.addDelegate(HISTORICAL_CHART, historicalChartAdapterDelegate)
-        delegates.addDelegate(ADD_COIN, AddCoinAdapterDelegate())
-        delegates.addDelegate(COIN_POSITION, CoinPositionAdapterDelegate(androidResourceManager))
-        delegates.addDelegate(COIN_INFO, CoinInfoAdapterDelegate())
+        // delegates.addDelegate(ADD_COIN, AddCoinAdapterDelegate())
+        // delegates.addDelegate(COIN_POSITION, CoinPositionAdapterDelegate(androidResourceManager))
+        // delegates.addDelegate(COIN_INFO, CoinInfoAdapterDelegate())
         delegates.addDelegate(COIN_NEWS, coinNewsAdapterDelegate)
         delegates.addDelegate(COIN_TICKER, coinTickerAdapterDelegate)
-        delegates.addDelegate(COIN_STATS, CoinStatsAdapterDelegate(androidResourceManager))
-        delegates.addDelegate(ABOUT_COIN, AboutCoinAdapterDelegate())
-        delegates.addDelegate(COIN_TRANSACTION, CoinTransactionAdapterDelegate(androidResourceManager))
-        delegates.addDelegate(FOOTER, GenericFooterAdapterDelegate())
+        // delegates.addDelegate(COIN_STATS, CoinStatsAdapterDelegate(androidResourceManager))
+        // delegates.addDelegate(ABOUT_COIN, AboutCoinAdapterDelegate())
+        // delegates.addDelegate(COIN_TRANSACTION, CoinTransactionAdapterDelegate(androidResourceManager))
+        // delegates.addDelegate(FOOTER, GenericFooterAdapterDelegate())
     }
 
     override fun getItemViewType(position: Int): Int {
