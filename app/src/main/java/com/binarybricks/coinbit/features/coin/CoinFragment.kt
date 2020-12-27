@@ -1,6 +1,8 @@
 package com.binarybricks.coinbit.features.coin
 
 import CoinContract
+import CoinTickerContract
+import CryptoNewsContract
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -12,10 +14,18 @@ import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.epoxymodels.*
 import com.binarybricks.coinbit.featurecomponents.GenericFooterModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
+import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerPresenter
+import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerRepository
+import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsPresenter
+import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsRepository
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity
+import com.binarybricks.coinbit.features.newslist.NewsListActivity
+import com.binarybricks.coinbit.features.ticker.CoinTickerActivity
 import com.binarybricks.coinbit.network.models.CoinPrice
+import com.binarybricks.coinbit.network.models.CryptoPanicNews
+import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.defaultExchange
 import com.binarybricks.coinbit.utils.dpToPx
@@ -27,7 +37,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_coin_details.*
 import java.math.BigDecimal
 
-class CoinFragment : Fragment(), CoinContract.View {
+class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, CoinTickerContract.View {
 
     private val coinDetailList: MutableList<ModuleItem> = mutableListOf()
     private var coinPrice: CoinPrice? = null
@@ -46,6 +56,20 @@ class CoinFragment : Fragment(), CoinContract.View {
 
     private val coinPresenter: CoinPresenter by lazy {
         CoinPresenter(rxSchedulers, coinRepo)
+    }
+
+    private val cryptoNewsRepository by lazy {
+        CryptoNewsRepository(rxSchedulers)
+    }
+    private val cryptoNewsPresenter: CryptoNewsPresenter by lazy {
+        CryptoNewsPresenter(rxSchedulers, cryptoNewsRepository)
+    }
+
+    private val coinTickerRepository by lazy {
+        CoinTickerRepository(rxSchedulers, CoinBitApplication.database)
+    }
+    private val coinTickerPresenter: CoinTickerPresenter by lazy {
+        CoinTickerPresenter(rxSchedulers, coinTickerRepository, androidResourceManager)
     }
 
     val androidResourceManager: AndroidResourceManager by lazy {
@@ -83,8 +107,12 @@ class CoinFragment : Fragment(), CoinContract.View {
         watchedCoin?.let {
 
             coinPresenter.attachView(this)
+            cryptoNewsPresenter.attachView(this)
+            coinTickerPresenter.attachView(this)
 
             lifecycle.addObserver(coinPresenter)
+            lifecycle.addObserver(cryptoNewsPresenter)
+            lifecycle.addObserver(coinTickerPresenter)
 
             val toolBarDefaultElevation = dpToPx(context, 12) // default elevation of toolbar
 
@@ -165,6 +193,14 @@ class CoinFragment : Fragment(), CoinContract.View {
         Snackbar.make(rvCoinDetails, statusText, Snackbar.LENGTH_LONG).show()
     }
 
+    override fun showOrHideLoadingIndicator(showLoading: Boolean) {
+        // do nothing
+    }
+
+    override fun showOrHideLoadingIndicatorForTicker(showLoading: Boolean) {
+        // do nothing
+    }
+
     override fun onNetworkError(errorMessage: String) {
         Snackbar.make(rvCoinDetails, errorMessage, Snackbar.LENGTH_LONG).show()
     }
@@ -196,6 +232,8 @@ class CoinFragment : Fragment(), CoinContract.View {
 
         coinDetailList.add(CoinAboutItemView.AboutCoinModuleData(watchedCoin.coin))
 
+        coinTickerPresenter.getCryptoTickers(watchedCoin.coin.coinName.toLowerCase())
+        cryptoNewsPresenter.getCryptoNews(watchedCoin.coin.symbol)
         coinPresenter.loadRecentTransaction(watchedCoin.coin.symbol)
 
         coinDetailList.add(GenericFooterModule.FooterModuleData())
@@ -225,6 +263,24 @@ class CoinFragment : Fragment(), CoinContract.View {
                         id("coinStats")
                         coinPrice(moduleItem)
                     }
+                    is CoinTickerItemView.CoinTickerModuleData -> coinTickerItemView {
+                        id("coinTickerItem")
+                        coinTickerData(moduleItem)
+                        moreClickListener { _ ->
+                            watchedCoin?.coin?.let {
+                                startActivity(CoinTickerActivity.buildLaunchIntent(requireContext(), it.coinName))
+                            }
+                        }
+                    }
+                    is CoinNewsItemView.CoinNewsItemModuleData -> coinNewsItemView {
+                        id("coinNewsItem")
+                        coinNews(moduleItem)
+                        moreClickListener { _ ->
+                            watchedCoin?.coin?.let {
+                                startActivity(NewsListActivity.buildLaunchIntent(requireContext(), it.coinName, it.symbol))
+                            }
+                        }
+                    }
                     is CoinAboutItemView.AboutCoinModuleData -> coinAboutItemView {
                         id("aboutCoin")
                         coin(moduleItem)
@@ -240,6 +296,35 @@ class CoinFragment : Fragment(), CoinContract.View {
                 }
             }
         }
+    }
+
+    override fun onNewsLoaded(cryptoPanicNews: CryptoPanicNews) {
+        val matchingIndex = coinDetailList.indexOfFirst { moduleItem ->
+            moduleItem is CoinAboutItemView.AboutCoinModuleData
+        }
+
+        if (matchingIndex > 0) {
+            coinDetailList.add(matchingIndex, CoinNewsItemView.CoinNewsItemModuleData(cryptoPanicNews))
+        } else {
+            coinDetailList.add(CoinNewsItemView.CoinNewsItemModuleData(cryptoPanicNews))
+        }
+
+        showCoinDataInView(coinDetailList)
+    }
+
+    override fun onPriceTickersLoaded(tickerData: List<CryptoTicker>) {
+
+        val matchingIndex = coinDetailList.indexOfFirst { moduleItem ->
+            moduleItem is CoinInfoItemView.CoinInfoModuleData
+        }
+
+        if (matchingIndex > 0) {
+            coinDetailList.add(matchingIndex, CoinTickerItemView.CoinTickerModuleData(tickerData))
+        } else {
+            coinDetailList.add(CoinTickerItemView.CoinTickerModuleData(tickerData))
+        }
+
+        showCoinDataInView(coinDetailList)
     }
 
     override fun onRecentTransactionLoaded(coinTransactionList: List<CoinTransaction>) {

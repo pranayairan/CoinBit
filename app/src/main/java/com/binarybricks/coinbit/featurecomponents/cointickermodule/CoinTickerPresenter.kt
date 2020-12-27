@@ -29,7 +29,7 @@ class CoinTickerPresenter(
             updatedCoinName = "ripple"
         }
 
-        currentView?.showOrHideLoadingIndicator(true)
+        currentView?.showOrHideLoadingIndicatorForTicker(true)
 
         launch {
             try {
@@ -41,7 +41,7 @@ class CoinTickerPresenter(
                 Timber.e(ex.localizedMessage)
                 currentView?.onNetworkError(androidResourceManager.getString(R.string.error_ticker))
             } finally {
-                currentView?.showOrHideLoadingIndicator(false)
+                currentView?.showOrHideLoadingIndicatorForTicker(false)
             }
         }
     }

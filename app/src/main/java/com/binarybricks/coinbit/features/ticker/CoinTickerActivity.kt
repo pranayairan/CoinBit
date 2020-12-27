@@ -88,7 +88,7 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
         FirebaseCrashlytics.getInstance().log("CoinTickerActivity")
     }
 
-    override fun showOrHideLoadingIndicator(showLoading: Boolean) {
+    override fun showOrHideLoadingIndicatorForTicker(showLoading: Boolean) {
         if (!showLoading) {
             pbLoading.hide()
         } else {

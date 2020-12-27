@@ -2,7 +2,7 @@ package com.binarybricks.coinbit.features.coin
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.binarybricks.coinbit.adapterdelegates.*
+import com.binarybricks.coinbit.adapterdelegates.HistoricalChartAdapterDelegate
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
@@ -40,29 +40,12 @@ class CoinAdapter(
 
     private val delegates: AdapterDelegatesManager<List<ModuleItem>> = AdapterDelegatesManager()
 
-    private val coinTickerAdapterDelegate by lazy {
-        CoinTickerAdapterDelegate(coinName, rxSchedulers, coinBitDatabase, androidResourceManager)
-    }
-
     private val historicalChartAdapterDelegate by lazy {
         HistoricalChartAdapterDelegate(fromCurrency, toCurrency, rxSchedulers, androidResourceManager)
     }
 
-    private val coinNewsAdapterDelegate by lazy {
-        CoinNewsAdapterDelegate(fromCurrency, coinName, rxSchedulers, androidResourceManager)
-    }
-
     init {
         delegates.addDelegate(HISTORICAL_CHART, historicalChartAdapterDelegate)
-        // delegates.addDelegate(ADD_COIN, AddCoinAdapterDelegate())
-        // delegates.addDelegate(COIN_POSITION, CoinPositionAdapterDelegate(androidResourceManager))
-        // delegates.addDelegate(COIN_INFO, CoinInfoAdapterDelegate())
-        delegates.addDelegate(COIN_NEWS, coinNewsAdapterDelegate)
-        delegates.addDelegate(COIN_TICKER, coinTickerAdapterDelegate)
-        // delegates.addDelegate(COIN_STATS, CoinStatsAdapterDelegate(androidResourceManager))
-        // delegates.addDelegate(ABOUT_COIN, AboutCoinAdapterDelegate())
-        // delegates.addDelegate(COIN_TRANSACTION, CoinTransactionAdapterDelegate(androidResourceManager))
-        // delegates.addDelegate(FOOTER, GenericFooterAdapterDelegate())
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -83,7 +66,5 @@ class CoinAdapter(
 
     fun cleanup() {
         historicalChartAdapterDelegate.cleanup()
-        coinTickerAdapterDelegate.cleanup()
-        coinNewsAdapterDelegate.cleanup()
     }
 }
