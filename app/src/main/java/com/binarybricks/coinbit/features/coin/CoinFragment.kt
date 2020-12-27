@@ -4,16 +4,14 @@ import CoinContract
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.featurecomponents.*
-import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerModule
-import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CoinNewsModule
-import com.binarybricks.coinbit.featurecomponents.historicalchartmodule.HistoricalChartModule
+import com.binarybricks.coinbit.epoxymodels.*
+import com.binarybricks.coinbit.featurecomponents.GenericFooterModule
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity
@@ -32,7 +30,6 @@ import java.math.BigDecimal
 class CoinFragment : Fragment(), CoinContract.View {
 
     private val coinDetailList: MutableList<ModuleItem> = mutableListOf()
-    private var coinAdapter: CoinAdapter? = null
     private var coinPrice: CoinPrice? = null
     private var watchedMenuItem: MenuItem? = null
     private var isCoinWatched = false
@@ -89,8 +86,6 @@ class CoinFragment : Fragment(), CoinContract.View {
 
             lifecycle.addObserver(coinPresenter)
 
-            rvCoinDetails.layoutManager = LinearLayoutManager(context)
-
             val toolBarDefaultElevation = dpToPx(context, 12) // default elevation of toolbar
 
             rvCoinDetails.addOnScrollListener(object : OnVerticalScrollListener() {
@@ -100,6 +95,8 @@ class CoinFragment : Fragment(), CoinContract.View {
                     (activity as? CoinDetailsActivity)?.supportActionBar?.elevation = Math.min(toolBarDefaultElevation.toFloat(), offset.toFloat())
                 }
             })
+
+            rvCoinDetails.setItemSpacingDp(8)
 
             // load data
             coinPresenter.loadCurrentCoinPrice(it, toCurrency)
@@ -176,15 +173,16 @@ class CoinFragment : Fragment(), CoinContract.View {
 
         this.coinPrice = coinPrice
 
-        coinDetailList.add(HistoricalChartModule.HistoricalChartModuleData(coinPrice))
+        // coinDetailList.add(HistoricalChartModule.HistoricalChartModuleData(coinPrice))
 
+        // we do not support Adding new coin yet
         // coinDetailList.add(AddCoinModule.AddCoinModuleData(watchedCoin.coin))
 
         if (coinPrice != null) {
-            coinDetailList.add(CoinStatsticsModule.CoinStatisticsModuleData(coinPrice))
+            coinDetailList.add(CoinStatsticsItemView.CoinStatisticsModuleData(coinPrice))
 
             coinDetailList.add(
-                CoinInfoModule.CoinInfoModuleData(
+                CoinInfoItemView.CoinInfoModuleData(
                     coinPrice.market
                         ?: defaultExchange,
                     watchedCoin.coin.algorithm, watchedCoin.coin.proofType
@@ -192,43 +190,68 @@ class CoinFragment : Fragment(), CoinContract.View {
             )
         }
 
-        coinDetailList.add(CoinTickerModule.CoinTickerModuleData())
+        // coinDetailList.add(CoinTickerModule.CoinTickerModuleData())
 
-        coinDetailList.add(CoinNewsModule.CoinNewsModuleData())
+        // coinDetailList.add(CoinNewsModule.CoinNewsModuleData())
 
-        coinDetailList.add(AboutCoinModule.AboutCoinModuleData(watchedCoin.coin))
-
-        coinAdapter = CoinAdapter(
-            watchedCoin.coin.symbol, toCurrency, watchedCoin.coin.coinName,
-            coinDetailList, CoinBitApplication.database, rxSchedulers, androidResourceManager
-        )
-
-        rvCoinDetails?.adapter = coinAdapter
-        coinAdapter?.notifyDataSetChanged()
+        coinDetailList.add(CoinAboutItemView.AboutCoinModuleData(watchedCoin.coin))
 
         coinPresenter.loadRecentTransaction(watchedCoin.coin.symbol)
 
         coinDetailList.add(GenericFooterModule.FooterModuleData())
+
+        showCoinDataInView(coinDetailList)
     }
 
-    override fun onRecentTransactionLoaded(coinTransactionList: List<CoinTransaction>) {
-        if (!coinTransactionList.isEmpty()) {
-            coinPrice?.let {
-                // add position module
-                coinDetailList.add(2, CoinPositionCard.CoinPositionCardModuleData(it, coinTransactionList))
-                coinAdapter?.coinDetailList = coinDetailList
-                coinAdapter?.notifyItemChanged(2)
+    private fun showCoinDataInView(detailList: List<ModuleItem>) {
+        rvCoinDetails.withModels {
+            detailList.forEachIndexed { index, moduleItem ->
+                when (moduleItem) {
+                    is AddCoinItemView.AddCoinModuleItem -> addCoinItemView {
+                        id("addCoin")
+                        itemClickListener { _ ->
+                            // add coin button clicked.
+                        }
+                    }
+                    is CoinPositionItemView.CoinPositionCardModuleData -> coinPositionItemView {
+                        id("coinPosition")
+                        coinPrice(moduleItem)
+                    }
+                    is CoinInfoItemView.CoinInfoModuleData -> coinInfoItemView {
+                        id("coinInfo")
+                        exchange(moduleItem)
+                    }
+                    is CoinStatsticsItemView.CoinStatisticsModuleData -> coinStatsticsItemView {
+                        id("coinStats")
+                        coinPrice(moduleItem)
+                    }
+                    is CoinAboutItemView.AboutCoinModuleData -> coinAboutItemView {
+                        id("aboutCoin")
+                        coin(moduleItem)
+                    }
+                    is CoinTransactionHistoryItemView.CoinTransactionHistoryModuleData -> coinTransactionHistoryItemView {
+                        id("coinTransactionHistory")
+                        coinTransactionHistoryModuleData(moduleItem)
+                    }
+                    is GenericFooterItemView.FooterModuleData -> genericFooterItemView {
+                        id("footer")
+                        footerContent(moduleItem)
+                    }
+                }
             }
-
-            // add transaction module
-            coinDetailList.add(4, CoinTransactionHistoryModule.CoinTransactionHistoryModuleData(coinTransactionList))
-            coinAdapter?.coinDetailList = coinDetailList
-            coinAdapter?.notifyItemChanged(4)
         }
     }
 
-    override fun onDestroy() {
-        coinAdapter?.cleanup()
-        super.onDestroy()
+    override fun onRecentTransactionLoaded(coinTransactionList: List<CoinTransaction>) {
+        if (coinTransactionList.isNotEmpty()) {
+            coinPrice?.let {
+                // add position module
+                coinDetailList.add(2, CoinPositionItemView.CoinPositionCardModuleData(it, coinTransactionList))
+            }
+
+            // add transaction module
+            coinDetailList.add(4, CoinTransactionHistoryItemView.CoinTransactionHistoryModuleData(coinTransactionList))
+            showCoinDataInView(coinDetailList)
+        }
     }
 }

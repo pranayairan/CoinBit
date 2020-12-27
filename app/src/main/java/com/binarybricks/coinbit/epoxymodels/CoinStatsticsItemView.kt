@@ -9,6 +9,7 @@ import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -55,8 +56,9 @@ class CoinStatsticsItemView @JvmOverloads constructor(
         tvSupplyNumber = findViewById(R.id.tvSupplyNumber)
     }
 
-    @ModelProp
-    fun setCoinPrice(coinPrice: CoinPrice) {
+    @ModelProp(options = [ModelProp.Option.IgnoreRequireHashCode])
+    fun setCoinPrice(coinStatisticsModuleData: CoinStatisticsModuleData) {
+        val coinPrice = coinStatisticsModuleData.coinPrice
         tvOpenAmount.text = formatter.formatAmount(
             coinPrice.openDay
                 ?: "0",
@@ -100,4 +102,6 @@ class CoinStatsticsItemView @JvmOverloads constructor(
             formatter.formatNumber(coinPrice.supply ?: 0) ?: "", coinPrice.fromSymbol ?: ""
         )
     }
+
+    data class CoinStatisticsModuleData(val coinPrice: CoinPrice) : ModuleItem
 }

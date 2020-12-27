@@ -26,7 +26,7 @@ class GenericFooterItemView @JvmOverloads constructor(
         tvFooter = findViewById(R.id.tvFooter)
     }
 
-    @ModelProp
+    @ModelProp(options = [ModelProp.Option.IgnoreRequireHashCode])
     fun setFooterContent(footerModuleData: FooterModuleData) {
         tvFooter.text = footerModuleData.footerText
 

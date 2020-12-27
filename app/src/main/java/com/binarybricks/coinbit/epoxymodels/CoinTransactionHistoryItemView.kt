@@ -71,7 +71,7 @@ class CoinTransactionHistoryItemView @JvmOverloads constructor(
         tvMore = findViewById(R.id.tvMore)
     }
 
-    @ModelProp
+    @ModelProp(options = [ModelProp.Option.IgnoreRequireHashCode])
     fun setCoinTransactionHistoryModuleData(coinTransactionHistoryModuleData: CoinTransactionHistoryModuleData) {
         val coinTransactionList = coinTransactionHistoryModuleData.coinTransactionList
         val currency = Currency.getInstance(PreferenceManager.getDefaultCurrency(context))

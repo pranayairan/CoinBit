@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelView
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class AddCoinItemView @JvmOverloads constructor(
@@ -27,4 +28,6 @@ class AddCoinItemView @JvmOverloads constructor(
     fun setItemClickListener(listener: OnClickListener?) {
         btnAddTransaction.setOnClickListener(listener)
     }
+
+    object AddCoinModuleItem : ModuleItem
 }

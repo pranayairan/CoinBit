@@ -10,6 +10,7 @@ import com.airbnb.epoxy.ModelView
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_BUY
@@ -57,8 +58,8 @@ class CoinPositionItemView @JvmOverloads constructor(
         tvTotalReturnValue = findViewById(R.id.tvTotalReturnValue)
     }
 
-    @ModelProp
-    fun setCoinPrice(coinPositionItem: CoinPositionItem) {
+    @ModelProp(options = [ModelProp.Option.IgnoreRequireHashCode])
+    fun setCoinPrice(coinPositionItem: CoinPositionCardModuleData) {
         val coinPrice = coinPositionItem.coinPrice
 
         val noOfCoinsAndTotalCost = getNoOfCoinsAndTotalCost(coinPositionItem.coinTransactionList)
@@ -110,5 +111,5 @@ class CoinPositionItemView @JvmOverloads constructor(
         return Pair<BigDecimal, BigDecimal>(noOfCoins, totalCost)
     }
 
-    data class CoinPositionItem(val coinPrice: CoinPrice, val coinTransactionList: List<CoinTransaction>)
+    data class CoinPositionCardModuleData(val coinPrice: CoinPrice, val coinTransactionList: List<CoinTransaction>) : ModuleItem
 }

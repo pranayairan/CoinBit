@@ -9,6 +9,7 @@ import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.Coin
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -44,8 +45,9 @@ class CoinAboutItemView @JvmOverloads constructor(
         tvGithubValue = findViewById(R.id.tvGithubValue)
     }
 
-    @ModelProp
-    fun setCoin(coin: Coin) {
+    @ModelProp(options = [ModelProp.Option.IgnoreRequireHashCode])
+    fun setCoin(aboutCoinModuleData: AboutCoinModuleData) {
+        val coin = aboutCoinModuleData.coin
         tvAboutCoin.text = getCleanedUpDescription(coin.description)
             ?: context.getString(R.string.info_unavailable)
 
@@ -112,4 +114,6 @@ class CoinAboutItemView @JvmOverloads constructor(
     private fun getCleanUrl(url: String): String {
         return url.replace("http://", "").replace("https://", "")
     }
+
+    data class AboutCoinModuleData(val coin: Coin) : ModuleItem
 }

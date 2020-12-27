@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.utils.getDefaultExchangeText
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
@@ -23,12 +24,12 @@ class CoinInfoItemView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.coin_info_module, this)
-        tvFirstTxnTimeAndExchange = findViewById(R.id.tvArticleTitle)
+        tvFirstTxnTimeAndExchange = findViewById(R.id.tvFirstTxnTimeAndExchange)
         tvAlgorithmName = findViewById(R.id.tvAlgorithmName)
         tvProofTypeName = findViewById(R.id.tvProofTypeName)
     }
 
-    @ModelProp
+    @ModelProp(options = [ModelProp.Option.IgnoreRequireHashCode])
     fun setExchange(coinInfoModuleData: CoinInfoModuleData) {
         var exchange = coinInfoModuleData.exchange
         exchange = getDefaultExchangeText(exchange, context)
@@ -37,5 +38,5 @@ class CoinInfoItemView @JvmOverloads constructor(
         tvProofTypeName.text = coinInfoModuleData.proofType
     }
 
-    data class CoinInfoModuleData(val exchange: String, val algorithm: String?, val proofType: String?)
+    data class CoinInfoModuleData(val exchange: String, val algorithm: String?, val proofType: String?) : ModuleItem
 }
