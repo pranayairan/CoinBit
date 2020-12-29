@@ -18,12 +18,15 @@ import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerPre
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerRepository
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsPresenter
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsRepository
+import com.binarybricks.coinbit.featurecomponents.historicalchartmodule.ChartRepository
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity
 import com.binarybricks.coinbit.features.newslist.NewsListActivity
 import com.binarybricks.coinbit.features.ticker.CoinTickerActivity
+import com.binarybricks.coinbit.network.HOUR
 import com.binarybricks.coinbit.network.models.CoinPrice
+import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.network.models.CryptoTicker
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
@@ -54,8 +57,12 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
         CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
     }
 
+    private val chartRepo by lazy {
+        ChartRepository(rxSchedulers)
+    }
+
     private val coinPresenter: CoinPresenter by lazy {
-        CoinPresenter(rxSchedulers, coinRepo)
+        CoinPresenter(rxSchedulers, coinRepo, chartRepo)
     }
 
     private val cryptoNewsRepository by lazy {
@@ -209,7 +216,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
 
         this.coinPrice = coinPrice
 
-        // coinDetailList.add(HistoricalChartModule.HistoricalChartModuleData(coinPrice))
+        coinDetailList.add(CoinHistoricalChartItemView.HistoricalChartModuleData(coinPrice, HOUR, watchedCoin.coin.symbol, null))
 
         // we do not support Adding new coin yet
         // coinDetailList.add(AddCoinModule.AddCoinModuleData(watchedCoin.coin))
@@ -232,6 +239,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
 
         coinDetailList.add(CoinAboutItemView.AboutCoinModuleData(watchedCoin.coin))
 
+        coinPresenter.loadHistoricalData(HOUR, watchedCoin.coin.symbol, toCurrency)
         coinTickerPresenter.getCryptoTickers(watchedCoin.coin.coinName.toLowerCase())
         cryptoNewsPresenter.getCryptoNews(watchedCoin.coin.symbol)
         coinPresenter.loadRecentTransaction(watchedCoin.coin.symbol)
@@ -241,10 +249,26 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
         showCoinDataInView(coinDetailList)
     }
 
+    override fun onHistoricalDataLoaded(period: String, historicalDataPair: Pair<List<CryptoCompareHistoricalResponse.Data>, CryptoCompareHistoricalResponse.Data?>) {
+        watchedCoin?.coin?.let {
+            coinDetailList[0] = CoinHistoricalChartItemView.HistoricalChartModuleData(coinPrice, period, it.symbol, historicalDataPair)
+            showCoinDataInView(coinDetailList)
+        }
+    }
+
     private fun showCoinDataInView(detailList: List<ModuleItem>) {
         rvCoinDetails.withModels {
             detailList.forEachIndexed { index, moduleItem ->
                 when (moduleItem) {
+                    is CoinHistoricalChartItemView.HistoricalChartModuleData -> coinHistoricalChartItemView {
+                        id("coinHistoricalChartItem")
+                        chartData(moduleItem)
+                        onChartRangeSelected(object : CoinHistoricalChartItemView.OnHistoricalChardRangeSelectionListener {
+                            override fun onRangeSelected(period: String, fromCurrency: String, toCurrency: String) {
+                                coinPresenter.loadHistoricalData(period, fromCurrency, toCurrency)
+                            }
+                        })
+                    }
                     is AddCoinItemView.AddCoinModuleItem -> addCoinItemView {
                         id("addCoin")
                         itemClickListener { _ ->
@@ -319,7 +343,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
         }
 
         if (matchingIndex > 0) {
-            coinDetailList.add(matchingIndex, CoinTickerItemView.CoinTickerModuleData(tickerData))
+            coinDetailList.add(matchingIndex + 1, CoinTickerItemView.CoinTickerModuleData(tickerData))
         } else {
             coinDetailList.add(CoinTickerItemView.CoinTickerModuleData(tickerData))
         }

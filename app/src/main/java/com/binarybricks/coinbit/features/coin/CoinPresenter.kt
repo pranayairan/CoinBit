@@ -2,6 +2,7 @@ package com.binarybricks.coinbit.features.coin
 
 import CoinContract
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
+import com.binarybricks.coinbit.featurecomponents.historicalchartmodule.ChartRepository
 import com.binarybricks.coinbit.features.BasePresenter
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.network.schedulers.RxSchedulers
@@ -14,7 +15,8 @@ Created by Pranay Airan
 
 class CoinPresenter(
     private val rxSchedulers: RxSchedulers,
-    private val coinRepo: CryptoCompareRepository
+    private val coinRepo: CryptoCompareRepository,
+    private val chartRepo: ChartRepository
 ) : BasePresenter<CoinContract.View>(), CoinContract.Presenter {
 
     /**
@@ -55,6 +57,19 @@ class CoinPresenter(
             } catch (ex: Exception) {
                 Timber.e(ex.localizedMessage)
                 currentView?.onNetworkError(ex.localizedMessage ?: "Error")
+            }
+        }
+    }
+
+    /**
+     * Load historical data for the coin to show the chart.
+     */
+    override fun loadHistoricalData(period: String, fromCurrency: String, toCurrency: String) {
+        launch {
+            try {
+                currentView?.onHistoricalDataLoaded(period, chartRepo.getCryptoHistoricalData(period, fromCurrency, toCurrency))
+            } catch (ex: Exception) {
+                Timber.e(ex.localizedMessage)
             }
         }
     }
