@@ -118,10 +118,14 @@ class CoinTickerItemView @JvmOverloads constructor(
             tvFirstVolume.text = formatter.formatAmount(tickerData[0].convertedVolumeUSD, currency, true)
             ivFirstExchange.visibility = View.VISIBLE
 
-            ivFirstExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[0].imageUrl) {
-                crossfade(true)
-                error(R.mipmap.ic_launcher_round)
-                transformations(cropCircleTransformation)
+            if (tickerData[0].imageUrl.isNotEmpty()) {
+                ivFirstExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[0].imageUrl) {
+                    crossfade(true)
+                    error(R.mipmap.ic_launcher_round)
+                    transformations(cropCircleTransformation)
+                }
+            } else {
+                ivFirstExchange.load(R.mipmap.ic_launcher_round)
             }
 
             clFirstMarket.setOnClickListener {
@@ -143,10 +147,14 @@ class CoinTickerItemView @JvmOverloads constructor(
                 }
                 ivSecondExchange.visibility = View.VISIBLE
 
-                ivSecondExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[1].imageUrl) {
-                    crossfade(true)
-                    error(R.mipmap.ic_launcher_round)
-                    transformations(cropCircleTransformation)
+                if (tickerData[1].imageUrl.isNotEmpty()) {
+                    ivSecondExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[1].imageUrl) {
+                        crossfade(true)
+                        error(R.mipmap.ic_launcher_round)
+                        transformations(cropCircleTransformation)
+                    }
+                } else {
+                    ivSecondExchange.load(R.mipmap.ic_launcher_round)
                 }
             }
 
@@ -163,10 +171,14 @@ class CoinTickerItemView @JvmOverloads constructor(
                 }
                 ivThirdExchange.visibility = View.VISIBLE
 
-                ivThirdExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[2].imageUrl) {
-                    crossfade(true)
-                    error(R.mipmap.ic_launcher_round)
-                    transformations(cropCircleTransformation)
+                if (tickerData[2].imageUrl.isNotEmpty()) {
+                    ivThirdExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + tickerData[2].imageUrl) {
+                        crossfade(true)
+                        error(R.mipmap.ic_launcher_round)
+                        transformations(cropCircleTransformation)
+                    }
+                } else {
+                    ivThirdExchange.load(R.mipmap.ic_launcher_round)
                 }
             }
         } else {

@@ -49,10 +49,14 @@ class CoinTickerView @JvmOverloads constructor(
         tvFromCoin.text = ticker.base
         tvToPrice.text = ticker.target
         tvExchange.text = ticker.marketName
-        ivExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + ticker.imageUrl) {
-            crossfade(true)
-            error(R.mipmap.ic_launcher_round)
-            transformations(cropCircleTransformation)
+        if (ticker.imageUrl.isNotEmpty()) {
+            ivExchange.load(BASE_CRYPTOCOMPARE_IMAGE_URL + ticker.imageUrl) {
+                crossfade(true)
+                error(R.mipmap.ic_launcher_round)
+                transformations(cropCircleTransformation)
+            }
+        } else {
+            ivExchange.load(R.mipmap.ic_launcher_round)
         }
     }
 
