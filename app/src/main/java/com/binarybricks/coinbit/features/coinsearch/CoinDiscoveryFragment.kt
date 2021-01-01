@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.epoxy.Carousel
+import com.airbnb.epoxy.EpoxyRecyclerView
+import com.airbnb.epoxy.carousel
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
-import com.binarybricks.coinbit.featurecomponents.*
+import com.binarybricks.coinbit.epoxymodels.*
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.features.CryptoCompareRepository
+import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.network.models.CoinPair
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareNews
@@ -19,8 +23,7 @@ import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import kotlinx.android.synthetic.main.fragment_discovery.view.*
 
 class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
@@ -31,7 +34,6 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
     private var nextMenuItem: MenuItem? = null
 
     private var coinDiscoveryList: ArrayList<ModuleItem> = ArrayList()
-    private var coinDiscoveryAdapter: CoinDiscoveryAdapter? = null
 
     private val rxSchedulers: RxSchedulers by lazy {
         RxSchedulers.instance
@@ -49,16 +51,18 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
         CoinDiscoveryPresenter(rxSchedulers, coinRepo)
     }
 
+    private lateinit var rvDashboard: EpoxyRecyclerView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val inflate = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val inflate = inflater.inflate(R.layout.fragment_discovery, container, false)
 
         val toolbar = inflate.toolbar
         toolbar?.title = getString(R.string.discover)
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
-        initializeUI(inflate)
+        rvDashboard = inflate.findViewById<EpoxyRecyclerView>(R.id.rvDashboard)
 
         coinDiscoveryPresenter.attachView(this)
 
@@ -66,19 +70,6 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         // empty existing list
         coinDiscoveryList = ArrayList()
-
-        coinDiscoveryList.add(LabelModule.LabelModuleData(getString(R.string.top_volume)))
-        coinDiscoveryList.add(CarousalModule.CarousalModuleData(null))
-
-        coinDiscoveryList.add(LabelModule.LabelModuleData(getString(R.string.top_pair)))
-        coinDiscoveryList.add(CarousalModule.CarousalModuleData(null))
-
-        coinDiscoveryList.add(LabelModule.LabelModuleData(getString(R.string.recent_news)))
-
-        // coinDashboardList.add(0, CarousalModule.CarousalModuleData(null))
-
-        coinDiscoveryAdapter?.coinDiscoverList = coinDiscoveryList
-        coinDiscoveryAdapter?.notifyDataSetChanged()
 
         // get top coin by market cap
         coinDiscoveryPresenter.getTopCoinListByMarketCap(PreferenceManager.getDefaultCurrency(context))
@@ -93,27 +84,17 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         FirebaseCrashlytics.getInstance().log("CoinDiscoveryFragment")
 
+        rvDashboard.setItemSpacingDp(8)
+
         return inflate
-    }
-
-    private fun initializeUI(inflatedView: View) {
-
-        inflatedView.rvDashboard.layoutManager = LinearLayoutManager(context)
-
-        coinDiscoveryAdapter = CoinDiscoveryAdapter(
-            PreferenceManager.getDefaultCurrency(context), androidResourceManager,
-            coinDiscoveryList
-        )
-
-        inflatedView.rvDashboard.adapter = coinDiscoveryAdapter
     }
 
     override fun onTopCoinsByTotalVolumeLoaded(topCoins: List<CoinPrice>) {
 
-        val topCardList = mutableListOf<TopCardModule.TopCardsModuleData>()
+        val topCardList = mutableListOf<TopCardItemView.TopCardsModuleData>()
         topCoins.forEach {
             topCardList.add(
-                TopCardModule.TopCardsModuleData(
+                TopCardItemView.TopCardsModuleData(
                     "${it.fromSymbol}/${it.toSymbol}",
                     it.price
                         ?: "0",
@@ -123,32 +104,95 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
             )
         }
 
-        coinDiscoveryAdapter?.let {
-            if (!it.coinDiscoverList.isNullOrEmpty()) {
-                it.coinDiscoverList[1] = CarousalModule.CarousalModuleData(topCardList)
-                coinDiscoveryAdapter?.notifyItemChanged(1)
-            }
+        if (coinDiscoveryList.size > 1) {
+            coinDiscoveryList.add(0, LabelItemView.LabelModuleData(getString(R.string.top_volume)))
+            coinDiscoveryList.add(1, TopCardList(topCardList))
+        } else {
+            coinDiscoveryList.add(LabelItemView.LabelModuleData(getString(R.string.top_volume)))
+            coinDiscoveryList.add(TopCardList(topCardList))
         }
+
+        // call load
+        showCoins(coinDiscoveryList)
     }
 
     override fun onTopCoinListByPairVolumeLoaded(topPair: List<CoinPair>) {
-        coinDiscoveryAdapter?.let {
-            if (!it.coinDiscoverList.isNullOrEmpty()) {
-                it.coinDiscoverList[3] = CarousalModule.CarousalModuleData(listOf(ChipGroupModule.ChipGroupModuleData(topPair)))
-                coinDiscoveryAdapter?.notifyItemChanged(3)
+        if (coinDiscoveryList.size > 3) {
+            coinDiscoveryList.add(2, LabelItemView.LabelModuleData(getString(R.string.top_pair)))
+            coinDiscoveryList.add(3, ChipGroupItemView.ChipGroupModuleData(topPair))
+        } else {
+            coinDiscoveryList.add(LabelItemView.LabelModuleData(getString(R.string.top_pair)))
+            coinDiscoveryList.add(ChipGroupItemView.ChipGroupModuleData(topPair))
+        }
+
+        // call load
+        showCoins(coinDiscoveryList)
+    }
+
+    override fun onCoinNewsLoaded(coinNews: List<CryptoCompareNews>) {
+
+        coinDiscoveryList.add(LabelItemView.LabelModuleData(getString(R.string.recent_news)))
+        coinNews.forEach { news ->
+            coinDiscoveryList.add(ExpandedNewsItemView.DiscoveryNewsModuleData(news))
+        }
+
+        // call load
+        showCoins(coinDiscoveryList)
+    }
+
+    private fun showCoins(coinDiscoveryList: List<ModuleItem>) {
+        rvDashboard.withModels {
+            coinDiscoveryList.forEachIndexed { index, moduleItem ->
+                when (moduleItem) {
+                    is LabelItemView.LabelModuleData -> labelItemView {
+                        id("labelItemView")
+                        label(moduleItem.coinLabel)
+                    }
+                    is TopCardList -> {
+                        val topCards = mutableListOf<TopCardItemViewModel_>()
+                        moduleItem.topCardList.forEach {
+                            topCards.add(
+                                TopCardItemViewModel_()
+                                    .id(it.pair).topCardData(it).itemClickListener(object : TopCardItemView.OnTopItemClickedListener {
+                                        override fun onItemClicked(coinSymbol: String) {
+                                            context?.startActivity(
+                                                CoinDetailsActivity.buildLaunchIntent(requireContext(), coinSymbol)
+                                            )
+                                        }
+                                    })
+                            )
+                        }
+                        carousel {
+                            id("topCardList")
+                            models(topCards)
+                            numViewsToShowOnScreen(2.5F)
+                            Carousel.setDefaultGlobalSnapHelperFactory(null)
+                        }
+                    }
+                    is ExpandedNewsItemView.DiscoveryNewsModuleData -> expandedNewsItemView {
+                        id(moduleItem.coinNews.id)
+                        news(moduleItem)
+                    }
+                    is ChipGroupItemView.ChipGroupModuleData -> {
+                        val chipGroup = ChipGroupItemViewModel_().id("chip")
+                            .chipData(moduleItem).chipClickListener(object : ChipGroupItemView.OnChipItemClickedListener {
+                                override fun onChipClicked(coinSymbol: String) {
+                                    context?.startActivity(
+                                        CoinDetailsActivity.buildLaunchIntent(requireContext(), coinSymbol)
+                                    )
+                                }
+                            })
+                        carousel {
+                            id("chipGroup")
+                            models(listOf(chipGroup))
+                        }
+                    }
+                }
             }
         }
     }
 
-    override fun onCoinNewsLoaded(coinNews: List<CryptoCompareNews>) {
-        coinDiscoveryAdapter?.let {
-            val previousSize = it.coinDiscoverList.size
-            coinNews.forEach { news ->
-                it.coinDiscoverList.add(DiscoveryNewsModule.DiscoveryNewsModuleData(news))
-            }
-            it.notifyItemRangeChanged(previousSize, it.coinDiscoverList.size)
-        }
-    }
+    private data class TopCardList(val topCardList: List<TopCardItemView.TopCardsModuleData>) : ModuleItem
 
     override fun onNetworkError(errorMessage: String) {
         Snackbar.make(rvDashboard, errorMessage, Snackbar.LENGTH_LONG).show()

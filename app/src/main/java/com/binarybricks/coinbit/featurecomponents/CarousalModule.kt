@@ -33,11 +33,6 @@ class CarousalModule(
                     val topCardInflatedView = topCard.init(layoutInflater, parent)
                     topCard.addTopCardModule(topCardInflatedView, it)
                     inflatedView.llCarousal.addView(topCardInflatedView)
-                } else if (it is ChipGroupModule.ChipGroupModuleData) {
-                    val chipGroup = ChipGroupModule()
-                    val chipGroupInflateView = chipGroup.init(layoutInflater, parent)
-                    chipGroup.showAllChips(chipGroupInflateView, it)
-                    inflatedView.llCarousal.addView(chipGroupInflateView)
                 }
             }
         }

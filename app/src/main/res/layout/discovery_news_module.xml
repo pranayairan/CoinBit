@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/generic14dp"
-    android:layout_marginTop="@dimen/generic8dp"
+    android:paddingTop="@dimen/generic8dp"
     android:layout_marginEnd="@dimen/generic14dp"
-    android:layout_marginBottom="@dimen/generic16dp"
+    android:paddingBottom="@dimen/generic16dp"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@animator/card_down_animation">
 
