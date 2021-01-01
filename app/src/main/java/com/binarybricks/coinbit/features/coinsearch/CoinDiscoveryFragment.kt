@@ -77,14 +77,24 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
         // get coins by volume
         coinDiscoveryPresenter.getTopCoinListByPairVolume()
 
-        // get news
-        coinDiscoveryPresenter.getCryptoCurrencyNews()
-
         setHasOptionsMenu(true)
 
         FirebaseCrashlytics.getInstance().log("CoinDiscoveryFragment")
 
         rvDashboard.setItemSpacingDp(8)
+
+        inflate.swipeContainer.setOnRefreshListener {
+
+            coinDiscoveryList.clear()
+
+            // get top coin by market cap
+            coinDiscoveryPresenter.getTopCoinListByMarketCap(PreferenceManager.getDefaultCurrency(context))
+
+            // get coins by volume
+            coinDiscoveryPresenter.getTopCoinListByPairVolume()
+
+            inflate.swipeContainer.isRefreshing = false
+        }
 
         return inflate
     }
@@ -127,10 +137,12 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
         // call load
         showCoins(coinDiscoveryList)
+
+        // get news
+        coinDiscoveryPresenter.getCryptoCurrencyNews()
     }
 
     override fun onCoinNewsLoaded(coinNews: List<CryptoCompareNews>) {
-
         coinDiscoveryList.add(LabelItemView.LabelModuleData(getString(R.string.recent_news)))
         coinNews.forEach { news ->
             coinDiscoveryList.add(ExpandedNewsItemView.DiscoveryNewsModuleData(news))
@@ -174,17 +186,16 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
                         news(moduleItem)
                     }
                     is ChipGroupItemView.ChipGroupModuleData -> {
-                        val chipGroup = ChipGroupItemViewModel_().id("chip")
-                            .chipData(moduleItem).chipClickListener(object : ChipGroupItemView.OnChipItemClickedListener {
+                        chipGroupItemView {
+                            id("chipGroup")
+                            chipData(moduleItem)
+                            chipClickListener(object : ChipGroupItemView.OnChipItemClickedListener {
                                 override fun onChipClicked(coinSymbol: String) {
                                     context?.startActivity(
                                         CoinDetailsActivity.buildLaunchIntent(requireContext(), coinSymbol)
                                     )
                                 }
                             })
-                        carousel {
-                            id("chipGroup")
-                            models(listOf(chipGroup))
                         }
                     }
                 }
