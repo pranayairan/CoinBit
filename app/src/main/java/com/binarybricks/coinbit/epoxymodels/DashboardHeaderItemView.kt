@@ -1,45 +1,52 @@
-package com.binarybricks.coinbit.featurecomponents
+package com.binarybricks.coinbit.epoxymodels
 
 import android.animation.ValueAnimator
-import android.view.LayoutInflater
+import android.content.Context
+import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.airbnb.epoxy.ModelProp
+import com.airbnb.epoxy.ModelView
 import com.binarybricks.coinbit.R
+import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
+import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.chartAnimationDuration
 import com.binarybricks.coinbit.utils.getTotalCost
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
-import kotlinx.android.synthetic.main.dashboard_header_module.view.*
-import timber.log.Timber
+import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode
-import java.util.Currency
-import java.util.HashMap
-import kotlin.collections.ArrayList
+import java.util.*
 
-/**
- * Created by Pranay Airan
- *
- * Simple class that wraps all logic related to showing header on dashboard
- */
+@ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
+class DashboardHeaderItemView @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    defStyle: Int = 0,
+) : ConstraintLayout(context, attributeSet, defStyle) {
 
-class DashboardHeaderModule(
-    private val toCurrency: String,
-    private val toolbarTitle: TextView,
-    private val androidResourceManager: AndroidResourceManager
-) : Module() {
-
-    private lateinit var inflatedView: View
+    private val tvPortfolioChangedValue: TextView
+    private val tvPortfolioChangedPercentage: TextView
+    private val tvPortfolioValue: TextView
     private val purchasedCoinList: MutableList<WatchedCoin> = ArrayList()
+
+    private val toCurrency: String by lazy {
+        PreferenceManager.getDefaultCurrency(context.applicationContext)
+    }
 
     private val currency by lazy {
         Currency.getInstance(toCurrency)
+    }
+
+    val androidResourceManager: AndroidResourceManager by lazy {
+        AndroidResourceManagerImpl(context)
     }
 
     private val formatter by lazy {
@@ -50,13 +57,15 @@ class DashboardHeaderModule(
         MathContext(2, RoundingMode.HALF_UP)
     }
 
-    override fun init(layoutInflater: LayoutInflater, parent: ViewGroup?): View {
-        return layoutInflater.inflate(R.layout.dashboard_header_module, parent, false)
+    init {
+        View.inflate(context, R.layout.dashboard_header_module, this)
+        tvPortfolioChangedValue = findViewById(R.id.tvPortfolioChangedValue)
+        tvPortfolioChangedPercentage = findViewById(R.id.tvPortfolioChangedPercentage)
+        tvPortfolioValue = findViewById(R.id.tvPortfolioValue)
     }
 
-    fun loadPortfolioData(inflatedView: View, dashboardHeaderModuleData: DashboardHeaderModule.DashboardHeaderModuleData) {
-        this.inflatedView = inflatedView
-
+    @ModelProp
+    fun setDashboardHeaderData(dashboardHeaderModuleData: DashboardHeaderModuleData) {
         // when the view is loaded first time we are still waiting for prices to be fetched.
         if (dashboardHeaderModuleData.coinPriceListMap.isNotEmpty()) {
 
@@ -73,7 +82,7 @@ class DashboardHeaderModule(
             }
 
             animateCoinPrice(portfolioValue.toPlainString())
-            toolbarTitle.text = formatter.formatAmount(portfolioValue.toPlainString(), currency)
+            // toolbarTitle.text = formatter.formatAmount(portfolioValue.toPlainString(), currency)
 
             // do the profit or loss things here.
             val totalReturnAmount = portfolioValue.subtract(totalPortfolioCost)
@@ -83,16 +92,16 @@ class DashboardHeaderModule(
             }
 
             if (totalReturnAmount != null) {
-                inflatedView.tvPortfolioChangedValue.text = formatter.formatAmount(totalReturnAmount.toPlainString(), currency)
-                inflatedView.tvPortfolioChangedPercentage.text = inflatedView.context.getString(R.string.portfolio_changed_percentage, totalReturnPercentage.toString())
+                tvPortfolioChangedValue.text = formatter.formatAmount(totalReturnAmount.toPlainString(), currency)
+                tvPortfolioChangedPercentage.text = context.getString(R.string.portfolio_changed_percentage, totalReturnPercentage.toString())
             }
 
             if (totalReturnAmount != null && totalReturnAmount < BigDecimal.ZERO) {
-                inflatedView.tvPortfolioChangedValue.setTextColor(ContextCompat.getColor(inflatedView.context, R.color.colorLoss))
-                inflatedView.tvPortfolioChangedPercentage.setTextColor(ContextCompat.getColor(inflatedView.context, R.color.colorLoss))
+                tvPortfolioChangedValue.setTextColor(ContextCompat.getColor(context, R.color.colorLoss))
+                tvPortfolioChangedPercentage.setTextColor(ContextCompat.getColor(context, R.color.colorLoss))
             } else {
-                inflatedView.tvPortfolioChangedValue.setTextColor(ContextCompat.getColor(inflatedView.context, R.color.colorGain))
-                inflatedView.tvPortfolioChangedPercentage.setTextColor(ContextCompat.getColor(inflatedView.context, R.color.colorGain))
+                tvPortfolioChangedValue.setTextColor(ContextCompat.getColor(context, R.color.colorGain))
+                tvPortfolioChangedPercentage.setTextColor(ContextCompat.getColor(context, R.color.colorGain))
             }
         } else {
             // get the coins that are purchased
@@ -104,26 +113,22 @@ class DashboardHeaderModule(
         }
     }
 
-    override fun cleanUp() {
-        Timber.d("Clean up header module")
-    }
-
     private fun animateCoinPrice(amount: String?) {
         if (amount != null) {
-            val chartCoinPriceAnimation = ValueAnimator.ofFloat(inflatedView.tvPortfolioValue.tag.toString().toFloat(), amount.toFloat())
+            val chartCoinPriceAnimation = ValueAnimator.ofFloat(tvPortfolioValue.tag.toString().toFloat(), amount.toFloat())
             chartCoinPriceAnimation.duration = chartAnimationDuration
             chartCoinPriceAnimation.addUpdateListener { updatedAnimation ->
                 val animatedValue = updatedAnimation.animatedValue as Float
-                inflatedView.tvPortfolioValue.text = formatter.formatAmount(animatedValue.toString(), currency)
-                inflatedView.tvPortfolioValue.tag = animatedValue
+                tvPortfolioValue.text = formatter.formatAmount(animatedValue.toString(), currency)
+                tvPortfolioValue.tag = animatedValue
             }
             chartCoinPriceAnimation.start()
         }
     }
 
     data class DashboardHeaderModuleData(
-        var watchedCoinList: List<WatchedCoin>,
-        var coinTransactionList: List<CoinTransaction>,
+        val watchedCoinList: List<WatchedCoin>,
+        val coinTransactionList: List<CoinTransaction>,
         var coinPriceListMap: HashMap<String, CoinPrice>
     ) : ModuleItem
 }

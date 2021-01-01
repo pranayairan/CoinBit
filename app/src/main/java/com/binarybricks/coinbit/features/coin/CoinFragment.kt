@@ -12,7 +12,6 @@ import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.data.database.entities.CoinTransaction
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.epoxymodels.*
-import com.binarybricks.coinbit.featurecomponents.GenericFooterModule
 import com.binarybricks.coinbit.featurecomponents.ModuleItem
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerPresenter
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerRepository
@@ -79,10 +78,11 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
         CoinTickerPresenter(rxSchedulers, coinTickerRepository, androidResourceManager)
     }
 
-    val androidResourceManager: AndroidResourceManager by lazy {
+    private val androidResourceManager: AndroidResourceManager by lazy {
         AndroidResourceManagerImpl(requireContext())
     }
-    val toCurrency: String by lazy {
+
+    private val toCurrency: String by lazy {
         PreferenceManager.getDefaultCurrency(context?.applicationContext)
     }
 
@@ -233,10 +233,6 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
             )
         }
 
-        // coinDetailList.add(CoinTickerModule.CoinTickerModuleData())
-
-        // coinDetailList.add(CoinNewsModule.CoinNewsModuleData())
-
         coinDetailList.add(CoinAboutItemView.AboutCoinModuleData(watchedCoin.coin))
 
         coinPresenter.loadHistoricalData(HOUR, watchedCoin.coin.symbol, toCurrency)
@@ -244,7 +240,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
         cryptoNewsPresenter.getCryptoNews(watchedCoin.coin.symbol)
         coinPresenter.loadRecentTransaction(watchedCoin.coin.symbol)
 
-        coinDetailList.add(GenericFooterModule.FooterModuleData())
+        coinDetailList.add(GenericFooterItemView.FooterModuleData())
 
         showCoinDataInView(coinDetailList)
     }
@@ -269,7 +265,7 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
                             }
                         })
                     }
-                    is AddCoinItemView.AddCoinModuleItem -> addCoinItemView {
+                    is AddCoinTransactionItemView.AddCoinTransactionModuleItem -> addCoinTransactionItemView {
                         id("addCoin")
                         itemClickListener { _ ->
                             // add coin button clicked.
