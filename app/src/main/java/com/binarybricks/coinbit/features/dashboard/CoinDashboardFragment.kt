@@ -93,9 +93,6 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
         // get top coins
         coinDashboardPresenter.getTopCoinsByTotalVolume24hours(PreferenceManager.getDefaultCurrency(context))
 
-        // get news
-        coinDashboardPresenter.getLatestNewsFromCryptoCompare()
-
         // get prices for watched coin
         coinDashboardPresenter.loadWatchedCoinsAndTransactions()
 
@@ -110,7 +107,12 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
 
         inflatedView.swipeContainer.setOnRefreshListener {
             coinDashboardList.clear()
-            getAllWatchedCoinsPrice()
+
+            // get top coins
+            coinDashboardPresenter.getTopCoinsByTotalVolume24hours(PreferenceManager.getDefaultCurrency(context))
+
+            coinDashboardPresenter.loadWatchedCoinsAndTransactions()
+
             inflatedView.swipeContainer.isRefreshing = false
         }
     }
@@ -120,9 +122,9 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
         this.watchedCoinList = watchedCoinList
         this.coinTransactionList = coinTransactionList
 
-        getAllWatchedCoinsPrice()
-
         setupDashBoardAdapter(watchedCoinList, coinTransactionList)
+
+        getAllWatchedCoinsPrice()
     }
 
     private fun setupDashBoardAdapter(watchedCoinList: List<WatchedCoin>, coinTransactionList: List<CoinTransaction>) {
@@ -144,6 +146,10 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
     }
 
     private fun getAllWatchedCoinsPrice() {
+
+        // get news
+        coinDashboardPresenter.getLatestNewsFromCryptoCompare()
+
         // cryptocompare support only 100 coins in 1 shot. For safety we will support 95 and paginate
         val chunkWatchedList: List<List<WatchedCoin>> = watchedCoinList.chunked(95)
 
@@ -163,16 +169,16 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
 
     override fun onCoinPricesLoaded(coinPriceListMap: HashMap<String, CoinPrice>) {
 
-//        coinDashboardList.forEachIndexed { index, item ->
-//            if (item is CoinItemView.DashboardCoinModuleData && coinPriceListMap.contains(item.watchedCoin.coin.symbol.toUpperCase())) {
-//                item.coinPrice = coinPriceListMap[item.watchedCoin.coin.symbol.toUpperCase()]
-//            } else if (item is DashboardHeaderItemView.DashboardHeaderModuleData) {
-//                item.coinPriceListMap = coinPriceListMap
-//            }
-//        }
+        coinDashboardList.forEachIndexed { index, item ->
+            if (item is CoinItemView.DashboardCoinModuleData && coinPriceListMap.contains(item.watchedCoin.coin.symbol.toUpperCase())) {
+                coinDashboardList[index] = item.copy(coinPrice = coinPriceListMap[item.watchedCoin.coin.symbol.toUpperCase()])
+            } else if (item is DashboardHeaderItemView.DashboardHeaderModuleData) {
+                coinDashboardList[index] = item.copy(coinPriceListMap = coinPriceListMap)
+            }
+        }
 
         // update dashboard card
-        // showDashboardData(coinDashboardList)
+        showDashboardData(coinDashboardList)
     }
 
     override fun onTopCoinsByTotalVolumeLoaded(topCoins: List<CoinPrice>) {
@@ -200,7 +206,11 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
         this.coinNews.addAll(coinNews)
 
         if (coinDashboardList.size > 0) {
-            coinDashboardList.add(1, ShortNewsItemView.ShortNewsModuleData(coinNews[0]))
+            if (coinDashboardList[1] is ShortNewsItemView.ShortNewsModuleData) {
+                coinDashboardList[1] = ShortNewsItemView.ShortNewsModuleData(coinNews[0])
+            } else {
+                coinDashboardList.add(1, ShortNewsItemView.ShortNewsModuleData(coinNews[0]))
+            }
         } else {
             coinDashboardList.add(ShortNewsItemView.ShortNewsModuleData(coinNews[0]))
         }
