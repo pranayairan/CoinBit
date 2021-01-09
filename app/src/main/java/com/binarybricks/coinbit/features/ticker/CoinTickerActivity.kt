@@ -14,7 +14,6 @@ import com.binarybricks.coinbit.epoxymodels.coinTickerView
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerPresenter
 import com.binarybricks.coinbit.featurecomponents.cointickermodule.CoinTickerRepository
 import com.binarybricks.coinbit.network.models.CryptoTicker
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.getUrlWithoutParameters
 import com.binarybricks.coinbit.utils.openCustomTab
@@ -41,12 +40,8 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
         }
     }
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val coinTickerRepository by lazy {
-        CoinTickerRepository(rxSchedulers, CoinBitApplication.database)
+        CoinTickerRepository(CoinBitApplication.database)
     }
 
     private val androidResourceManager by lazy {
@@ -58,7 +53,7 @@ class CoinTickerActivity : AppCompatActivity(), CoinTickerContract.View {
     }
 
     private val coinTickerPresenter: CoinTickerPresenter by lazy {
-        CoinTickerPresenter(rxSchedulers, coinTickerRepository, androidResourceManager)
+        CoinTickerPresenter(coinTickerRepository, androidResourceManager)
     }
 
     private val currency: Currency by lazy {

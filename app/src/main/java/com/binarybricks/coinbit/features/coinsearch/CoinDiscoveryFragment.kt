@@ -18,7 +18,6 @@ import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
 import com.binarybricks.coinbit.network.models.CoinPair
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareNews
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
 import com.google.android.material.snackbar.Snackbar
@@ -35,20 +34,16 @@ class CoinDiscoveryFragment : Fragment(), CoinDiscoveryContract.View {
 
     private var coinDiscoveryList: ArrayList<ModuleItem> = ArrayList()
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val androidResourceManager: AndroidResourceManager by lazy {
         AndroidResourceManagerImpl(requireContext())
     }
 
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val coinDiscoveryPresenter: CoinDiscoveryPresenter by lazy {
-        CoinDiscoveryPresenter(rxSchedulers, coinRepo)
+        CoinDiscoveryPresenter(coinRepo)
     }
 
     private lateinit var rvDashboard: EpoxyRecyclerView

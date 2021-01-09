@@ -3,7 +3,6 @@ package com.binarybricks.coinbit.featurecomponents.cointickermodule
 import CoinTickerContract
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.features.BasePresenter
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -13,7 +12,6 @@ import timber.log.Timber
  */
 
 class CoinTickerPresenter(
-    private val rxSchedulers: RxSchedulers,
     private val coinTickerRepository: CoinTickerRepository,
     private val androidResourceManager: AndroidResourceManager
 ) : BasePresenter<CoinTickerContract.View>(), CoinTickerContract.Presenter {

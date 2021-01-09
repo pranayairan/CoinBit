@@ -3,7 +3,6 @@ package com.binarybricks.coinbit.features
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,14 +17,6 @@ open class BasePresenter<V : BaseView>(private val uiContext: CoroutineContext =
 
     protected var currentView: V? = null
     private val job = SupervisorJob()
-
-    /**
-     * Composite disposable for dispose all the disposable. The concrete implementation of this class should add all the
-     * disposables to this and BasePresenter will take care of clearing it up when exit the view.
-     */
-    protected val compositeDisposable: CompositeDisposable by lazy {
-        CompositeDisposable()
-    }
 
     /**
      * Check if the view is attached.
@@ -45,7 +36,6 @@ open class BasePresenter<V : BaseView>(private val uiContext: CoroutineContext =
 
     fun detachView() {
         job.cancel()
-        compositeDisposable.dispose()
         currentView = null
     }
 

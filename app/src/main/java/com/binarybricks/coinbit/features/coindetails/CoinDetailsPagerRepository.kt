@@ -2,7 +2,6 @@ package com.binarybricks.coinbit.features.coindetails
 
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 
 /**
 Created by Pranay Airan
@@ -10,7 +9,6 @@ Created by Pranay Airan
  */
 
 class CoinDetailsPagerRepository(
-    private val rxSchedulers: RxSchedulers,
     private val coinBitDatabase: CoinBitDatabase?
 ) {
 

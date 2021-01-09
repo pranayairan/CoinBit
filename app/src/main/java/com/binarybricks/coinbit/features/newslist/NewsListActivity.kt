@@ -12,7 +12,6 @@ import com.binarybricks.coinbit.epoxymodels.newsItemView
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsPresenter
 import com.binarybricks.coinbit.featurecomponents.cryptonewsmodule.CryptoNewsRepository
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -43,15 +42,11 @@ class NewsListActivity : AppCompatActivity(), CryptoNewsContract.View {
         }
     }
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val cryptoNewsRepository by lazy {
-        CryptoNewsRepository(rxSchedulers)
+        CryptoNewsRepository()
     }
     private val cryptoNewsPresenter: CryptoNewsPresenter by lazy {
-        CryptoNewsPresenter(rxSchedulers, cryptoNewsRepository)
+        CryptoNewsPresenter(cryptoNewsRepository)
     }
 
     private val androidResourceManager: AndroidResourceManager by lazy {

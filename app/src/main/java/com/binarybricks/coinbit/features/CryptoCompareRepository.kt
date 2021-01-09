@@ -8,11 +8,11 @@ import com.binarybricks.coinbit.data.database.entities.Exchange
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.*
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import timber.log.Timber
 import java.io.IOException
 import java.io.InputStream
@@ -25,7 +25,6 @@ Repository that interact with crypto api to get any info on coins.
  */
 
 class CryptoCompareRepository(
-    private val rxSchedulers: RxSchedulers,
     private val coinBitDatabase: CoinBitDatabase?
 ) {
 
@@ -209,9 +208,9 @@ class CryptoCompareRepository(
     /**
      * Get all recent transactions
      */
-    fun getRecentTransaction(symbol: String): Flowable<List<CoinTransaction>>? {
+    fun getRecentTransaction(symbol: String): Flow<List<CoinTransaction>>? {
         return coinBitDatabase?.coinTransactionDao()?.getTransactionsForCoin(symbol.toUpperCase())
-            ?.subscribeOn(rxSchedulers.io())
+            ?.distinctUntilChanged()
     }
 
     suspend fun insertCoinsInWatchList(watchedCoinList: List<WatchedCoin>): Unit? {
@@ -236,9 +235,9 @@ class CryptoCompareRepository(
     /**
      * Get list of all coins with there watched status
      */
-    fun getAllCoins(): Flowable<List<WatchedCoin>>? {
+    fun getAllCoins(): Flow<List<WatchedCoin>>? {
         coinBitDatabase?.let {
-            return it.watchedCoinDao().getAllCoins().subscribeOn(rxSchedulers.io())
+            return it.watchedCoinDao().getAllCoins().distinctUntilChanged()
         }
         return null
     }

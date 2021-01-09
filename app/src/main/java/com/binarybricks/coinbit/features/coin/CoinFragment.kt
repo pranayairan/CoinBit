@@ -28,7 +28,6 @@ import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
 import com.binarybricks.coinbit.network.models.CryptoTicker
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.defaultExchange
 import com.binarybricks.coinbit.utils.dpToPx
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
@@ -48,34 +47,30 @@ class CoinFragment : Fragment(), CoinContract.View, CryptoNewsContract.View, Coi
     private var isCoinedPurchased = false
     private var watchedCoin: WatchedCoin? = null
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val chartRepo by lazy {
-        ChartRepository(rxSchedulers)
+        ChartRepository()
     }
 
     private val coinPresenter: CoinPresenter by lazy {
-        CoinPresenter(rxSchedulers, coinRepo, chartRepo)
+        CoinPresenter(coinRepo, chartRepo)
     }
 
     private val cryptoNewsRepository by lazy {
-        CryptoNewsRepository(rxSchedulers)
+        CryptoNewsRepository()
     }
     private val cryptoNewsPresenter: CryptoNewsPresenter by lazy {
-        CryptoNewsPresenter(rxSchedulers, cryptoNewsRepository)
+        CryptoNewsPresenter(cryptoNewsRepository)
     }
 
     private val coinTickerRepository by lazy {
-        CoinTickerRepository(rxSchedulers, CoinBitApplication.database)
+        CoinTickerRepository(CoinBitApplication.database)
     }
     private val coinTickerPresenter: CoinTickerPresenter by lazy {
-        CoinTickerPresenter(rxSchedulers, coinTickerRepository, androidResourceManager)
+        CoinTickerPresenter(coinTickerRepository, androidResourceManager)
     }
 
     private val androidResourceManager: AndroidResourceManager by lazy {

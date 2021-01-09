@@ -19,7 +19,6 @@ import com.binarybricks.coinbit.epoxymodels.CoinSearchItemView
 import com.binarybricks.coinbit.epoxymodels.coinSearchItemView
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coindetails.CoinDetailsActivity
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_coin_search.*
@@ -35,16 +34,12 @@ class CoinSearchActivity : AppCompatActivity(), CoinSearchContract.View {
         }
     }
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val coinSearchPresenter: CoinSearchPresenter by lazy {
-        CoinSearchPresenter(rxSchedulers, coinRepo)
+        CoinSearchPresenter(coinRepo)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

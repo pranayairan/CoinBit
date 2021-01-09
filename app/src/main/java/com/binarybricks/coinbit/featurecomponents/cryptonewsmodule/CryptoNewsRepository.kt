@@ -4,14 +4,13 @@ import com.binarybricks.coinbit.data.CoinBitCache
 import com.binarybricks.coinbit.network.api.API
 import com.binarybricks.coinbit.network.api.cryptoCompareRetrofit
 import com.binarybricks.coinbit.network.models.CryptoPanicNews
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 
 /**
  * Created by Pragya Agrawal
  * Repository that interact with crypto api to get news.
  */
 
-class CryptoNewsRepository(private val rxSchedulers: RxSchedulers) {
+class CryptoNewsRepository {
 
     /**
      * Get the top news for specific coin from cryptopanic

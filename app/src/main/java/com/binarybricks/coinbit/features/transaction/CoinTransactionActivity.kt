@@ -20,7 +20,6 @@ import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.exchangesearch.ExchangeSearchActivity
 import com.binarybricks.coinbit.features.pairsearch.PairSearchActivity
 import com.binarybricks.coinbit.network.models.ExchangePair
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.Formaters
 import com.binarybricks.coinbit.utils.TRANSACTION_TYPE_BUY
 import com.binarybricks.coinbit.utils.dismissKeyboard
@@ -51,15 +50,12 @@ class CoinTransactionActivity : AppCompatActivity(), CoinTransactionContract.Vie
         Formaters(androidResourceManager)
     }
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val coinTransactionPresenter: CoinTransactionPresenter by lazy {
-        CoinTransactionPresenter(rxSchedulers, coinRepo)
+        CoinTransactionPresenter(coinRepo)
     }
 
     private val defaultCurrency: String by lazy {

@@ -5,7 +5,6 @@ import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.binarybricks.coinbit.data.database.entities.Exchange
 import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.CryptoTicker
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.getCoinTickerFromJson
 
 /**
@@ -14,7 +13,6 @@ import com.binarybricks.coinbit.utils.getCoinTickerFromJson
  */
 
 class CoinTickerRepository(
-    private val rxSchedulers: RxSchedulers,
     private val coinBitDatabase: CoinBitDatabase?
 ) {
 

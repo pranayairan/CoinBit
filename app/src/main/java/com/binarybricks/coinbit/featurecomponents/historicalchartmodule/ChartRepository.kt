@@ -3,7 +3,6 @@ package com.binarybricks.coinbit.featurecomponents.historicalchartmodule
 import com.binarybricks.coinbit.network.*
 import com.binarybricks.coinbit.network.api.api
 import com.binarybricks.coinbit.network.models.CryptoCompareHistoricalResponse
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import timber.log.Timber
 
 /**
@@ -11,7 +10,7 @@ Created by Pranay Airan
  * Repository that interact with crypto api to get charts.
  */
 
-class ChartRepository(private val rxSchedulers: RxSchedulers) {
+class ChartRepository {
 
     /**
      * Get the historical data for specific crypto currencies. [period] specifies what time period you

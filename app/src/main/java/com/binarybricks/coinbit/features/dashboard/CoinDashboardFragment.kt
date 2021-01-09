@@ -26,7 +26,6 @@ import com.binarybricks.coinbit.features.coindetails.CoinDetailsPagerActivity
 import com.binarybricks.coinbit.features.coinsearch.CoinSearchActivity
 import com.binarybricks.coinbit.network.models.CoinPrice
 import com.binarybricks.coinbit.network.models.CryptoCompareNews
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.openCustomTab
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManager
 import com.binarybricks.coinbit.utils.resourcemanager.AndroidResourceManagerImpl
@@ -48,24 +47,20 @@ class CoinDashboardFragment : Fragment(), CoinDashboardContract.View {
     private var watchedCoinList: List<WatchedCoin> = emptyList()
     private var coinTransactionList: List<CoinTransaction> = emptyList()
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val androidResourceManager: AndroidResourceManager by lazy {
         AndroidResourceManagerImpl(requireContext())
     }
 
     private val dashboardRepository by lazy {
-        DashboardRepository(rxSchedulers, CoinBitApplication.database)
+        DashboardRepository(CoinBitApplication.database)
     }
 
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val coinDashboardPresenter: CoinDashboardPresenter by lazy {
-        CoinDashboardPresenter(rxSchedulers, dashboardRepository, coinRepo)
+        CoinDashboardPresenter(dashboardRepository, coinRepo)
     }
 
     private val coinNews: MutableList<CryptoCompareNews> = mutableListOf()

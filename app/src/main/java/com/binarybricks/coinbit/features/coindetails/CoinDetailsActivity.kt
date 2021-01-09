@@ -12,7 +12,6 @@ import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
 import com.binarybricks.coinbit.features.CryptoCompareRepository
 import com.binarybricks.coinbit.features.coin.CoinFragment
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_coin_details.*
@@ -38,16 +37,12 @@ class CoinDetailsActivity : AppCompatActivity(), CoinDetailsContract.View {
         }
     }
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val coinDetailPresenter: CoinDetailPresenter by lazy {
-        CoinDetailPresenter(rxSchedulers, coinRepo)
+        CoinDetailPresenter(coinRepo)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

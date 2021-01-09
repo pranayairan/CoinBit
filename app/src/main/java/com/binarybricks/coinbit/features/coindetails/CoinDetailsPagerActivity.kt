@@ -13,7 +13,6 @@ import androidx.viewpager.widget.ViewPager
 import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.database.entities.WatchedCoin
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_pager_coin_details.*
@@ -24,16 +23,12 @@ class CoinDetailsPagerActivity : AppCompatActivity(), CoinDetailsPagerContract.V
     private var watchedCoin: WatchedCoin? = null
     var isCoinInfoChanged = false
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val allCoinDetailsRepository by lazy {
-        CoinDetailsPagerRepository(rxSchedulers, CoinBitApplication.database)
+        CoinDetailsPagerRepository(CoinBitApplication.database)
     }
 
     private val coinDetailPagerPresenter: CoinDetailPagerPresenter by lazy {
-        CoinDetailPagerPresenter(rxSchedulers, allCoinDetailsRepository)
+        CoinDetailPagerPresenter(allCoinDetailsRepository)
     }
 
     companion object {

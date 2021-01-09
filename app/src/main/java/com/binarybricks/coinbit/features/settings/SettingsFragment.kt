@@ -12,7 +12,6 @@ import com.binarybricks.coinbit.CoinBitApplication
 import com.binarybricks.coinbit.R
 import com.binarybricks.coinbit.data.PreferenceManager
 import com.binarybricks.coinbit.features.CryptoCompareRepository
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -27,16 +26,12 @@ class SettingsFragment : Fragment(), SettingsContract.View {
         const val TAG = "SettingsFragment"
     }
 
-    private val rxSchedulers: RxSchedulers by lazy {
-        RxSchedulers.instance
-    }
-
     private val coinRepo by lazy {
-        CryptoCompareRepository(rxSchedulers, CoinBitApplication.database)
+        CryptoCompareRepository(CoinBitApplication.database)
     }
 
     private val settingsPresenter: SettingsPresenter by lazy {
-        SettingsPresenter(rxSchedulers, coinRepo)
+        SettingsPresenter(coinRepo)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

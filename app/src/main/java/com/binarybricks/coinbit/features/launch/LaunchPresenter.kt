@@ -8,7 +8,6 @@ import com.binarybricks.coinbit.features.getTop5CoinsToWatch
 import com.binarybricks.coinbit.network.models.CCCoin
 import com.binarybricks.coinbit.network.models.CoinInfo
 import com.binarybricks.coinbit.network.models.getCoinFromCCCoin
-import com.binarybricks.coinbit.network.schedulers.RxSchedulers
 import com.binarybricks.coinbit.utils.defaultExchange
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -18,7 +17,6 @@ Created by Pranay Airan
  */
 
 class LaunchPresenter(
-    private val rxSchedulers: RxSchedulers,
     private val coinRepo: CryptoCompareRepository
 ) : BasePresenter<LaunchContract.View>(), LaunchContract.Presenter {
 

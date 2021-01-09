@@ -7,7 +7,6 @@ import androidx.room.Room
 import com.binarybricks.coinbit.data.database.CoinBitDatabase
 import com.facebook.stetho.Stetho
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -43,9 +42,6 @@ class CoinBitApplication : Application() {
         }
 
         database = Room.databaseBuilder(this, CoinBitDatabase::class.java, DATABASE_NAME).build()
-
-        // Logs all uncaught exceptions from RxJava usage and prevents default thread handling
-        RxJavaPlugins.setErrorHandler { throwable -> Timber.e(throwable) }
     }
 
     /** A tree which logs important information for crash reporting.  */
